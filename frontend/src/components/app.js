@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Modal from './modal/modal';
 import LandingPage from './landing_page';
+import NavBarContainer from './navbar/navbar_container';
 
 
 const App = () => (
@@ -12,6 +13,7 @@ const App = () => (
         <header>
         </header>
         <main>
+            <NavBarContainer />
             <Switch>
                 <Route exact path='/' component={LandingPage}/>
             </Switch>
