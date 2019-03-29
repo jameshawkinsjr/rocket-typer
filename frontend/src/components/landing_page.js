@@ -7,7 +7,7 @@ class LandingPage extends React.Component {
     render () {
         return (
             <>
-            <h2>The Landing Page</h2>
+            <span class="logo">Rocket Typer</span>
             </>
         )
     }
