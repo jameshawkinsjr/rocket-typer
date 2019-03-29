@@ -8,11 +8,8 @@ const passport = require('passport');
 const validateSignupInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
 
-
-// Account signup
 router.post('/signup', (req, res) => {
 
-    // Validations
     const {errors, isValid } = validateSignupInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
@@ -43,10 +40,8 @@ router.post('/signup', (req, res) => {
     });
 });
 
-// Log into an account
 router.post('/login', (req, res) => {
 
-    // Validations
     const {errors, isValid } = validateLoginInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
@@ -85,7 +80,6 @@ router.post('/login', (req, res) => {
         });
 });
 
-// Get current user
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.json({
         id: req.user.id,

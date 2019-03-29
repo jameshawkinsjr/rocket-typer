@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/races_api_util';
+import * as APIUtil from '../util/race_api_util';
 
 export const RECEIVE_CURRENT_RACE = "RECEIVE_CURRENT_RACE";
 export const RECEIVE_RACE_ERRORS = "RECEIVE_RACE_ERRORS";
@@ -13,9 +13,8 @@ export const receiveRaceErrors = errors => ({
     errors
 });
 
-// THUNK ACTIONS
-export const fetchRace = userId => dispatch => (
-    APIUtil.fetchRace(userId)
+export const fetchRaces = userId => dispatch => (
+    APIUtil.fetchRaces(userId)
         .then(
             currentRace => dispatch(receiveCurrentRace(currentRace)),
             err => dispatch(receiveRaceErrors(err.response.data))
