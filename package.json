@@ -1,0 +1,54 @@
+{
+  "name": "rocket_typer",
+  "version": "1.0.0",
+  "description": "typing game",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "server:debug": "nodemon --inspect app.js",
+    "server": "nodemon app.js",
+    "frontend-install": "npm install --prefix client",
+    "frontend": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "engines": {
+    "node": "10.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jameshawkinsjr/rocket-racer.git"
+  },
+  "author": "James Hawkins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jameshawkinsjr/rocket-racer/issues"
+  },
+  "homepage": "https://github.com/jameshawkinsjr/rocket-racer#readme",
+  "dependencies": {
+    "animate.css": "^3.7.0",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "jwt-decode": "^2.2.0",
+    "mongoose": "^5.4.18",
+    "node-sass": "^4.11.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "radium": "^0.25.1",
+    "react": "^16.8.4",
+    "react-animations": "^1.0.0",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
