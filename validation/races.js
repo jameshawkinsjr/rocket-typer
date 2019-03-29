@@ -2,7 +2,7 @@ const Validator = require('validator');
 const validText = require('./valid-text');
 const validNum = require('./valid-num');
 
-module.exports = function validateProjectionInput(data) {
+module.exports = function validateRaceInput(data) {
     let errors = {};
 
     data.averageSpeed = validNum(data.averageSpeed) ? data.averageSpeed : '';
