@@ -2,6 +2,7 @@ import React from 'react';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import SessionFormContainer from '../session/session_form_container'
 
 function Modal({modal, closeModal}) {
   if (!modal) {
@@ -10,10 +11,10 @@ function Modal({modal, closeModal}) {
   let component;
   switch (modal) {
     case 'login':
-      // component = <SesssionFormContainer closeModal={closeModal} formType="login"/> ;
+      component = <SessionFormContainer closeModal={closeModal} formType="login"/> ;
       break;
     case 'signup':
-      // component = <SesssionFormContainer closeModal={closeModal} formType="signup"/> ;
+      component = <SessionFormContainer closeModal={closeModal} formType="signup"/> ;
       break;
     default:
       return null;
@@ -21,7 +22,7 @@ function Modal({modal, closeModal}) {
   return (
     <div className="modal-background" onClick={closeModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>
-      <h2>Test</h2>
+      <h2>{ component }</h2>
       </div>
     </div>
   );

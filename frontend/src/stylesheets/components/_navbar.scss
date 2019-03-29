@@ -1,6 +1,17 @@
 .navbar-container {
     border-bottom: 1px solid black;
     padding: 20px;
+    justify-content: space-between;
+
+    button {
+        border-radius: 5px;
+        background: $red;
+        margin: 0 5px;
+        padding: 10px;
+        color: $white;
+        font-family: $font-sans-serif;
+        cursor: pointer;
+    }
 }
 
 .navbar-logo {
