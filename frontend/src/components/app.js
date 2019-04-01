@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Modal from './modal/modal';
 import LandingPage from './landing_page';
 import NavBarContainer from './navbar/navbar_container';
+import Game from './game/game_container';
 
 
 const App = () => (
@@ -16,6 +17,7 @@ const App = () => (
             <NavBarContainer />
             <Switch>
                 <Route exact path='/' component={LandingPage}/>
+                <Route exact path='/game' component={Game}/>
                 <Route exact path='/test' component={NavBarContainer}/>
             </Switch>
         </main>
