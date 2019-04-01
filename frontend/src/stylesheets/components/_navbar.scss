@@ -1,11 +1,35 @@
-.navbar-container {
+.navbar-container {;
     background: $darkblue;
     padding: 20px;
     justify-content: space-between;
+    align-items: center;
     button {
         margin: 0 5px;
     }
     border-bottom: 1px solid $white;
+    font-family: $font-sans-serif;
+    color: $white;
+
+}
+
+.modal-buttons {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar-stats {
+    font-size: 20px;
+}
+
+.nav-bar-stats-item {
+    font-size: 18px;
+    margin: 0 10px;
+    span {
+        a {
+            color: $yellow;
+        }
+        color: $yellow;
+    }
 }
 
 .button {
@@ -21,7 +45,4 @@
         color: $white;
         font-size: 30px;
     }
-    // background: $darkblue;
-    // border: 1px solid $white;
-    // padding: 5px;
 }

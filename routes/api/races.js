@@ -35,11 +35,7 @@ router.post('/',
 
         const newRace = new Race({
             user: req.user.id,
-            yearToRetire: req.body.yearToRetire,
-            income: req.body.income,
-            savingRate: req.body.savingRate,
-            employerMatch: req.body.employerMatch,
-            currentSavings: req.body.currentSavings
+            averageSpeed: req.body.averageSpeed,
         });
 
         newRace.save().then(races => res.json(races));

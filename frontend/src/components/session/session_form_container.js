@@ -5,7 +5,7 @@ import { openModal, closeModal } from '../../actions/modal_actions';
 import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, { formType }) => ({
-    signedIn: state.session.isAuthenticated,
+    loggedIn: state.session.isAuthenticated,
     errors: state.errors.session,
     formType,
 });

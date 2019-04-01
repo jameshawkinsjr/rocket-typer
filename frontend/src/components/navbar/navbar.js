@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 class NavBar extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            numRaces: 20,
+            averageSpeed: 100,
+        };
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
     }
@@ -24,7 +28,14 @@ class NavBar extends React.Component {
         if (this.props.loggedIn) {
             return (
                 <div className="modal-buttons flex">
-                    <button className="button" onClick={this.logoutCurrentUser}>Logout </button>
+                    <span className="nav-bar-stats flex">
+                    <div className="nav-bar-stats-item" >Welcome <span><Link to={'/profile'}>{this.props.user.username}</Link></span></div>
+                    |
+                    <div className="nav-bar-stats-item" >Total Races <span>{ this.state.numRaces }</span></div>
+                    |
+                    <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.averageSpeed } WPM</span></div>
+                    </span>
+                    {/* <button className="button" onClick={this.logoutCurrentUser}>Logout </button> */}
                 </div>
             );
         } else {
