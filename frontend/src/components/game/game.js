@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wpm } from '../wpm/wpm'
+// import { Wpm } from '../wpm/wpm'
 
 class Game extends React.Component {
     constructor(props) {
@@ -9,12 +9,14 @@ class Game extends React.Component {
       this.state = {
         phrase,
         userInput: "",
-        timeElapsed: 2,
-        typedEntries: 28,
-        
+        timeElapsed: 0,
+        typedEntries: 0,
+        wordsPerMin: 0,
       }
       // Words per minute formula
       // WPM = (All typed Entries/5)/(time(min))
+
+      this.incrementTime = this.incrementTime.bind(this);
     }
 
     checkInput() {
@@ -27,16 +29,24 @@ class Game extends React.Component {
       this.checkInput();
     }
 
+    componentDidMount() {
+      setInterval(this.incrementTime, 1000)
+    }
+
+    incrementTime() {
+      this.setState((oldState) => ({timeElapsed: oldState.timeElapsed + 1}))
+    }
+
     update(field) {
       return (e) => {
         this.setState({
-          [field]: e.currentTarget.value
+          [field]: e.currentTarget.value,
+          wordsPerMin: ((this.state.typedEntries / 5) / (this.state.timeElapsed / 60))
         })
       }
     }
 
     render () {
-      console.log(this.state.userLength)
         return (
           <>
             <h1 className="answer-phrase">{this.props.phrase}</h1>
@@ -49,8 +59,7 @@ class Game extends React.Component {
                   />
               </label>
             </form>
-            <Wpm 
-              state={this.state}/>
+            <h1>{this.state.wordsPerMin}</h1>
           </>
         )
     }
