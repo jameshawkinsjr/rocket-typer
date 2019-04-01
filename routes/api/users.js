@@ -15,7 +15,6 @@ router.post('/signup', (req, res) => {
         return res.status(400).json(errors);
     }
 
-
     User.findOne( { username: req.body.username })
     .then( user => {
         if (user) {
@@ -23,7 +22,6 @@ router.post('/signup', (req, res) => {
             return res.status(400).json(errors);
         } else {
             const newUser = new User({
-                name: req.body.name,
                 username: req.body.username,
                 password: req.body.password
               });
@@ -60,7 +58,7 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if (isMatch) {
-                        const payload = { id: user.id, name: user.name };
+                        const payload = { id: user.id, username: user.username };
 
                         jwt.sign(
                             payload,

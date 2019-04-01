@@ -1,11 +1,16 @@
 import * as APIUtil from '../util/race_api_util';
 
+export const RECEIVE_ALL_RACES = "RECEIVE_ALL_RACES";
 export const RECEIVE_CURRENT_RACE = "RECEIVE_CURRENT_RACE";
 export const RECEIVE_RACE_ERRORS = "RECEIVE_RACE_ERRORS";
 
-export const receiveCurrentRace = currentRace => ({
+export const receiveAllRaces = races => ({
+    type: RECEIVE_ALL_RACES,
+    races
+});
+export const receiveCurrentRace = race => ({
     type: RECEIVE_CURRENT_RACE,
-    currentRace
+    race
 });
 
 export const receiveRaceErrors = errors => ({
@@ -16,15 +21,15 @@ export const receiveRaceErrors = errors => ({
 export const fetchRaces = userId => dispatch => (
     APIUtil.fetchRaces(userId)
         .then(
-            currentRace => dispatch(receiveCurrentRace(currentRace)),
+            races => dispatch(receiveAllRaces(races)),
             err => dispatch(receiveRaceErrors(err.response.data))
         )
 );
 
-export const saveRace = races => dispatch => (
-    APIUtil.saveRace(races)
+export const saveRace = race => dispatch => (
+    APIUtil.saveRace(race)
         .then(
-            currentRace => dispatch(receiveCurrentRace(currentRace)),
+            race => dispatch(receiveCurrentRace(race)),
             err => dispatch(receiveRaceErrors(err.response.data))
         )
 );

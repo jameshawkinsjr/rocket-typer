@@ -16,6 +16,7 @@ const App = () => (
             <NavBarContainer />
             <Switch>
                 <Route exact path='/' component={LandingPage}/>
+                <Route exact path='/test' component={NavBarContainer}/>
             </Switch>
         </main>
         <footer>
@@ -24,3 +25,4 @@ const App = () => (
 );
 
 export default App;
+

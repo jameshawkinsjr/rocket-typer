@@ -7,8 +7,8 @@ module.exports = function validateLoginInput(data) {
     data.username = validText(data.username) ? data.username : '';
     data.password = validText(data.password) ? data.password : '';
 
-    if (!Validator.isUsername(data.username)) {
-        errors.username = 'Username is invalid';
+    if (!Validator.isAlphanumeric(data.username)) {
+        errors.username = 'Username can only be letters or numbers';
     }
 
     if (Validator.isEmpty(data.username)) {
