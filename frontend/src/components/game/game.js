@@ -12,15 +12,20 @@ class Game extends React.Component {
         timeElapsed: 0,
         typedEntries: 0,
         wordsPerMin: 0,
+        gameWon: false
       }
       // Words per minute formula
       // WPM = (All typed Entries/5)/(time(min))
 
       this.incrementTime = this.incrementTime.bind(this);
+      this.incrementEntries = this.incrementEntries.bind(this);
     }
 
     checkInput() {
-      if (this.state.phrase === this.state.userInput) {
+      if (this.state.phrase === this.state.userInput && !this.state.gameWon) {
+        this.setState({
+          gameWon: true
+        })
       alert("You win!");
       }
     }
@@ -33,15 +38,20 @@ class Game extends React.Component {
       setInterval(this.incrementTime, 1000)
     }
 
+    incrementEntries() {
+      this.setState((oldState) => ({typedEntries: oldState.typedEntries + 1}))
+    }
+
     incrementTime() {
       this.setState((oldState) => ({timeElapsed: oldState.timeElapsed + 1}))
     }
 
     update(field) {
       return (e) => {
+        this.incrementEntries();
         this.setState({
           [field]: e.currentTarget.value,
-          wordsPerMin: ((this.state.typedEntries / 5) / (this.state.timeElapsed / 60))
+          wordsPerMin: Math.floor((this.state.typedEntries / 5) / (this.state.timeElapsed / 60))
         })
       }
     }
