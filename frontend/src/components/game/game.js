@@ -11,6 +11,16 @@ class Game extends React.Component {
       }
     }
 
+    checkInput() {
+      if (this.state.phrase === this.state.userInput) {
+      alert("You win!");
+      }
+    }
+
+    componentDidUpdate() {
+      this.checkInput();
+    }
+
     update(field) {
       return (e) => {
         this.setState({
@@ -20,11 +30,19 @@ class Game extends React.Component {
     }
 
     render () {
-        console.log(this.props)
+        console.log(this.state)
         return (
           <>
             <h1>{this.props.phrase}</h1>
-            
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                <input 
+                  type="text"
+                  onChange={this.update("userInput")}
+                  placeholder="Type the above text here!"
+                  />
+              </label>
+            </form>
           </>
         )
     }
