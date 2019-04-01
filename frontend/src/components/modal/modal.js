@@ -21,8 +21,8 @@ function Modal({modal, closeModal}) {
   }
   return (
     <div className="modal-background" onClick={closeModal}>
-      <div className="modal-child" onClick={e => e.stopPropagation()}>
-      <h2>{ component }</h2>
+      <div className="modal-child flex-column" onClick={e => e.stopPropagation()}>
+      { component }
       </div>
     </div>
   );

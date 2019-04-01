@@ -24,14 +24,14 @@ class NavBar extends React.Component {
         if (this.props.loggedIn) {
             return (
                 <div className="modal-buttons flex">
-                    <button className="navbar-dropdown-link" onClick={this.logoutCurrentUser}>Logout </button>
+                    <button className="button" onClick={this.logoutCurrentUser}>Logout </button>
                 </div>
             );
         } else {
             return (
                 <div className="modal-buttons flex">
-                    <button className="navbar-dropdown-link" onClick={() => this.props.openModal('login')}>Login</button>
-                    <button className="navbar-dropdown-link" onClick={() => this.props.openModal('signup')}>Signup</button>
+                    <button className="button" onClick={() => this.props.openModal('login')}>Login</button>
+                    <button className="button" onClick={() => this.props.openModal('signup')}>Signup</button>
                 </div>
             )
         }

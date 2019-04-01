@@ -1,23 +1,27 @@
 .navbar-container {
-    border-bottom: 1px solid black;
+    background: $darkblue;
     padding: 20px;
     justify-content: space-between;
-
     button {
-        border-radius: 5px;
-        background: $red;
         margin: 0 5px;
-        padding: 10px;
-        color: $white;
-        font-family: $font-sans-serif;
-        cursor: pointer;
     }
+    border-bottom: 1px solid $white;
 }
 
+.button {
+    border-radius: 5px;
+    background: $red;
+    padding: 10px;
+    color: $white;
+    font-family: $font-sans-serif;
+    cursor: pointer;
+}
 .navbar-logo {
     a{
-        color: $red;
+        color: $white;
         font-size: 30px;
     }
-
+    // background: $darkblue;
+    // border: 1px solid $white;
+    // padding: 5px;
 }
