@@ -1,0 +1,38 @@
+.profile-page {
+  border: 1px solid $white;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 40px;
+  color: $white;
+  align-self: center;
+  align-items: center;
+  background: $darkblue;
+  width: 800px;
+  height: 600px;
+  
+}
+
+.profile-page > div{
+  border-bottom: 1px solid $white;
+  padding: 20px;
+  width: 80%;
+}
+
+.profile-page-header {
+  text-align: center;
+  padding: 0 0 20px 0px;
+  
+  margin-top: -20px;
+}
+
+.profile-page-logout {
+  align-self: flex-end;
+}
+
+.profile-page-stats {
+  
+}
+
+.profile-page-leaderboard {
+
+}

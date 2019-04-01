@@ -35,7 +35,7 @@ class NavBar extends React.Component {
                     |
                     <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.averageSpeed } WPM</span></div>
                     </span>
-                    <button className="button" onClick={this.logoutCurrentUser}>Logout </button>
+                    {/* <button className="button" onClick={this.logoutCurrentUser}>Logout </button> */}
                 </div>
             );
         } else {
