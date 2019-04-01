@@ -30,10 +30,9 @@ class Game extends React.Component {
     }
 
     render () {
-        console.log(this.state)
         return (
           <>
-            <h1>{this.props.phrase}</h1>
+            <p className="answer-phrase">{this.props.phrase}</p>
             <form onSubmit={this.handleSubmit}>
               <label>
                 <input 
