@@ -24,7 +24,7 @@ const Protected = ({ component: Component, path, loggedIn, ...rest }) => (
             loggedIn? (
                 <Component {...props} />
             ) : (
-                <Redirect to="/login" />
+                <Redirect to="/" />
                 )
         )} 
     />
