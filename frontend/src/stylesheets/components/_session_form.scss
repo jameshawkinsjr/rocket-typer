@@ -1,0 +1,57 @@
+.session-form-container {
+  color: $white;
+  font-family: $font-sans-serif;
+  margin: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.session-form-header {
+  padding-bottom: 20px;
+}
+.session-form {
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.session-form-input {
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  span {
+    width: 160px;
+    font-size: 20px;
+  }
+  input {
+    height: 30px;
+    margin-left: 20px;
+    width: 100%;
+    font-size: 14px;
+    font-family: $font-sans-serif;
+    padding: 0 5px;
+  }
+}
+
+.session-form-inputs{
+  align-items: center;
+}
+
+.submit-button {
+  margin-top: 10px;
+  width: 200px;
+  font-size: 20px;
+}
+
+.alternate-buttons {
+  border-top: 1px solid $white;
+  margin-top: 20px;
+  padding-top: 20px;
+  align-items: center;
+  font-family: $font-sans-serif;
+  p {
+    font-size: 20px;
+    color: $white;
+    margin: 0px 15px;
+  }
+}

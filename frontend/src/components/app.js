@@ -9,7 +9,7 @@ import Game from './game/game_container';
 
 
 const App = () => (
-    <div>
+    <div className="app">
         <Modal />
         <header>
         </header>
