@@ -2,7 +2,7 @@ let phrases = [
   "This is a test phrase!",
   "This is another test phrase.",
   "This is a third test phrase.",
-  "How about another test phrase?"
+  "How about another test phrase?",
 ]
 
 export const randomPhrase = () => {

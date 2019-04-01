@@ -1,4 +1,5 @@
 import React from 'react';
+import { Wpm } from '../wpm/wpm'
 
 class Game extends React.Component {
     constructor(props) {
@@ -7,8 +8,13 @@ class Game extends React.Component {
       let { phrase } = this.props;
       this.state = {
         phrase,
-        userInput: ""
+        userInput: "",
+        timeElapsed: 2,
+        typedEntries: 28,
+        
       }
+      // Words per minute formula
+      // WPM = (All typed Entries/5)/(time(min))
     }
 
     checkInput() {
@@ -30,9 +36,10 @@ class Game extends React.Component {
     }
 
     render () {
+      console.log(this.state.userLength)
         return (
           <>
-            <p className="answer-phrase">{this.props.phrase}</p>
+            <h1 className="answer-phrase">{this.props.phrase}</h1>
             <form onSubmit={this.handleSubmit}>
               <label>
                 <input 
@@ -42,6 +49,8 @@ class Game extends React.Component {
                   />
               </label>
             </form>
+            <Wpm 
+              state={this.state}/>
           </>
         )
     }

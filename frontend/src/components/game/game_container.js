@@ -5,7 +5,7 @@ import { randomPhrase } from './phrases'
 import Game from './game';
 
 const mapStateToProps = (state) => ({
-    phrase: randomPhrase()
+		phrase: randomPhrase()
 });
 
 const mapDispatchToProps = dispatch => ({
