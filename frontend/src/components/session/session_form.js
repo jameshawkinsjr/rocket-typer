@@ -93,42 +93,43 @@ class SessionForm extends React.Component {
     
 
     render() {
-        const altButtonStyle = this.props.formType === 'login' ? {top: '320px'} : {top: '390px'}
-
         return (
-            <>
-            <div className="session-form-container flex">
-                <form className="flex" onSubmit={ this.state.formType === "Signup" ? this.handleSignup : this.handleLogin }>
-                <div className="session-form flex">
-                    <input type="text"
-                        value={this.state.username}
-                        onChange={this.handleUpdate('username')}
-                        placeholder="Username"
-                    />
-                    <input type="password"
-                        value={this.state.password}
-                        onChange={this.handleUpdate('password')}
-                        placeholder="Password"
-                    />
-                    <input className="input-submit" type="submit" value="Submit" />
+            <div className="session-form-container flex-column">
+                <div className="session-form-header flex">
+                    <h2> {this.state.formType === "Signup" ? "Sign Up" : "Login" }</h2>
                 </div>
+                <form className="session-form" onSubmit={ this.state.formType === "Signup" ? this.handleSignup : this.handleLogin }>
+                    <div className="session-form-inputs flex-column">
+                            <div className="session-form-input flex">
+                                <span>Username: </span><input type="text"
+                                value={this.state.username}
+                                onChange={this.handleUpdate('username')}
+                            />
+                            </div>
+                            <div className="session-form-input flex"> 
+                                <span>Password:</span><input type="password"
+                                value={this.state.password}
+                                onChange={this.handleUpdate('password')}
+                            />
+                            </div>
+                            <input className="submit-button button" type="submit" value="Submit" />
+                    </div>
                 </form>
-            </div>
-            <div className="alternate-buttons" style={altButtonStyle}>
+            <div className="alternate-buttons flex">
                 { this.props.formType === 'signup' ?
                     <>
-                        <span>Already a member?</span>
-                        <button onClick={this.props.openLoginModal}>Login</button>
+                        <p>Already a Rocketnaut?</p>
+                        <button className="button" onClick={this.props.openLoginModal}>Login</button>
                     </>
                     :
                     <>
-                        <span>Don't have an account?</span>
-                        <button onClick={this.props.openSignupModal}>Sign Up</button>
+                        <p>Don't have an account?</p>
+                        <button className="button" onClick={this.props.openSignupModal}>Sign Up</button>
                     </>
                 }
                 <span>{this.renderErrors()}</span>
             </div>
-            </>
+            </div>
         );
       }
 

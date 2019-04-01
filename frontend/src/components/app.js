@@ -8,7 +8,7 @@ import NavBarContainer from './navbar/navbar_container';
 
 
 const App = () => (
-    <div>
+    <div className="app">
         <Modal />
         <header>
         </header>
