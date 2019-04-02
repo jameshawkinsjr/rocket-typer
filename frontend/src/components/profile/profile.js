@@ -50,12 +50,12 @@ class NavBar extends React.Component {
                         <h2>{this.props.user.username} <i className="fas fa-rocket"></i></h2>
                     </div>
                     <div className="profile-page-stats flex-column">
-                        <div className="profile-page-stats-item" >Total Races <span>{ this.state.numRaces }</span></div>
-                        <div className="profile-page-stats-item" >Account Average <span>{ this.state.averageSpeed }</span></div>
+                        <div className="profile-page-stats-item" ><h3>Total Races <span>{ this.state.numRaces }</span> </h3></div>
+                        <div className="profile-page-stats-item" ><h3>Account Average <span>{ this.state.averageSpeed }</span></h3></div>
                     </div>
                     <div className="profile-page-leaderboard flex-column">
                         <h2>Your top races</h2>                        
-                        { this.props.races.length ? this.getRaces() : "" }
+                        { this.props.races.first ? this.getRaces() : "Nah" }
                     </div>
                     </div>
                 </div>

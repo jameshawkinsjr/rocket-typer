@@ -5,7 +5,7 @@ import Profile from './profile';
 import { openModal } from '../../actions/modal_actions';
 import { withRouter } from 'react-router-dom';
 
-const mapStateToProps = (state, { formType }) => ({
+const mapStateToProps = state => ({
     user: state.session.user,
     loggedIn: state.session.isAuthenticated,
     races: state.entities.races,

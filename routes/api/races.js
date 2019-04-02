@@ -5,22 +5,25 @@ const passport = require('passport');
 const Race = require('../../models/Race');
 const validateRaceInput = require('../../validation/races');
 
-router.get('/', (req, res) => {
-    Race.find()
-        .then(races => res.json(races))
-        .catch(err => 
-            res.status(404).json({ noracesfound: 'No races found'})
-        );
+router.get('/top10', (req, res) => {
+    Race.
+        find( {} ).
+        limit(10).
+        sort({averageSpeed: -1})
+    .then(races => res.json(races))
+    .catch(err => 
+        res.status(404).json({ noracesfound: 'No races found'})
+    );
 });
 
 router.get('/user/:userid', (req, res) => {
     Race.
-    find( { 
-        user: req.params.userid
-    }).
-    limit(10).
-    sort({averageSpeed: -1}).
-    then(races => res.json(races))
+        find( { 
+            user: req.params.userid
+        }).
+        limit(10).
+        sort({averageSpeed: -1})
+    .then(races => res.json(races))
     .catch(err => 
             res.status(404).json({ noracesfound: 'No races found for this user'})
         );
