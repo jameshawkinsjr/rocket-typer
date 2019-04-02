@@ -71,7 +71,7 @@ class Game extends React.Component {
                       />
                   </label>
                 </form>
-                <p className="wpm flex">`Words per minute: {this.state.wordsPerMin}`</p>
+                <p className="wpm flex">Words per minute: {this.state.wordsPerMin}</p>
               </div>
             </div>
           </>
