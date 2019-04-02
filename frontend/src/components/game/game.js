@@ -19,6 +19,7 @@ class Game extends React.Component {
 
       this.incrementTime = this.incrementTime.bind(this);
       this.incrementEntries = this.incrementEntries.bind(this);
+      this.detectPaste = this.detectPaste.bind(this);
     }
 
     checkInput() {
@@ -35,7 +36,19 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
+      document.addEventListener("keydown", this.detectPaste);
       setInterval(this.incrementTime, 1000)
+    }
+
+    componentWillUnmount() {
+      document.removeEventListener("keydown", this.detectPaste);
+    }
+
+    detectPaste(e) {
+      if (e.metaKey && e.key === "v") {
+        e.preventDefault()
+        alert("You can't do that!")
+      }
     }
 
     incrementEntries() {
