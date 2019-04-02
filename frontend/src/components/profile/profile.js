@@ -7,9 +7,6 @@ class NavBar extends React.Component {
         this.state = {
             numRaces: 20,
             averageSpeed: 100,
-            topTenRaces: [
-                [`04-01-2019`, 100], [`04-01-2019`, 97],[`04-01-2019`, 93],[`04-01-2019`, 90],[`04-01-2019`, 88],[`04-01-2019`, 83],[`04-01-2019`, 80],[`04-01-2019`, 80],[`04-01-2019`, 77],[`04-01-2019`, 75]
-            ]
         };
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
     }
@@ -19,30 +16,29 @@ class NavBar extends React.Component {
         this.props.logout();
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.location.pathname !== prevProps.location.pathname){
-            this.getLinks();
-        }
+    componentDidMount() {
+        this.props.fetchRaces(this.props.user.id);
     }
 
     getRaces() {
-       let races = (
-            this.state.topTenRaces.map ( (race, idx) => {
-                return (
-                    <li key={idx} className="flex">
-                        <div>{ idx+1 }</div><div>{ race[0] }</div><div>{ race[1] } wpm</div>
+        let races = (
+                this.props.races.map ( (race, idx) => {
+                    let date = new Date(race.date)
+                    return (
+                        <li key={idx} className="flex">
+                            <div>{ idx+1 }</div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div>
+                        </li>
+                    )
+                })
+            )
+            return (
+                <ul>
+                    <li className="headers flex">
+                        <div className="leaderboard-index">Place</div><div> Date</div><div> Speed </div>
                     </li>
-                )
-            })
-        )
-        return (
-            <ul>
-                <li className="headers flex">
-                    <div className="leaderboard-index">Place</div><div> Date</div><div> Speed </div>
-                </li>
-                { races }
-            </ul>
-        )
+                    { races }
+                </ul>
+            )
     }
 
     render () {
@@ -59,7 +55,7 @@ class NavBar extends React.Component {
                     </div>
                     <div className="profile-page-leaderboard flex-column">
                         <h2>Your top races</h2>                        
-                        { this.getRaces() }
+                        { this.props.races.length ? this.getRaces() : "" }
                     </div>
                     </div>
                 </div>

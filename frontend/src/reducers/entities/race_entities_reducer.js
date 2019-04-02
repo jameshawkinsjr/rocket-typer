@@ -6,7 +6,7 @@ const RaceReducer = (state = {}, action) => {
         case RECEIVE_CURRENT_RACE:
             return action.currentRace;
         case RECEIVE_ALL_RACES:
-            return action.races;
+            return action.races.data;
         default:
             return state;
     }
