@@ -59,17 +59,21 @@ class Game extends React.Component {
     render () {
         return (
           <>
-            <h1 className="answer-phrase">{this.props.phrase}</h1>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                <input 
-                  type="text"
-                  onChange={this.update("userInput")}
-                  placeholder="Type the above text here!"
-                  />
-              </label>
-            </form>
-            <h1>{this.state.wordsPerMin}</h1>
+            <div className="game-area-parent">
+              <div className="game-area">
+                <p className="answer-phrase flex">{this.props.phrase}</p>
+                <form className="user-input flex" onSubmit={(e) => e.preventDefault()}>
+                  <label>
+                    <input 
+                      type="text"
+                      onChange={this.update("userInput")}
+                      placeholder="Type the above text here!"
+                      />
+                  </label>
+                </form>
+                <p className="wpm flex">`Words per minute: {this.state.wordsPerMin}`</p>
+              </div>
+            </div>
           </>
         )
     }
