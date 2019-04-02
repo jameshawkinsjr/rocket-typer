@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class LandingPage extends React.Component {
 
@@ -12,7 +13,7 @@ class LandingPage extends React.Component {
                     let date = new Date(race.date)
                     return (
                         <li key={idx} className="flex">
-                            <div>{ idx+1 }</div><div>{ race.username }</div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div>
+                            <div>{ idx+1 }</div><div><Link to={`/${race.username}`}>{ race.username }</Link></div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div>
                         </li>
                     )
                 })
@@ -32,7 +33,7 @@ class LandingPage extends React.Component {
             <div className="landing-page-container flex-column">
                 <div className="landing-page-leaderboard leaderboard flex-column">
                     <h2>Top 10 Races (All Time)</h2>                        
-                    { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : "Nah" }
+                    { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : "Loading" }
                 </div>
             </div>
         )

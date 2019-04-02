@@ -9,8 +9,7 @@ const RaceReducer = (state = {}, action) => {
             newState = merge({}, state, action.currentRace.data);
             return newState;
         case RECEIVE_ALL_RACES:
-            newState = merge({}, state, action.races.data);
-            return newState;
+            return action.races.data;
         default:
             return state;
     }

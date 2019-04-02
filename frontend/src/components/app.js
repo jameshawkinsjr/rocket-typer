@@ -20,7 +20,7 @@ const App = () => (
                 <ProtectedRoute exact path='/profile' component={ProfileContainer}/>
                 <Route exact path='/' component={LandingPageContainer}/>
                 <Route exact path='/game' component={Game}/>
-                {/* <Route exact path='/:username' component={PublicProfile}/> */}
+                <Route exact path='/:username' component={ProfileContainer}/>
             </Switch>
         </main>
         <footer>
