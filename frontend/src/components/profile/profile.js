@@ -5,9 +5,9 @@ class NavBar extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            numRaces: 20,
-            averageSpeed: 100,
-        };
+            numRaces: "Loading",
+            avgSpeed: "Loading"
+        }
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
     }
 
@@ -17,7 +17,13 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchRaces(this.props.user.id);
+        this.props.fetchRaces(this.props.user.username);
+        this.props.fetchUserStats(this.props.user.username)
+        .then( res => {
+            let numRaces = res.userStats.data[0].numRaces;
+            let avgSpeed = res.userStats.data[0].avgSpeed;
+            this.setState( {numRaces: numRaces, avgSpeed: avgSpeed})
+        });
     }
 
     getRaces() {
@@ -51,11 +57,11 @@ class NavBar extends React.Component {
                     </div>
                     <div className="profile-page-stats flex-column">
                         <div className="profile-page-stats-item" ><h3>Total Races <span>{ this.state.numRaces }</span> </h3></div>
-                        <div className="profile-page-stats-item" ><h3>Account Average <span>{ this.state.averageSpeed }</span></h3></div>
+                        <div className="profile-page-stats-item" ><h3>Average Speed <span>{ this.state.avgSpeed }</span></h3></div>
                     </div>
                     <div className="profile-page-leaderboard leaderboard flex-column">
                         <h2>Your top races</h2>                        
-                        { this.props.races[0] ? this.getRaces() : "Nah" }
+                        { this.props.races[0] ? this.getRaces() : "Loading" }
                     </div>
                     </div>
                 </div>
