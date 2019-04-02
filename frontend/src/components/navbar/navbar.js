@@ -6,8 +6,8 @@ class NavBar extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            numRaces: 20,
-            averageSpeed: 100,
+            numRaces: '-',
+            avgSpeed: '-',
         };
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
@@ -16,6 +16,14 @@ class NavBar extends React.Component {
     logoutCurrentUser(e) {
         e.preventDefault();
         this.props.logout();
+    }
+    componentDidMount() {
+        this.props.fetchUserStats(this.props.user.username)
+        .then( res => {
+            let numRaces = res.userStats.data[0].numRaces;
+            let avgSpeed = res.userStats.data[0].avgSpeed;
+            this.setState( {numRaces: numRaces, avgSpeed: avgSpeed})
+        });
     }
 
     componentDidUpdate(prevProps) {
@@ -33,7 +41,7 @@ class NavBar extends React.Component {
                     |
                     <div className="nav-bar-stats-item" >Total Races <span>{ this.state.numRaces }</span></div>
                     |
-                    <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.averageSpeed } WPM</span></div>
+                    <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.avgSpeed } WPM</span></div>
                     </span>
                 </div>
             );
