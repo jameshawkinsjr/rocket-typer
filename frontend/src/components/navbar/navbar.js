@@ -35,7 +35,6 @@ class NavBar extends React.Component {
                     |
                     <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.averageSpeed } WPM</span></div>
                     </span>
-                    {/* <button className="button" onClick={this.logoutCurrentUser}>Logout </button> */}
                 </div>
             );
         } else {
@@ -55,7 +54,6 @@ class NavBar extends React.Component {
                     <Link to={'/'}>
                         <i className="fas fa-user-astronaut"></i>
                         <span className="logo">Rocket Typer</span>
-                        {/* <i className="fas fa-rocket"></i> */}
                     </Link>
                 </div>
                 { this.getLinks() }
