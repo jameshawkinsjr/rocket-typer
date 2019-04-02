@@ -6,23 +6,39 @@ const Race = require('../../models/Race');
 const validateRaceInput = require('../../validation/races');
 
 router.get('/top10', (req, res) => {
-    Race.
-        find( {} ).
-        limit(10).
-        sort({averageSpeed: -1})
-    .then(races => res.json(races))
-    .catch(err => 
-        res.status(404).json({ noracesfound: 'No races found'})
-    );
+    Race
+        .find( {} )
+        .limit(10)
+        .sort({averageSpeed: -1})
+        .then(races => res.json(races))
+        .catch(err => 
+            res.status(404).json({ noracesfound: 'No races found'})
+        );
 });
 
-router.get('/user/:userid', (req, res) => {
-    Race.
-        find( { 
-            user: req.params.userid
-        }).
-        limit(10).
-        sort({averageSpeed: -1})
+router.get('/user/:username/stats', (req, res) => {
+    Race
+        .aggregate([
+                    {$match: {
+                            'username': req.params.username
+                        }
+                    },
+                    {$group: { 
+                            _id: "$username",
+                            avgSpeed:   {$avg: "$averageSpeed" },
+                            numRaces: { $sum: 1},
+                        }
+                    },
+        ])
+        .then( avgSpeed => res.status(200).json(avgSpeed))
+        .catch(err => res.status(404).json({ noracesfound: 'No averageSpeed'}))
+});
+
+router.get('/user/:username', (req, res) => {
+    Race
+    .find( { username: req.params.username})
+    .limit(10)
+    .sort({averageSpeed: -1})
     .then(races => res.json(races))
     .catch(err => 
             res.status(404).json({ noracesfound: 'No races found for this user'})
@@ -30,7 +46,8 @@ router.get('/user/:userid', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Race.findById(req.params.id)
+    Race
+        .findById(req.params.id)
         .then(races => res.json(races))
         .catch( err => 
             res.status(404).json({ noracesfound: 'No races found with that id'})

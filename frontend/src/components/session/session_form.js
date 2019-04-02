@@ -107,6 +107,7 @@ class SessionForm extends React.Component {
                             <div className="session-form-input flex"> 
                                 <span>Password:</span><input type="password"
                                 value={this.state.password}
+                                autoComplete="current-password"
                                 onChange={this.handleUpdate('password')}
                             />
                             </div>

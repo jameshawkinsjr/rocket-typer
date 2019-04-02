@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
-import { logout } from '../../actions/session_actions';
 import { withRouter } from 'react-router-dom';
-import { openModal } from '../../actions/modal_actions';
 import NavBar from './navbar';
+import { logout } from '../../actions/session_actions';
+import { openModal } from '../../actions/modal_actions';
+import { fetchUserStats } from '../../actions/race_actions';
 
 const mapStateToProps = (state, ownProps) => ({
     user: state.session.user,
@@ -11,7 +12,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
-    openModal: (modal) => dispatch(openModal(modal))
+    openModal: (modal) => dispatch(openModal(modal)),
+    fetchUserStats: (username) => dispatch(fetchUserStats(username)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));

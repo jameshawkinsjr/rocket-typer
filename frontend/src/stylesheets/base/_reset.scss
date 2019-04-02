@@ -55,6 +55,9 @@ section {
 h1, h2, h3, h4, h5, p, li, a {
     font-family: $font-sans-serif
 }
+a {
+	cursor: pointer;
+}
 
 h1 {
     font-size: 40px;
