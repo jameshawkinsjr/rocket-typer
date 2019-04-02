@@ -28,7 +28,7 @@
   align-self: flex-end;
 }
 
-.profile-page-leaderboard {
+.leaderboard {
   align-items: center;
   h2 {
     padding-bottom: 20px;
@@ -38,7 +38,7 @@
     justify-content: space-between;
     font-size: 20px;
     height: 30px;
-    width: 650px;
+    width: 100%;
     div {
       min-width: 120px;
     }

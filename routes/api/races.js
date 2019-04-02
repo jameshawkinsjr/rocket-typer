@@ -44,6 +44,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
         const newRace = new Race({
             user: req.user.id,
+            username: req.body.username,
             averageSpeed: parseInt(req.body.averageSpeed),
         });
 

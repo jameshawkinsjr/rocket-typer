@@ -3,10 +3,16 @@ import * as APIUtil from '../util/race_api_util';
 export const RECEIVE_ALL_RACES = "RECEIVE_ALL_RACES";
 export const RECEIVE_CURRENT_RACE = "RECEIVE_CURRENT_RACE";
 export const RECEIVE_RACE_ERRORS = "RECEIVE_RACE_ERRORS";
+export const RECEIVE_LEADERBOARD_RACES = "RECEIVE_LEADERBOARD_RACES";
 
 export const receiveAllRaces = races => ({
     type: RECEIVE_ALL_RACES,
     races
+});
+
+export const receiveLeaderboardRaces = leaderboardRaces => ({
+    type: RECEIVE_LEADERBOARD_RACES,
+    leaderboardRaces
 });
 export const receiveCurrentRace = race => ({
     type: RECEIVE_CURRENT_RACE,
@@ -26,10 +32,10 @@ export const fetchRaces = userId => dispatch => (
         )
 );
 
-export const fetchTopRaces = () => dispatch => (
-    APIUtil.fetchTopRaces()
+export const fetchLeaderboardRaces = () => dispatch => (
+    APIUtil.fetchLeaderboardRaces()
         .then(
-            races => dispatch(receiveAllRaces(races)),
+            leaderboardRaces => dispatch(receiveLeaderboardRaces(leaderboardRaces)),
             err => dispatch(receiveRaceErrors(err.response.data))
         )
 );

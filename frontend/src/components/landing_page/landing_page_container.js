@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import { clearErrors } from '../../actions/session_actions';
-import { fetchTopRaces } from '../../actions/race_actions';
+import { fetchLeaderboardRaces } from '../../actions/race_actions';
 import LandingPage from './landing_page';
 import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
     user: state.session.user,
     loggedIn: state.session.isAuthenticated,
-    races: state.entities.leaderboard,
+    leaderboardRaces: Object.values(state.entities.leaderboardRaces),
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchTopRaces: () => dispatch(fetchTopRaces()),
+    fetchLeaderboardRaces: () => dispatch(fetchLeaderboardRaces()),
     clearErrors: () => dispatch(clearErrors()),
 });
 

@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 const mapStateToProps = state => ({
     user: state.session.user,
     loggedIn: state.session.isAuthenticated,
-    races: state.entities.races,
+    races: Object.values(state.entities.races),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,2 +1,21 @@
 .landing-page-container {
+    margin: 40px;
+    width: 800px;
+
+}
+
+.landing-page-leaderboard {
+    padding: 20px;
+    text-align: center;
+    background: $white;
+    border-radius: 10px;
+    // width: 300px;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        font-size: 16px;
+    }
+    li {
+        font-size: 16px;
+    }
 }

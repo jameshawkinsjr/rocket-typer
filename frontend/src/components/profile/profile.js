@@ -34,7 +34,7 @@ class NavBar extends React.Component {
             return (
                 <ul>
                     <li className="headers flex">
-                        <div className="leaderboard-index">Place</div><div> Date</div><div> Speed </div>
+                        <div className="leaderboard-index">Rank</div><div> Date</div><div> Speed </div>
                     </li>
                     { races }
                 </ul>
@@ -53,9 +53,9 @@ class NavBar extends React.Component {
                         <div className="profile-page-stats-item" ><h3>Total Races <span>{ this.state.numRaces }</span> </h3></div>
                         <div className="profile-page-stats-item" ><h3>Account Average <span>{ this.state.averageSpeed }</span></h3></div>
                     </div>
-                    <div className="profile-page-leaderboard flex-column">
+                    <div className="profile-page-leaderboard leaderboard flex-column">
                         <h2>Your top races</h2>                        
-                        { this.props.races.first ? this.getRaces() : "Nah" }
+                        { this.props.races[0] ? this.getRaces() : "Nah" }
                     </div>
                     </div>
                 </div>
