@@ -6,6 +6,10 @@ const RaceSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    username: {
+        type: String,
+        ref: 'users'
+    },
     averageSpeed: {
         type: Number,
         required: true,
