@@ -8,9 +8,14 @@ export const setAuthToken = token => {
     }
 };
 
-export const fetchRaces = (userId) => {
-    return axios.get(`/api/races/user/${userId}`);
+export const fetchRaces = (username) => {
+    return axios.get(`/api/races/user/${username}`);
 };
+
+export const fetchUserStats = (username) => {
+    return axios.get(`/api/races/user/${username}/stats`);
+};
+
 export const fetchLeaderboardRaces = () => {
     return axios.get(`/api/races/top10/`);
 };
