@@ -1,9 +1,9 @@
 import React from 'react';
-import {AuthRoute, ProtectedRoute } from '../util/route_util';
+import {ProtectedRoute } from '../util/route_util';
 import { Switch, Route } from 'react-router-dom';
 
 import Modal from './modal/modal';
-import LandingPage from './landing_page';
+import LandingPageContainer from './landing_page/landing_page_container';
 import ProfileContainer from './profile/profile_container';
 import NavBarContainer from './navbar/navbar_container';
 import Game from './game/game_container';
@@ -18,7 +18,7 @@ const App = () => (
             <NavBarContainer />
             <Switch>
                 <ProtectedRoute exact path='/profile' component={ProfileContainer}/>
-                <Route exact path='/' component={LandingPage}/>
+                <Route exact path='/' component={LandingPageContainer}/>
                 <Route exact path='/game' component={Game}/>
             </Switch>
         </main>

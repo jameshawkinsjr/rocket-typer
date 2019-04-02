@@ -26,6 +26,14 @@ export const fetchRaces = userId => dispatch => (
         )
 );
 
+export const fetchTopRaces = () => dispatch => (
+    APIUtil.fetchTopRaces()
+        .then(
+            races => dispatch(receiveAllRaces(races)),
+            err => dispatch(receiveRaceErrors(err.response.data))
+        )
+);
+
 export const saveRace = race => dispatch => (
     APIUtil.saveRace(race)
         .then(

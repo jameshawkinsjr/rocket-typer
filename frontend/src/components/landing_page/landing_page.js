@@ -4,6 +4,10 @@ import React from 'react';
 
 class LandingPage extends React.Component {
 
+    componentDidMount() {
+        this.props.fetchTopRaces();
+    }
+
     render () {
         return (
             <div className="landing-page-container">

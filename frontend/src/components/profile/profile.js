@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 
 class NavBar extends React.Component {
@@ -8,9 +7,6 @@ class NavBar extends React.Component {
         this.state = {
             numRaces: 20,
             averageSpeed: 100,
-            topTenRaces: [
-                [`04-01-2019`, 20], [`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20],[`04-01-2019`, 20]
-            ]
         };
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
     }
@@ -20,23 +16,32 @@ class NavBar extends React.Component {
         this.props.logout();
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.location.pathname !== prevProps.location.pathname){
-            this.getLinks();
-        }
+    componentDidMount() {
+        this.props.fetchRaces(this.props.user.id);
+    }
+
+    getRaces() {
+        let races = (
+                this.props.races.map ( (race, idx) => {
+                    let date = new Date(race.date)
+                    return (
+                        <li key={idx} className="flex">
+                            <div>{ idx+1 }</div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div>
+                        </li>
+                    )
+                })
+            )
+            return (
+                <ul>
+                    <li className="headers flex">
+                        <div className="leaderboard-index">Place</div><div> Date</div><div> Speed </div>
+                    </li>
+                    { races }
+                </ul>
+            )
     }
 
     render () {
-
-        let races = (
-            this.state.topTenRaces.map ( race => {
-                return (
-                    <li className="flex">
-                        <div>{`Date: ${race[0]}`}</div><div>{`Speed: ${race[1]} WPM`}</div>
-                    </li>
-                )
-            })
-        )
         return (
             <div className="profile-container flex-column">
                 <div className="profile-page flex-column">
@@ -45,14 +50,12 @@ class NavBar extends React.Component {
                         <h2>{this.props.user.username} <i className="fas fa-rocket"></i></h2>
                     </div>
                     <div className="profile-page-stats flex-column">
-                        <div className="profile-page-stats-item" >Total Races <span>{ this.state.numRaces }</span></div>
-                        <div className="profile-page-stats-item" >Account Average <span>{ this.state.averageSpeed }</span></div>
+                        <div className="profile-page-stats-item" ><h3>Total Races <span>{ this.state.numRaces }</span> </h3></div>
+                        <div className="profile-page-stats-item" ><h3>Account Average <span>{ this.state.averageSpeed }</span></h3></div>
                     </div>
-                    <div className="profile-page-leaderboard">
-                        Top 10 races 
-                        <ul>
-                        { races }
-                        </ul>
+                    <div className="profile-page-leaderboard flex-column">
+                        <h2>Your top races</h2>                        
+                        { this.props.races.first ? this.getRaces() : "Nah" }
                     </div>
                     </div>
                 </div>

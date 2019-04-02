@@ -21,18 +21,30 @@
 .profile-page-header {
   text-align: center;
   padding: 0 0 20px 0px;
-  
-  margin-top: -20px;
+  margin-top: -40px;
 }
 
 .profile-page-logout {
   align-self: flex-end;
 }
 
-.profile-page-stats {
-  
-}
-
 .profile-page-leaderboard {
+  align-items: center;
+  h2 {
+    padding-bottom: 20px;
+  }
+  li {
+    text-align: center;
+    justify-content: space-between;
+    font-size: 20px;
+    height: 30px;
+    width: 650px;
+    div {
+      min-width: 120px;
+    }
+    &.headers {
+      color: $yellow;
+    }
+  }
 
 }
