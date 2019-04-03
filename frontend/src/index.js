@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         store = configureStore(preloadedState);
         if (decodedUser.exp < currentTime) {
             store.dispatch(logout());
-            window.location.href = '/login';
         }
     } else {
         store = configureStore( {} );
