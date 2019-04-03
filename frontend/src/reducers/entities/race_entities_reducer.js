@@ -6,7 +6,7 @@ const RaceReducer = (state = {}, action) => {
     let newState;
     switch(action.type) {
         case RECEIVE_CURRENT_RACE:
-            newState = merge({}, state, action.currentRace.data);
+            newState = merge({}, state, action.race.data);
             return newState;
         case RECEIVE_ALL_RACES:
             return action.races.data;
