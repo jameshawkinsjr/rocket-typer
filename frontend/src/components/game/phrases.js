@@ -7,6 +7,6 @@ let phrases = [
 
 export const randomPhrase = () => {
   // Generate random phrase
-  let phraseNum = Math.floor(Math.random() * phrases.length)
-  return phrases[phraseNum]
+  let phraseNum = Math.floor(Math.random() * phrases.length);
+  return phrases[phraseNum];
 }
