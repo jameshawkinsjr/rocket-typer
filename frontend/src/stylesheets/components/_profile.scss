@@ -9,6 +9,7 @@
   background: $darkblue;
   width: 800px;
   height: 600px;
+  position: relative;
   
 }
 
@@ -21,11 +22,11 @@
 .profile-page-header {
   text-align: center;
   padding: 0 0 20px 0px;
-  margin-top: -40px;
 }
 
 .profile-page-logout {
   align-self: flex-end;
+  position: absolute;
 }
 
 .leaderboard {
@@ -45,6 +46,9 @@
     &.headers {
       color: $yellow;
     }
+  }
+  a {
+    color: $red;
   }
 
 }

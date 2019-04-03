@@ -21,7 +21,26 @@
   justify-content: center;          
   font-size: 30px;
   padding: 10px;
-  font-family: Helvetica;
+  font-family: $font-sans-serif;
+  line-height: 1.18;
+
+  pre {
+    // overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .green {
+    background: $gamegreen;
+    border-radius: 5px;
+  }
+  .red {
+    border-radius: 5px;
+    background: $gamered;
+  }
 }  
 
 .user-input {

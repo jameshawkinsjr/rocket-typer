@@ -5,11 +5,13 @@
 }
 
 .landing-page-leaderboard {
+    border: 1px solid $white;
+    color: $white;
     padding: 20px;
     text-align: center;
-    background: $white;
+    background: $darkblue;
     border-radius: 10px;
-    // width: 300px;
+    width: 500px;
     justify-content: center;
     align-items: center;
     h2 {

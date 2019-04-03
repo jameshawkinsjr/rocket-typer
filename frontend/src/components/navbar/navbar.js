@@ -18,12 +18,14 @@ class NavBar extends React.Component {
         this.props.logout();
     }
     componentDidMount() {
-        this.props.fetchUserStats(this.props.user.username)
-        .then( res => {
-            let numRaces = res.userStats.data[0].numRaces;
-            let avgSpeed = res.userStats.data[0].avgSpeed;
-            this.setState( {numRaces: numRaces, avgSpeed: avgSpeed})
-        });
+        if (this.props.loggedIn){
+            this.props.fetchUserStats(this.props.user.username)
+            .then( res => {
+                let numRaces = res.userStats.data[0].numRaces;
+                let avgSpeed = Math.floor(res.userStats.data[0].avgSpeed);
+                this.setState( {numRaces: numRaces, avgSpeed: avgSpeed});
+            });
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -38,9 +40,9 @@ class NavBar extends React.Component {
                 <div className="modal-buttons flex">
                     <span className="nav-bar-stats flex">
                     <div className="nav-bar-stats-item" >Welcome <span><Link to={'/profile'}>{this.props.user.username}</Link></span></div>
-                    |
+                    
                     <div className="nav-bar-stats-item" >Total Races <span>{ this.state.numRaces }</span></div>
-                    |
+                    
                     <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.avgSpeed } WPM</span></div>
                     </span>
                 </div>
