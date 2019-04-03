@@ -4,10 +4,11 @@ import React from 'react';
 class Game extends React.Component {
     constructor(props) {
       super(props);
-
       let { phrase } = this.props;
       this.state = {
         phrase,
+        incorrectLetters: [],
+        correctLetters: [],
         userInput: "",
         inputArray: [],
         timeElapsed: 0,
@@ -16,21 +17,22 @@ class Game extends React.Component {
         gameWon: false,
         interval: "",
       };
-      // Words per minute formula
-      // WPM = (All typed Entries/5)/(time(min))
       this.incrementTime = this.incrementTime.bind(this);
       this.incrementEntries = this.incrementEntries.bind(this);
       this.detectKeyPresses = this.detectKeyPresses.bind(this);
     }
 
     checkInput() {
-      if (this.state.phrase === this.state.inputArray.join("") && !this.state.gameWon) {
+      if (this.state.phrase.join("") === this.state.inputArray.join("") && !this.state.gameWon) {
         this.setState({
           gameWon: true,
           wordsPerMin: Math.floor((this.props.phraseLength / 5) / (this.state.timeElapsed / 60))
         });
-      clearInterval(this.state.interval);
+        clearInterval(this.state.interval);
       }
+      return (e) => {
+          this.setState({ inputArray: e.target.value });
+      };
     }
 
     componentDidUpdate() {
@@ -47,18 +49,41 @@ class Game extends React.Component {
     }
 
     detectKeyPresses(e) {
+      let newPhrase = this.state.phrase;
+      let newIncorrectLetters = this.state.incorrectLetters;
+      let newCorrectLetters = this.state.correctLetters;
+      let nextLetter;
       if (e.metaKey && e.key === "v") {
         e.preventDefault();
         alert("You can't do that!");
       } else if (e.key === 'Backspace'){
-        let array = this.state.inputArray;
-        array.pop();
-        this.setState({ inputArray: array });
-      } else if (e.key !== "Shift" && e.key !== "Alt" && !e.metaKey) {
-        let array = this.state.inputArray;
-        array.push(e.key);
-        this.setState({ inputArray: array });
+        if (newIncorrectLetters.length){
+          nextLetter = newIncorrectLetters.pop();
+        } else {
+          nextLetter = newCorrectLetters.pop();
+        }
+        newPhrase.unshift(nextLetter);
+        this.updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase);
+      } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
+        nextLetter = newPhrase.shift();
+        newCorrectLetters.push(nextLetter);
+        this.updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase);
+      } else if (e.key !== newPhrase[0]) {
+        nextLetter = newPhrase.shift();
+        newIncorrectLetters.push(nextLetter);
+        this.updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase);
       }
+      console.log(this.state.phrase)
+      // console.log(this.state.incorrectLetters)
+      console.log(this.state.correctLetters)
+    }
+    
+    updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase ){
+      this.setState({ 
+        incorrectLetters: newIncorrectLetters,
+        correctLetters: newCorrectLetters,
+        phrase: newPhrase,
+      });
     }
 
     incrementEntries() {
@@ -74,18 +99,22 @@ class Game extends React.Component {
         this.incrementEntries();
         this.setState({
           [field]: e.currentTarget.value,
-          wordsPerMin: Math.floor((this.state.typedEntries / 5) / (this.state.timeElapsed / 60))
-        })
-      }
+          wordsPerMin: Math.floor((this.state.typedEntries / 5) / (this.state.timeElapsed / 60)),
+        });
+      };
     }
 
     render () {
+
         return (
           <>
             <div className="game-area-parent">
               <div className="game-area">
-                <p className="answer-phrase flex">{this.props.phrase}</p>
-                <p className="answer-phrase flex">{this.state.inputArray}</p>
+                <p className="answer-phrase flex">
+                    <span className="green">{ this.state.correctLetters.join("") } </span>
+                    <span className="red">{ this.state.incorrectLetters.join("") } </span>
+                    <span className="regular" >{ this.state.phrase.join("") } </span>
+                </p>
                 { this.gameWon ? <p>You finished!</p> : ""}
                 <form className="user-input flex" onSubmit={(e) => e.preventDefault()}>
                   <label>
@@ -94,7 +123,7 @@ class Game extends React.Component {
                       onChange={this.update("userInput")}
                       onPaste={ function(){return false}}
                       placeholder="Type the above text here!"
-                      value={this.state.inputArray.join("")}
+                      value={this.state.inputArray}
                       />
                   </label>
                 </form>

@@ -7,9 +7,9 @@ import Game from './game';
 const mapStateToProps = function(state) {
 		let phrase = randomPhrase();
 		return ({
-			phrase: phrase,
-			phraseWords: phrase.split(" "),
-			phraseLength: phrase.split("").length,
+			phrase: phrase.split(""),
+			// phraseWords: phrase.split(" "),
+			phraseLength: phrase.length,
 		});
 };
 
