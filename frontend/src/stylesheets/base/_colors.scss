@@ -21,15 +21,16 @@ $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
 $red:     #dc3545 !default;
+$gamered: #dc3546a7 !default;
 $orange:  #BD5D38 !default;
 $yellow:  #ffbf00 !default;
-$green:   #28a745 !default;
+$gamegreen:#1d833498 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
 $primary:       $red !default;
 $secondary:     $gray-600 !default;
-$success:       $green !default;
+$success:       $gamegreen !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
