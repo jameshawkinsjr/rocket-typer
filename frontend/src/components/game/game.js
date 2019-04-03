@@ -9,30 +9,31 @@ class Game extends React.Component {
         phrase,
         incorrectLetters: [],
         correctLetters: [],
-        userInput: "",
-        inputArray: [],
-        timeElapsed: 0,
+        timeElapsed: 0.001,
         typedEntries: 0,
         wordsPerMin: 0,
+        mistakes: 0,
         gameWon: false,
         interval: "",
+        ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
       };
       this.incrementTime = this.incrementTime.bind(this);
-      this.incrementEntries = this.incrementEntries.bind(this);
       this.detectKeyPresses = this.detectKeyPresses.bind(this);
     }
 
     checkInput() {
-      if (this.state.phrase.join("") === this.state.inputArray.join("") && !this.state.gameWon) {
+      if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
         this.setState({
           gameWon: true,
           wordsPerMin: Math.floor((this.props.phraseLength / 5) / (this.state.timeElapsed / 60))
         });
         clearInterval(this.state.interval);
+        this.props.saveRace({
+          user: this.props.user.id,
+          username: this.props.user.username,
+          averageSpeed: this.state.wordsPerMin.toString(),
+        })
       }
-      return (e) => {
-          this.setState({ inputArray: e.target.value });
-      };
     }
 
     componentDidUpdate() {
@@ -41,7 +42,7 @@ class Game extends React.Component {
 
     componentDidMount() {
       document.addEventListener("keydown", this.detectKeyPresses);
-      this.setState( { interval: setInterval(this.incrementTime, 1000) });
+      
     }
 
     componentWillUnmount() {
@@ -53,55 +54,42 @@ class Game extends React.Component {
       let newIncorrectLetters = this.state.incorrectLetters;
       let newCorrectLetters = this.state.correctLetters;
       let nextLetter;
-      if (e.metaKey && e.key === "v") {
-        e.preventDefault();
-        alert("You can't do that!");
-      } else if (e.key === 'Backspace'){
+      if (this.state.typedEntries === 0){
+        this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
+      }
+      console.log(e.key);
+      if (this.state.ignoreKeys.includes(e.key)){
+      } else if (e.key === 'Backspace' || e.key === 'Delete'){
         if (newIncorrectLetters.length){
           nextLetter = newIncorrectLetters.pop();
-        } else {
+          newPhrase.unshift(nextLetter);
+        } else if (newCorrectLetters.length){
           nextLetter = newCorrectLetters.pop();
+          newPhrase.unshift(nextLetter);
         }
-        newPhrase.unshift(nextLetter);
-        this.updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase);
       } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
         nextLetter = newPhrase.shift();
         newCorrectLetters.push(nextLetter);
-        this.updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase);
-      } else if (e.key !== newPhrase[0]) {
+      } else if ( (e.key !== newPhrase[0] || newIncorrectLetters.length ) && newPhrase.length) {
         nextLetter = newPhrase.shift();
         newIncorrectLetters.push(nextLetter);
-        this.updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase);
+        this.setState({ mistakes: this.state.mistakes + 1 });
       }
-      console.log(this.state.phrase)
-      // console.log(this.state.incorrectLetters)
-      console.log(this.state.correctLetters)
-    }
-    
-    updateArrays(newIncorrectLetters, newCorrectLetters, newPhrase ){
       this.setState({ 
         incorrectLetters: newIncorrectLetters,
         correctLetters: newCorrectLetters,
         phrase: newPhrase,
+        typedEntries: this.state.typedEntries+1,
+        
       });
     }
 
-    incrementEntries() {
-      this.setState((oldState) => ({typedEntries: oldState.typedEntries + 1}));
-    }
-
     incrementTime() {
-      this.setState((oldState) => ({timeElapsed: oldState.timeElapsed + 1}));
-    }
-
-    update(field) {
-      return (e) => {
-        this.incrementEntries();
-        this.setState({
-          [field]: e.currentTarget.value,
-          wordsPerMin: Math.floor((this.state.typedEntries / 5) / (this.state.timeElapsed / 60)),
-        });
-      };
+      let newTime = this.state.timeElapsed+0.01;
+      this.setState({
+        timeElapsed: newTime,
+        wordsPerMin: Math.floor(( (this.state.correctLetters.length || 0) / 5) / (newTime / 60)),
+      });
     }
 
     render () {
@@ -110,25 +98,17 @@ class Game extends React.Component {
           <>
             <div className="game-area-parent">
               <div className="game-area">
-                <p className="answer-phrase flex">
-                    <span className="green">{ this.state.correctLetters.join("") } </span>
-                    <span className="red">{ this.state.incorrectLetters.join("") } </span>
-                    <span className="regular" >{ this.state.phrase.join("") } </span>
-                </p>
+                <div className="answer-phrase flex">
+                    <pre>
+                      { this.state.correctLetters.length ? (<span className="green">{ this.state.correctLetters.join("")}</span>) : "" }
+                      { this.state.incorrectLetters.length ? (<span className="red">{ this.state.incorrectLetters.join("") }</span>) : "" }
+                      <span className="regular" >{ this.state.phrase.join("") || ""} </span>
+                    </pre>
+                </div>
                 { this.gameWon ? <p>You finished!</p> : ""}
-                <form className="user-input flex" onSubmit={(e) => e.preventDefault()}>
-                  <label>
-                    <input 
-                      type="text"
-                      onChange={this.update("userInput")}
-                      onPaste={ function(){return false}}
-                      placeholder="Type the above text here!"
-                      value={this.state.inputArray}
-                      />
-                  </label>
-                </form>
                 <p className="wpm flex">Words per minute: {this.state.wordsPerMin}</p>
-                <p className="wpm flex">Time: {this.state.timeElapsed} seconds</p>
+                <p className="wpm flex">Time: {Math.floor(this.state.timeElapsed)} seconds</p>
+                <p className="wpm flex">Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
               </div>
             </div>
           </>
