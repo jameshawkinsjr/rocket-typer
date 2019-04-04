@@ -33,7 +33,7 @@ class LandingPage extends React.Component {
             <div className="landing-page-container flex-column">
                 <div className="landing-page-leaderboard leaderboard flex-column">
                     <h2>Top 10 Races (All Time)</h2>                        
-                    { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : "Loading" }
+                    { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : <p>No Races Found</p> }
                 </div>
             </div>
         )
