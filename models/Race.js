@@ -14,6 +14,10 @@ const RaceSchema = new Schema({
         type: Number,
         required: true,
     },
+    accuracy: {
+        type: Number,
+        required: true,
+    },
     date: {
         type: Date,
         default: Date.now
