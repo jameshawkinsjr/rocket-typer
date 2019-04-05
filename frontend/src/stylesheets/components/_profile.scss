@@ -8,7 +8,7 @@
   align-items: center;
   background: $darkblue;
   width: 800px;
-  height: 600px;
+  height: 750px;
   position: relative;
   
 }
@@ -43,6 +43,17 @@
 .profile-page-header {
   text-align: center;
   padding: 0 0 20px 0px;
+}
+
+.profile-skill-level-container {
+  font-family: $font-sans-serif;
+  text-align: center;
+}
+
+.profile-skill-level {
+  font-weight: bold;
+  font-size: 20px;
+  color: $yellow;
 }
 
 .profile-page-logout {
