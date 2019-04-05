@@ -8,6 +8,7 @@ class NavBar extends React.Component {
             username: this.props.match.params.username || this.props.user.username,
             numRaces: "0",
             avgSpeed: "0",
+            maxSpeed: "0",
         }
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
     }
@@ -24,7 +25,8 @@ class NavBar extends React.Component {
             if (res.userStats.data[0]){
                 let numRaces = Math.floor(res.userStats.data[0].numRaces);
                 let avgSpeed = Math.floor(res.userStats.data[0].avgSpeed);
-                this.setState( {numRaces: numRaces, avgSpeed: avgSpeed});
+                let maxSpeed = Math.floor(res.userStats.data[0].maxSpeed);
+                this.setState( {numRaces: numRaces, avgSpeed: avgSpeed, maxSpeed: maxSpeed});
             }
         });
     }
@@ -67,11 +69,12 @@ class NavBar extends React.Component {
                         ""
                     }
                     <div className="profile-page-header" >
-                        <h2>{`${this.state.username}'s Profile`}<i className="fas fa-rocket"></i></h2>
+                        <h2>{`${this.state.username}'s Profile`}</h2>
                     </div>
-                    <div className="profile-page-stats flex-column">
-                        <div className="profile-page-stats-item" ><h3>Total Races <span>{ this.state.numRaces }</span> </h3></div>
-                        <div className="profile-page-stats-item" ><h3>Average Speed <span>{ this.state.avgSpeed }</span></h3></div>
+                    <div className="profile-page-stats flex">
+                        <div className="profile-page-stats-item flex-column" ><h3>Total Races</h3><h3>{ this.state.numRaces }</h3></div>
+                        <div className="profile-page-stats-item flex-column" ><h3>Average Speed</h3> <h3>{ this.state.avgSpeed } wpm</h3></div>
+                        <div className="profile-page-stats-item flex-column" ><h3>Max Speed</h3><h3>{ this.state.maxSpeed } wpm</h3></div>
                     </div>
                     <div className="profile-page-leaderboard leaderboard flex-column">
                         <h2>Top 10 races</h2>                        
