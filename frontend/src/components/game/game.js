@@ -24,7 +24,6 @@ class Game extends React.Component {
 
     checkInput() {
       if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
-        console.log(this.state.phraseLength, this.state.timeElapsed);
         this.setState({
           gameWon: true,
           wordsPerMin: Math.floor((this.state.phraseLength / 5) / (this.state.timeElapsed / 60))
@@ -60,7 +59,6 @@ class Game extends React.Component {
       if (this.state.typedEntries === 0){
         this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
       }
-      console.log(e.key);
       if (this.state.ignoreKeys.includes(e.key)){
       } else if (e.key === 'Backspace' || e.key === 'Delete'){
         if (newIncorrectLetters.length){
@@ -109,9 +107,11 @@ class Game extends React.Component {
                     </pre>
                 </div>
                 { this.gameWon ? <p>You finished!</p> : ""}
-                <p className="wpm flex">Words per minute: {this.state.wordsPerMin}</p>
-                <p className="wpm flex">Time: {Math.floor(this.state.timeElapsed)} seconds</p>
-                <p className="wpm flex">Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
+                <div className="game-stats flex">
+                  <p className="wpm flex">Words per minute: {this.state.wordsPerMin}</p>
+                  <p className="wpm flex">Time: {Math.floor(this.state.timeElapsed)} seconds</p>
+                  <p className="wpm flex">Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
+                </div>
               </div>
               <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
             </div>
