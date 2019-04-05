@@ -25,8 +25,9 @@ router.get('/user/:username/stats', (req, res) => {
                     },
                     {$group: { 
                             _id: "$username",
-                            avgSpeed:   {$avg: "$averageSpeed" },
+                            avgSpeed: { $avg: "$averageSpeed" },
                             numRaces: { $sum: 1},
+                            maxSpeed: { $max: "$averageSpeed" },
                         }
                     },
         ])
