@@ -1,7 +1,8 @@
 import React from 'react';
+import SkillLevelContainer from "./skill"
 
 
-class NavBar extends React.Component {
+class Profile extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -76,6 +77,9 @@ class NavBar extends React.Component {
                         <div className="profile-page-stats-item flex-column" ><h3>Average Speed</h3> <h3>{ this.state.avgSpeed } wpm</h3></div>
                         <div className="profile-page-stats-item flex-column" ><h3>Max Speed</h3><h3>{ this.state.maxSpeed } wpm</h3></div>
                     </div>
+                    <div className="profile-skill-level-container">
+                        Your skill level: <SkillLevelContainer wpm={this.state.avgSpeed}/>
+                    </div>
                     <div className="profile-page-leaderboard leaderboard flex-column">
                         <h2>Top 10 races</h2>                        
                         { this.props.races[0] ? this.getRaces() : <h3>N/A</h3> }
@@ -86,4 +90,11 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+export default Profile;
+
+// Threshold
+// Cadet: 0 - 30WPM
+// Pilot: 31 - 60WPM
+// Flight Engineer: 61-80WPM
+// Commander: 81-100WPM
+// Cosmonaut: 101+
