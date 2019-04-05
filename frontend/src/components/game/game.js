@@ -1,12 +1,13 @@
 import React from 'react';
-// import { Wpm } from '../wpm/wpm'
+import Rocket from '../rocket/rocket';
 
 class Game extends React.Component {
     constructor(props) {
       super(props);
-      let { phrase } = this.props;
+      let { phrase, phraseLength } = this.props;
       this.state = {
         phrase,
+        phraseLength, 
         incorrectLetters: [],
         correctLetters: [],
         timeElapsed: 0.001,
@@ -23,16 +24,18 @@ class Game extends React.Component {
 
     checkInput() {
       if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
+        console.log(this.state.phraseLength, this.state.timeElapsed);
         this.setState({
           gameWon: true,
-          wordsPerMin: Math.floor((this.props.phraseLength / 5) / (this.state.timeElapsed / 60))
+          wordsPerMin: Math.floor((this.state.phraseLength / 5) / (this.state.timeElapsed / 60))
         });
-        clearInterval(this.state.interval);
         this.props.saveRace({
           user: this.props.user.id,
           username: this.props.user.username,
-          averageSpeed: this.state.wordsPerMin.toString(),
+          averageSpeed: Math.floor((this.state.phraseLength / 5) / (this.state.timeElapsed / 60)).toString(),
+          accuracy: Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0).toString(),
         })
+        clearInterval(this.state.interval);
       }
     }
 
@@ -96,7 +99,7 @@ class Game extends React.Component {
 
         return (
           <>
-            <div className="game-area-parent">
+            <div className="game-area-parent flex-column">
               <div className="game-area">
                 <div className="answer-phrase flex">
                     <pre>
@@ -110,6 +113,7 @@ class Game extends React.Component {
                 <p className="wpm flex">Time: {Math.floor(this.state.timeElapsed)} seconds</p>
                 <p className="wpm flex">Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
               </div>
+              <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
             </div>
           </>
         )

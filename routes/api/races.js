@@ -63,6 +63,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
             user: req.user.id,
             username: req.body.username,
             averageSpeed: parseInt(req.body.averageSpeed),
+            accuracy: parseInt(req.body.accuracy),
         });
 
         newRace.save().then(races => res.json(races));

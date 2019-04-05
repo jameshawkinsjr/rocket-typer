@@ -7,7 +7,7 @@ class NavBar extends React.Component {
         this.state = {
             username: this.props.match.params.username || this.props.user.username,
             numRaces: "0",
-            avgSpeed: "0"
+            avgSpeed: "0",
         }
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
     }
@@ -41,7 +41,7 @@ class NavBar extends React.Component {
                     let date = new Date(race.date)
                     return (
                         <li key={idx} className="flex">
-                            <div>{ idx+1 }</div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div>
+                            <div>{ idx+1 }</div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div><div>{ race.accuracy }%</div>
                         </li>
                     )
                 })
@@ -49,7 +49,7 @@ class NavBar extends React.Component {
             return (
                 <ul>
                     <li className="headers flex">
-                        <div className="leaderboard-index">Rank</div><div> Date</div><div> Speed </div>
+                        <div className="leaderboard-index">Rank</div><div> Date</div><div> Speed </div><div> Accuracy </div>
                     </li>
                     { races }
                 </ul>
