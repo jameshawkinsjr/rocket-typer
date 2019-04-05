@@ -1,21 +1,36 @@
 .landing-page-container {
     margin: 40px;
-    width: 800px;
+    flex-wrap: wrap;
+    // width: 800px;
 
 }
 
 .landing-page-leaderboard {
+    width: 500px;
+}
+
+.landing-page-links {
+    a {
+        color: $yellow;
+        font-size: 25px;
+    }
+    height: 100%;
+    width: 400px;
+
+}
+
+.modal {
+    margin: 20px;
     border: 1px solid $white;
     color: $white;
     padding: 20px;
     text-align: center;
     background: $darkblue;
     border-radius: 10px;
-    width: 500px;
     justify-content: center;
     align-items: center;
     h2 {
-        font-size: 16px;
+        font-size: 30px;
     }
     li {
         font-size: 16px;

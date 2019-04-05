@@ -1,4 +1,5 @@
 .game-area-parent {
+  margin: 60px;
   display: flex;
   justify-content: center;
   // height: 60vh;
@@ -7,8 +8,13 @@
 
 .game-area {
   background: #fafafa;
-  width: 900px;
+  width: 700px;
   border-radius: 5px;
+  padding: 30px;
+}
+
+.game-stats {
+  justify-content: center;
 }
 
 .answer-phrase {
@@ -18,12 +24,13 @@
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+  // border: 1px solid $black;
+  padding: 10px;
   justify-content: center;          
   font-size: 30px;
-  padding: 10px;
   font-family: $font-sans-serif;
   line-height: 1.18;
-
+  margin-bottom: 20px;
   pre {
     // overflow-x: auto;
     white-space: pre-wrap;
@@ -32,6 +39,7 @@
     white-space: -o-pre-wrap;
     word-wrap: break-word;
   }
+
 
   .green {
     background: $gamegreen;
