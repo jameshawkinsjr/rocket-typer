@@ -8,11 +8,11 @@ function Rocket( {currentProgress, totalLength}) {
   // https://icons8.com/icons/set/rocket
 
   return (
-      <div className="rocket-container flex-column">
-        <div className="rocket-above" style={{height: `${(totalLength - currentProgress) *100}px`}}>
+      <div className="rocket-container flex">
+        <div className="rocket-above" style={{width: `${currentProgress * 100}px`} }> 
         </div>
-        <img src="https://img.icons8.com/color/96/ffffff/launched-rocket.png" />
-        <div className="rocket-below" style={{height: `${currentProgress * 100}px`}}> 
+        <img className="rocket-img" src="https://img.icons8.com/color/96/ffffff/launched-rocket.png" />
+        <div className="rocket-below" style={{width: `${(totalLength - currentProgress) *100}px`}}>
         <pre> </pre>
         </div>
       </div>

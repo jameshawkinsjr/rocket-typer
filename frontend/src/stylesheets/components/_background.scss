@@ -1,9 +1,9 @@
 @keyframes animStar{
-    0%      { transform: translateY(0px) }
-    100%    { transform: translateY(-2000px) }
+    0%      { transform: translateY(-1500px) }
+    100%    { transform: translateY(0px) }
 }
- 
-@function multiple-box-shadow($n){
+
+@function generate-stars($n){
     $value: '#{random(2000)}px #{random(2000)}px #FFF';
     @for $i from 2 through $n {
         $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF'
@@ -11,22 +11,26 @@
     @return unquote($value);
 }
 
-$shadows-small:  multiple-box-shadow(700);
-$shadows-medium: multiple-box-shadow(200);
-$shadows-big:    multiple-box-shadow(100);
+$shadows-small:  generate-stars(900);
+$shadows-medium: generate-stars(300);
+$shadows-big:    generate-stars(200);
 
 #stars{
     width: 1px;
     height: 1px;
+    color: $red;
     background: transparent;
     box-shadow: $shadows-small;
     animation: animStar 50s linear infinite;
+    position: absolute;
+    z-index: -1;
     &:after {
         content: " ";
         position: absolute;
-        top: 2000px;
+        z-index: -1;
+        top: -2000px;
         width: 1px;
-        height: 1px;
+        height: 1I just px;
         background: transparent;
         box-shadow: $shadows-small;
     };
@@ -38,11 +42,13 @@ $shadows-big:    multiple-box-shadow(100);
     background: transparent;
     box-shadow: $shadows-medium;
     animation: animStar 100s linear infinite;
-        
+    position: absolute;
+    z-index: -1;
     &:after{
         content: " ";
         position: absolute;
-        top: 2000px;
+        z-index: -1;
+        top: -2000px;
         width: 2px;
         height: 2px;
         background: transparent;
@@ -56,11 +62,13 @@ $shadows-big:    multiple-box-shadow(100);
     background: transparent;
     box-shadow: $shadows-big;
     animation: animStar 150s linear infinite;
-        
+    position: absolute;
+    z-index: -1;
     &:after{
         content: " ";
         position: absolute;
-        top: 2000px;
+        z-index: -1;
+        top: -2000px;
         width: 3px;
         height: 3px;
         background: transparent;

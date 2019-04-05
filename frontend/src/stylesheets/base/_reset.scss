@@ -27,8 +27,11 @@ footer, header, hgroup, menu, nav, section {
 
 html, body {
 	height: 100%;
+	width: 100%;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-    overflow: hidden;
+	overflow: hidden;
+	position: absolute;
+	z-index: -2;
 	// background-image: url(../assets/background.png);
 }
 body {

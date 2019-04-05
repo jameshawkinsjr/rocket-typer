@@ -24,14 +24,15 @@ class Game extends React.Component {
 
     checkInput() {
       if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
+        let time = this.state.timeElapsed;
         this.setState({
           gameWon: true,
-          wordsPerMin: Math.floor((this.state.phraseLength / 5) / (this.state.timeElapsed / 60))
+          wordsPerMin: Math.floor((this.state.phraseLength / 5) / (time / 60))
         });
         this.props.saveRace({
           user: this.props.user.id,
           username: this.props.user.username,
-          averageSpeed: Math.floor((this.state.phraseLength / 5) / (this.state.timeElapsed / 60)).toString(),
+          averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
           accuracy: Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0).toString(),
         })
         clearInterval(this.state.interval);
@@ -106,11 +107,11 @@ class Game extends React.Component {
                       <span className="regular" >{ this.state.phrase.join("") || ""} </span>
                     </pre>
                 </div>
-                { this.gameWon ? <p>You finished!</p> : ""}
-                <div className="game-stats flex">
-                  <p className="wpm flex">Words per minute: {this.state.wordsPerMin}</p>
-                  <p className="wpm flex">Time: {Math.floor(this.state.timeElapsed)} seconds</p>
-                  <p className="wpm flex">Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
+                  <p className="game-congrats">{ this.state.gameWon ? "Complete!" : <pre> </pre> }</p>
+                <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
+                  <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
+                  <p className={`wpm flex`}>Time: {Math.floor(this.state.timeElapsed)} seconds</p>
+                  <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
                 </div>
               </div>
               <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
