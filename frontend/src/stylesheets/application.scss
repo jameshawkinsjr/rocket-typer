@@ -3,10 +3,10 @@
 @import "base/reset.scss";
 @import "base/logo.scss";
 
+@import "components/background";
 @import "components/modal";
 @import "components/navbar";
 @import "components/game";
-@import "components/app";
 @import "components/session_form";
 @import "components/landing_page";
 @import "components/profile";
