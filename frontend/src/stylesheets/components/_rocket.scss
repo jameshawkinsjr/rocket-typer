@@ -1,15 +1,17 @@
 .rocket-container {
-  background: $white;
   width: 400px;
   height: 500px;
-  padding: 10px;
-  margin: 40px;
   align-items: center;
   justify-content: flex-end;
-  .rocket-below {
-    display: block;
-    color: $white;
-    font-size: 40px;
-    background: $orange;
-  }
+
+  // .rocket-below {
+  //   display: block;
+  //   color: $white;
+  //   font-size: 40px;
+  //   // background: $rockettrail;
+  // }
+}
+
+.rocket-below {
+  color: $gray-600;
 }
