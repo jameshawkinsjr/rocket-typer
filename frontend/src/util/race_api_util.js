@@ -16,6 +16,10 @@ export const fetchUserStats = (username) => {
     return axios.get(`/api/races/user/${username}/stats`);
 };
 
+export const fetchUserDate = (username) => {
+    return axios.get(`/api/users/${username}`);
+};
+
 export const fetchLeaderboardRaces = () => {
     return axios.get(`/api/races/top10/`);
 };
