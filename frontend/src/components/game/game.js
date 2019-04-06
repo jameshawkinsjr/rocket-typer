@@ -14,6 +14,8 @@ class Game extends React.Component {
         typedEntries: 0,
         wordsPerMin: 0,
         mistakes: 0,
+        warpWidth: 5,
+        warpDuration: 10,
         gameWon: false,
         interval: "",
         ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
@@ -25,6 +27,7 @@ class Game extends React.Component {
     checkInput() {
       if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
         let time = this.state.timeElapsed;
+        let accuracy = Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0).toString()
         this.setState({
           gameWon: true,
           wordsPerMin: Math.floor((this.state.phraseLength / 5) / (time / 60))
@@ -33,9 +36,10 @@ class Game extends React.Component {
           user: this.props.user.id,
           username: this.props.user.username,
           averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
-          accuracy: Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0).toString(),
+          accuracy: accuracy,
         })
         clearInterval(this.state.interval);
+        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy});
       }
     }
 
@@ -94,7 +98,7 @@ class Game extends React.Component {
       });
     }
 
-    render () {
+    render () {      
 
         return (
           <>
@@ -107,14 +111,18 @@ class Game extends React.Component {
                       <span className="regular" >{ this.state.phrase.join("") || ""} </span>
                     </pre>
                 </div>
-                  <p className="game-congrats">{ this.state.gameWon ? "Complete!" : <pre> </pre> }</p>
+                  {/* { this.state.gameWon ? <p className="game-congrats">Mission Accomplished!</p> : <pre><p> </p></pre> } */}
                 <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
                   <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
                   <p className={`wpm flex`}>Time: {Math.floor(this.state.timeElapsed)} seconds</p>
                   <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
                 </div>
               </div>
-              <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
+              <div className="progress-meter flex">
+                  <img className="earth" alt='earth' src="./assets/earth.png"/>
+                  <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
+                  <img className="mars" alt='mars' src="./assets/mars.png"/>
+              </div>
             </div>
           </>
         )
