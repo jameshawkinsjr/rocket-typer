@@ -1,4 +1,4 @@
-import { RECEIVE_USER_STATS } from '../../actions/race_actions';
+import { RECEIVE_USER_STATS, RECEIVE_USER_DATE } from '../../actions/race_actions';
 import merge from 'lodash/merge';
 
 const UserStatsReducer = (state = {}, action) => {
@@ -6,6 +6,7 @@ const UserStatsReducer = (state = {}, action) => {
     let newState;
     switch(action.type) {
         case RECEIVE_USER_STATS:
+        case RECEIVE_USER_DATE:
             newState = merge({}, state, action.userStats.data);
             return newState;
         default:
