@@ -14,8 +14,6 @@ class Game extends React.Component {
         typedEntries: 0,
         wordsPerMin: 0,
         mistakes: 0,
-        warpWidth: 5,
-        warpDuration: 10,
         gameWon: false,
         interval: "",
         ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
