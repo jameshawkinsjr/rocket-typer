@@ -23,6 +23,11 @@ const App = () => (
             </Switch>
         </main>
         <footer>
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
+            <div id='warpStars'></div>
+            <div id='warpStars2'></div>
         </footer>
     </div>
 );

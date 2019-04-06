@@ -8,7 +8,7 @@
 
 .game-area {
   background: #fafafa;
-  width: 700px;
+  width: 800px;
   border-radius: 5px;
   padding: 30px;
 }
@@ -30,7 +30,9 @@
   font-size: 30px;
   font-family: $font-sans-serif;
   line-height: 1.18;
+  padding-bottom: 30px;
   margin-bottom: 20px;
+  border-bottom: 1px solid $darkblue;
   pre {
     // overflow-x: auto;
     white-space: pre-wrap;
@@ -39,7 +41,6 @@
     white-space: -o-pre-wrap;
     word-wrap: break-word;
   }
-
 
   .green {
     background: $gamegreen;
@@ -51,22 +52,39 @@
   }
 }  
 
-.user-input {
-  justify-content: center;
-  padding: 10px;
+.progress-meter {
+  margin-top: 100px;
+  align-items: center;
 }
 
-.user-input input {
-  width: 300px;
-  height: 30px;
-  border-radius: 5px;
-  outline: none;
-  border: 1px solid #d9d9d9;
+.earth {
+  margin-right: -50px;
+  height: 300px;
+  border-radius: 50%;
+  // box-shadow: 0px 0px 5px rgb(205, 205, 205) inset;
+  // -moz-box-shadow: 0px 0px 5px rgb(205, 205, 205) inset;
+  // -webkit-box-shadow: 0px 0px 5px rgb(205, 205, 205) inset;
+}
+.mars {
+  margin-left: -120px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 100px rgb(255, 11, 11);
+  -moz-box-shadow: 0px 0px 100px rgb(255, 11, 11);
+  -webkit-box-shadow: 0px 0px 100px rgb(255, 11, 11);
+}
+.finished {
+  border-radius: 10px;
+}
+
+.game-congrats {
+  font-size: 25px;
+  text-align: center;
+  padding: 10px;
 }
 
 .wpm {
   justify-content: center;
-  padding: 10px;
-  font-family: Helvetica;
-  font-size: 20px;
+  padding: 20px;
+  font-size: 22px;
 }

@@ -31,8 +31,8 @@ router.get('/user/:username/stats', (req, res) => {
                         }
                     },
         ])
-        .then( avgSpeed => res.status(200).json(avgSpeed))
-        .catch(err => res.status(404).json({ noracesfound: 'No averageSpeed'}))
+        .then( userStats => res.status(200).json(userStats))
+        .catch(err => res.status(404).json({ noracesfound: 'No stats'}));
 });
 
 router.get('/user/:username', (req, res) => {

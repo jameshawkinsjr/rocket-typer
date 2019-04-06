@@ -8,6 +8,12 @@ const passport = require('passport');
 const validateSignupInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
 
+router.get('/:username/', (req, res) => {
+    User
+        .findOne( { username: req.params.username })
+        .then( user => res.status(200).json({ signupDate: user.date}));
+});
+
 router.post('/signup', (req, res) => {
     const {errors, isValid } = validateSignupInput(req.body);
     if (!isValid) {

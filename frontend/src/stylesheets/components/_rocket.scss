@@ -1,17 +1,17 @@
 .rocket-container {
-  width: 400px;
-  height: 500px;
+  width: 900px;
+  // height: 500px;
   align-items: center;
-  justify-content: flex-end;
-
-  // .rocket-below {
-  //   display: block;
-  //   color: $white;
-  //   font-size: 40px;
-  //   // background: $rockettrail;
-  // }
+  justify-content: flex-start;
+  // border: 1px solid $red;
 }
 
-.rocket-below {
-  color: $gray-600;
+.rocket-left {
+  // border: 1px solid $red;
+}
+.rocket-right {
+  // border: 1px solid $red;
+}
+.rocket-img {
+  transform: rotate(90deg)
 }

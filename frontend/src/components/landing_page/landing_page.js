@@ -31,11 +31,11 @@ class LandingPage extends React.Component {
     render () {
         return (
             <div className="landing-page-container flex">
-                <div className="landing-page-leaderboard modal leaderboard flex-column">
+                <div className="landing-page-leaderboard landing-page-box leaderboard flex-column">
                     <h2>Top 10 Races (All Time)</h2>                        
                     { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : <p>No Races Found</p> }
                 </div>
-                <div className='landing-page-links modal'>
+                <div className='landing-page-links landing-page-box'>
                     <Link to={"/game"}>Enter a typing race</Link>
                 </div>
             </div>

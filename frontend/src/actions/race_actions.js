@@ -5,6 +5,7 @@ export const RECEIVE_CURRENT_RACE = "RECEIVE_CURRENT_RACE";
 export const RECEIVE_RACE_ERRORS = "RECEIVE_RACE_ERRORS";
 export const RECEIVE_LEADERBOARD_RACES = "RECEIVE_LEADERBOARD_RACES";
 export const RECEIVE_USER_STATS = "RECEIVE_USER_STATS";
+export const RECEIVE_USER_DATE = "RECEIVE_USER_DATE";
 
 export const receiveAllRaces = races => ({
     type: RECEIVE_ALL_RACES,
@@ -26,6 +27,11 @@ export const receiveUserStats = userStats => ({
     userStats
 });
 
+export const receiveUserDate = userStats => ({
+    type: RECEIVE_USER_DATE,
+    userStats
+});
+
 export const receiveRaceErrors = errors => ({
     type: RECEIVE_RACE_ERRORS,
     errors
@@ -43,6 +49,14 @@ export const fetchUserStats = username => dispatch => (
     APIUtil.fetchUserStats(username)
         .then(
             stats => dispatch(receiveUserStats(stats)),
+            err => dispatch(receiveRaceErrors(err.response.data))
+        )
+);
+
+export const fetchUserDate = username => dispatch => (
+    APIUtil.fetchUserDate(username)
+        .then(
+            date => dispatch(receiveUserDate(date)),
             err => dispatch(receiveRaceErrors(err.response.data))
         )
 );

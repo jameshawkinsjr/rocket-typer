@@ -14,8 +14,8 @@ const mapDispatchToProps = dispatch => ({
     signup: user => dispatch(signup(user)),
     login: user => dispatch(login(user)),
     closeModal: () => dispatch(closeModal()),
-    openLoginModal: () => dispatch(openModal("login")),
-    openSignupModal: () => dispatch(openModal("signup")),
+    openLoginModal: () => dispatch(openModal({type: 'login'})),
+    openSignupModal: () => dispatch(openModal({type: "signup"})),
     clearErrors: () => dispatch(clearErrors()),
 });
 

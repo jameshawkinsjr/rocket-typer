@@ -1,10 +1,7 @@
 import React from "react";
 
-class SkillLevel extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
+class SkillLevel extends React.Component {
   render() {
     let skillLevel;
     switch (true) {

@@ -1,9 +1,12 @@
+// Background by @saransh on Codepen
+// https://codepen.io/saransh/pen/BKJun
+
 @keyframes animStar{
-    0%      { transform: translateY(0px) }
-    100%    { transform: translateY(-2000px) }
+    0%      { transform: translateY(-1500px) }
+    100%    { transform: translateY(0px) }
 }
- 
-@function multiple-box-shadow($n){
+
+@function generate-stars($n){
     $value: '#{random(2000)}px #{random(2000)}px #FFF';
     @for $i from 2 through $n {
         $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF'
@@ -11,9 +14,10 @@
     @return unquote($value);
 }
 
-$shadows-small:  multiple-box-shadow(700);
-$shadows-medium: multiple-box-shadow(200);
-$shadows-big:    multiple-box-shadow(100);
+
+$shadows-small:  generate-stars(900);
+$shadows-medium: generate-stars(300);
+$shadows-big:    generate-stars(200);
 
 #stars{
     width: 1px;
@@ -21,10 +25,13 @@ $shadows-big:    multiple-box-shadow(100);
     background: transparent;
     box-shadow: $shadows-small;
     animation: animStar 50s linear infinite;
+    position: absolute;
+    z-index: -1;
     &:after {
         content: " ";
         position: absolute;
-        top: 2000px;
+        z-index: -1;
+        top: -2000px;
         width: 1px;
         height: 1px;
         background: transparent;
@@ -38,11 +45,13 @@ $shadows-big:    multiple-box-shadow(100);
     background: transparent;
     box-shadow: $shadows-medium;
     animation: animStar 100s linear infinite;
-        
+    position: absolute;
+    z-index: -1;
     &:after{
         content: " ";
         position: absolute;
-        top: 2000px;
+        z-index: -1;
+        top: -2000px;
         width: 2px;
         height: 2px;
         background: transparent;
@@ -56,14 +65,83 @@ $shadows-big:    multiple-box-shadow(100);
     background: transparent;
     box-shadow: $shadows-big;
     animation: animStar 150s linear infinite;
-        
+    position: absolute;
+    z-index: -1;
     &:after{
         content: " ";
         position: absolute;
-        top: 2000px;
+        z-index: -1;
+        top: -2000px;
         width: 3px;
         height: 3px;
         background: transparent;
         box-shadow: $shadows-big;
+    };
+}
+
+@keyframes warpStar{
+    0%  { 
+            transform: translate(0px, -500px); 
+            // transform: translateY(0px); 
+            opacity: 0; 
+        }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100%{ 
+            transform: translate(-1000px, 500px); 
+            // transform: translateY(-1000px); 
+            opacity: 0; 
+        }
+}
+
+@function generate-warp-stars($n){
+    $value: '#{random(5000)}px #{random(2000)}px #FFF';
+    @for $i from 2 through $n {
+        $value: '#{$value} , #{random(5000)}px #{random(2000)}px #FFF'
+    };
+    @return unquote($value);
+}
+$shadows-warp:  generate-warp-stars(50);
+$shadows-warp2:  generate-warp-stars(50);
+
+#warpStars{
+    height: 1px;
+    width: 1px;
+    background: transparent;
+    box-shadow: $shadows-warp;
+    animation: warpStar linear infinite;
+    animation-duration: 15s;
+    position: absolute;
+    z-index: -1;
+    &:after {
+        content: " ";
+        position: absolute;
+        z-index: -1;
+        top: -2000px;
+        width: 1px;
+        height: 1px;
+        background: transparent;
+        box-shadow: $shadows-warp;
+    };
+}
+#warpStars2{
+    height: 2px;
+    width: 2px;
+    background: transparent;
+    box-shadow: $shadows-warp2;
+    animation: warpStar linear infinite;
+    animation-duration: 15s;
+    animation-delay: 2s;
+    position: absolute;
+    z-index: -1;
+    &:after {
+        content: " ";
+        position: absolute;
+        z-index: -1;
+        top: -2000px;
+        width: 2px;
+        height: 2px;
+        background: transparent;
+        box-shadow: $shadows-warp2;
     };
 }

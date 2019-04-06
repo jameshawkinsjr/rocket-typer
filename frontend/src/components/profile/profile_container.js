@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { clearErrors, logout } from '../../actions/session_actions';
-import { fetchRaces, fetchUserStats } from '../../actions/race_actions';
+import { fetchRaces, fetchUserStats, fetchUserDate } from '../../actions/race_actions';
 import Profile from './profile';
 import { openModal } from '../../actions/modal_actions';
 import { withRouter } from 'react-router-dom';
@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     fetchRaces: (username) => dispatch(fetchRaces(username)),
     fetchUserStats: (username) => dispatch(fetchUserStats(username)),
+    fetchUserDate: (username) => dispatch(fetchUserDate(username)),
     openModal: (modal) => dispatch(openModal(modal)),
     clearErrors: () => dispatch(clearErrors()),
 });
