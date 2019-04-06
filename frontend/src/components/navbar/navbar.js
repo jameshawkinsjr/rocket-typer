@@ -50,8 +50,8 @@ class NavBar extends React.Component {
         } else {
             return (
                 <div className="modal-buttons flex">
-                    <button className="button" onClick={() => this.props.openModal('login')}>Login</button>
-                    <button className="button" onClick={() => this.props.openModal('signup')}>Signup</button>
+                    <button className="button" onClick={() => this.props.openModal({ type: 'login'})}>Login</button>
+                    <button className="button" onClick={() => this.props.openModal({ type: 'signup'})}>Signup</button>
                 </div>
             )
         }
