@@ -46,6 +46,7 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
+      document.title = "Rocket Typer | Game"
       document.addEventListener("keydown", this.detectKeyPresses);
       
     }

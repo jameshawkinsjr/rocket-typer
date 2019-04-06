@@ -1,6 +1,6 @@
 .skills-container {
   color: $white;
-  padding: 20px 40px 40px 40px;
+  padding: 20px 40px;
   text-align: center;
   border-radius: 10px;
   justify-content: center;
@@ -36,4 +36,15 @@
     border-bottom: none;
 
   }
+}
+
+.game-stats-login {
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.skills-container span {
+  font-family: $font-sans-serif;
+  margin: 20px 0px;
+  font-size: 20px;
 }
