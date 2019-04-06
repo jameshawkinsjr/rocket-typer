@@ -1,12 +1,7 @@
 .landing-page-container {
     margin: 40px;
     flex-wrap: wrap;
-    // width: 800px;
-
-}
-
-.landing-page-leaderboard {
-    width: 500px;
+    justify-content: center;
 }
 
 .landing-page-links {
@@ -16,10 +11,9 @@
     }
     height: 100%;
     width: 400px;
-
 }
 
-.modal {
+.landing-page-box {
     margin: 20px;
     border: 1px solid $white;
     color: $white;
@@ -31,6 +25,11 @@
     align-items: center;
     h2 {
         font-size: 30px;
+    }
+    a {
+        &:hover{
+            color: $gamered;
+        }
     }
     li {
         font-size: 16px;

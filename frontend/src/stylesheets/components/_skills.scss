@@ -1,0 +1,39 @@
+.skills-container {
+  color: $white;
+  padding: 20px 40px 40px 40px;
+  text-align: center;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  .skills-container-row {
+    h1 {
+      text-align: center;
+    }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    div {
+      width: 150px;
+    }
+    p {
+      font-weight: bold;
+      font-size: 20px;
+      color: $yellow;
+    }
+    text-align: right;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid $white;
+  }
+  .skills-container-row:last-of-type{
+    border-bottom: none;
+  }
+  .skills-container-row:first-of-type{
+    justify-content: center;
+    border-bottom: none;
+
+  }
+}

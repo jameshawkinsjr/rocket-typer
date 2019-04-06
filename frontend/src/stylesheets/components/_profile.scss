@@ -10,6 +10,7 @@
   width: 800px;
   height: 750px;
   position: relative;
+  overflow: scroll;
   
 }
 
@@ -31,12 +32,20 @@
   width: 40%;
   align-items: center;
   justify-content: space-between;
-  background: $red;
   &:hover{
+    background: $gamered;
   }
   h3 {
     font-size: 20px;
     line-height: 1.3;
+  }
+  h3:first-of-type{
+    // border-bottom: 1px solid $white;
+    font-weight: 300;
+  }
+  h3:last-of-type{
+    color: $yellow;
+    font-weight: bold;
   }
 }
 
@@ -45,20 +54,42 @@
   padding: 0 0 20px 0px;
 }
 
-.profile-skill-level-container {
-  font-family: $font-sans-serif;
-  text-align: center;
-}
 
-.profile-skill-level {
-  font-weight: bold;
-  font-size: 20px;
-  color: $yellow;
+
+.profile-info-container {
+  .profile-skill-level {
+    &:hover{
+      color: $gamered;
+    }
+  }
+  justify-content: space-evenly;
+  .profile-page-info-item {
+    align-items: center;
+  }
+  button {
+    background: none;
+    cursor: pointer;
+  }
+  a {
+  }
+  font-family: $font-sans-serif;
+  p {
+    font-weight: bold;
+    font-size: 20px;
+    color: $yellow;
+
+  }
+  h2 {
+    font-weight: 300;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
 }
 
 .profile-page-logout {
   align-self: flex-end;
   position: absolute;
+  background: $gamered;
 }
 
 .leaderboard {
@@ -80,7 +111,8 @@
     }
   }
   a {
-    color: $red;
+    font-family: $font-sans-serif;
+    color: $yellow;
   }
 
 }
