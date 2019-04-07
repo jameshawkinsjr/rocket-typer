@@ -12,6 +12,7 @@ const mapStateToProps = function(state) {
 			user: state.session.user,
 			phrase: phrase.split(""),
 			phraseLength: phrase.length,
+			loggedIn: state.session.isAuthenticated,
 		});
 };
 

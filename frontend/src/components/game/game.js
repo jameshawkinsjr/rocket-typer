@@ -30,12 +30,14 @@ class Game extends React.Component {
           gameWon: true,
           wordsPerMin: Math.floor((this.state.phraseLength / 5) / (time / 60))
         });
-        this.props.saveRace({
-          user: this.props.user.id,
-          username: this.props.user.username,
-          averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
-          accuracy: accuracy,
-        })
+        if (this.props.loggedIn){
+          this.props.saveRace({
+            user: this.props.user.id,
+            username: this.props.user.username,
+            averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
+            accuracy: accuracy,
+          });
+          };
         clearInterval(this.state.interval);
         this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy});
       }
