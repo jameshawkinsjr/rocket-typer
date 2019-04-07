@@ -13,7 +13,7 @@ class LandingPage extends React.Component {
                     let date = new Date(race.date)
                     return (
                         <li key={idx} className="flex">
-                            <div>{ idx+1 }</div><div><Link to={`/${race.username}`}>{ race.username }</Link></div><div>{ `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}` }</div><div>{ race.averageSpeed } wpm</div>
+                            <div>{ idx+1 }</div><div><Link to={`/${race.username}`}>{ race.username }</Link></div><div>{ `${date.toLocaleDateString()}` }</div><div>{ race.averageSpeed } wpm</div>
                         </li>
                     )
                 })
