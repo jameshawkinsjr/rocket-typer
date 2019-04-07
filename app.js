@@ -6,8 +6,8 @@ const passport = require('passport');
 const db = require('./config/keys').mongoURI;
 
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
 
 const users = require('./routes/api/users');
 const races = require('./routes/api/races');
@@ -21,7 +21,6 @@ if (process.env.NODE_ENV === 'production') {
 
 io.on('connection', (socket) => {
   console.log("Socket connected!");
-
 
   socket.on('disconnect', () => {
     console.log("Socket disconnected!");
@@ -46,8 +45,8 @@ app.use('/api/races', races);
 
 const port = process.env.PORT || 5000;
 
-http.listen(port, function () {
-  console.log('listening on *:5000');
+server.listen(port, () => {
+  console.log(`Listening on ${port}`);
 });
 
 // app.listen(port, () => console.log(`Server is running on port ${port}`));
