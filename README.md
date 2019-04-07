@@ -15,8 +15,8 @@ Rocket Typer was designed to test your typing speed and see how you stack up aga
 *** 
 # Features 
 * [Test your typing speed](https://github.com/jameshawkinsjr/rocket-typer#speed-test)
-* [Viewing a user's stats](https://github.com/jameshawkinsjr/flex-invest#speed-test)
-* [View the global leaderboard](https://github.com/jameshawkinsjr/flex-invest#global-leaderboard)
+* [Viewing a user's stats](https://github.com/jameshawkinsjr/rocket-typer#user-profiles)
+* [View the global leaderboard](https://github.com/jameshawkinsjr/rocket-typer#global-leaderboard)
 
 
 <br>
@@ -31,6 +31,7 @@ Utilizing React, we're able the user's progress in the game as local state to ot
     <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket-typer.gif" alt="rocket typer">
   </a>
 </p>
+
 
 *** 
 <br>

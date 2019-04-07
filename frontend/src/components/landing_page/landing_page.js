@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 class LandingPage extends React.Component {
 
     componentDidMount() {
+        document.title = "Rocket Typer | Home"
         this.props.fetchLeaderboardRaces();
     }
 
