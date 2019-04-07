@@ -1,7 +1,5 @@
-rocket_typer_logo.png
-
 <p align="center">
-  <a href="http://hype-chat.com/">
+  <a href="https://www.rockettyper.com/">
     <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_logo.png" alt="rocket typer logo" width="400">
   </a>
 </p>
@@ -27,7 +25,7 @@ Utilizing keypress event listeners and React's local state, Rocket Typer is able
 
 Utilizing React, we're able the user's progress in the game as local state to other components which allow for rendering of the rocket's trip from Earth to Mars.
 
-![Speed Test](https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer.gif)
+![Speed Test](https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket-typer.gif)
 
 *** 
 <br>
@@ -43,6 +41,6 @@ When visiting a user's profile, Rocket Typer presents a plethora of statistics a
 ### Global Leaderboard
 The homepage for Rocket Typer shows the global top 10 fastest races via a SQL query to the MongoDB database.
 
-![Viewing Projections](https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_profile.png)
+![Global Leaderboard](https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_leaderboard.png)
 ***
 <br>
