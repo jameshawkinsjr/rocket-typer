@@ -1,7 +1,5 @@
-rocket_typer_logo.png
-
 <p align="center">
-  <a href="http://hype-chat.com/">
+  <a href="https://www.rockettyper.com/">
     <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_logo.png" alt="rocket typer logo" width="400">
   </a>
 </p>
@@ -17,17 +15,18 @@ Rocket Typer was designed to test your typing speed and see how you stack up aga
 *** 
 # Features 
 * [Test your typing speed](https://github.com/jameshawkinsjr/rocket-typer#speed-test)
-* [Viewing a user's stats](https://github.com/jameshawkinsjr/flex-invest#speed-test)
-* [View the global leaderboard](https://github.com/jameshawkinsjr/flex-invest#global-leaderboard)
+* [Viewing a user's stats](https://github.com/jameshawkinsjr/rocket-typer#user-profiles)
+* [View the global leaderboard](https://github.com/jameshawkinsjr/rocket-typer#global-leaderboard)
 
 
 <br>
+
 ### Speed Test
 Utilizing keypress event listeners and React's local state, Rocket Typer is able to keep track of correctly typed letters, while calculating words per minute, and accuracy. Upon completion of the given phrase, an API call automatically saves the race, so that it can be posted to the global leaderboard and the user's profile page will reflect the most recent stats.
 
 Utilizing React, we're able the user's progress in the game as local state to other components which allow for rendering of the rocket's trip from Earth to Mars.
 
-![Speed Test](https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer.gif)
+![Speed Test](https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket-typer.gif)
 
 *** 
 <br>
