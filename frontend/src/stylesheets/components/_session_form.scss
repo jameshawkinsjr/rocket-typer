@@ -1,7 +1,7 @@
 .session-form-container {
   color: $white;
   font-family: $font-sans-serif;
-  margin: 60px;
+  margin: 40px 60px;
   justify-content: center;
   align-items: center;
 }
@@ -54,4 +54,12 @@
     color: $white;
     margin: 0px 15px;
   }
+  div {
+    align-items: center;
+  }
+}
+
+.errors {
+  margin-top: 20px;
+  color: $yellow;
 }

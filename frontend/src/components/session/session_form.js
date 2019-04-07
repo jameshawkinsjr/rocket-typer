@@ -79,13 +79,13 @@ class SessionForm extends React.Component {
     
     renderErrors() {
         return (
-            <ul>
+            <> 
                 {Object.keys(this.state.errors).map( (error, i) => (
                     <li key={`error-${i}`}>
                         {this.state.errors[error]}
                     </li>
                 ))}
-            </ul>
+            </>
         );
     }
     
@@ -114,7 +114,8 @@ class SessionForm extends React.Component {
                             <input className="submit-button button" type="submit" value="Submit" />
                     </div>
                 </form>
-            <div className="alternate-buttons flex">
+            <div className="alternate-buttons flex-column">
+                <div className="flex">
                 { this.props.formType === 'signup' ?
                     <>
                         <p>Already a Rocketnaut?</p>
@@ -126,7 +127,8 @@ class SessionForm extends React.Component {
                         <button className="button" onClick={this.props.openSignupModal}>Sign Up</button>
                     </>
                 }
-                <span>{this.renderErrors()}</span>
+                </div>
+                <ul className="errors">{this.renderErrors()}</ul>
             </div>
             </div>
         );
