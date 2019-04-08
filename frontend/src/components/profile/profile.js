@@ -21,6 +21,7 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
+        document.title = `Rocket Typer | ${this.state.username}`
         this.props.fetchRaces(this.state.username);
         this.props.fetchUserStats(this.state.username)
             .then( res => {

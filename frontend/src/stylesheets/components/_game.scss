@@ -17,6 +17,16 @@
   justify-content: center;
 }
 
+.countdown {
+  padding: 30px;
+  justify-content: center;
+  font-family: $font-sans-serif;
+  span {
+    font-weight: bold;
+    color: $red;
+  }
+}
+
 .answer-phrase {
   -webkit-touch-callout: none;
     -webkit-user-select: none;
