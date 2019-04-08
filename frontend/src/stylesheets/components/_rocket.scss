@@ -1,17 +1,9 @@
 .rocket-container {
-  width: 900px;
-  // height: 500px;
+  width: 800px;
   align-items: center;
   justify-content: flex-start;
-  // border: 1px solid $red;
 }
 
-.rocket-left {
-  // border: 1px solid $red;
-}
-.rocket-right {
-  // border: 1px solid $red;
-}
 .rocket-img {
   height: 60px;
   transform: rotate(90deg)
@@ -20,18 +12,15 @@
 .progress-meter {
   margin: 60px;
   align-items: center;
+  position: relative;
 }
 
 .earth {
-  margin-right: -50px;
+  margin-right: -30px;
   height: 150px;
-  border-radius: 50%;
-  // box-shadow: 0px 0px 5px rgb(205, 205, 205) inset;
-  // -moz-box-shadow: 0px 0px 5px rgb(205, 205, 205) inset;
-  // -webkit-box-shadow: 0px 0px 5px rgb(205, 205, 205) inset;
 }
 .mars {
-  margin-left: -120px;
+  margin-left: -80px;
   height: 100px;
   border-radius: 50%;
   box-shadow: 0px 0px 100px rgb(255, 11, 11);
