@@ -10,8 +10,9 @@ const mapStateToProps = function(state) {
 		let phrase = randomPhrase();
 		return ({
 			user: state.session.user,
-			phrase: phrase.split(""),
-			phraseLength: phrase.length,
+			phrase: phrase[0].split(""),
+			phraseOrigin: phrase[1],
+			phraseLength: phrase[0].length,
 			loggedIn: state.session.isAuthenticated,
 		});
 };

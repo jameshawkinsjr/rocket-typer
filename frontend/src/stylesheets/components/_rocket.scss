@@ -1,17 +1,47 @@
 .rocket-container {
-  width: 900px;
-  // height: 500px;
+  width: 800px;
   align-items: center;
   justify-content: flex-start;
-  // border: 1px solid $red;
 }
 
-.rocket-left {
-  // border: 1px solid $red;
-}
-.rocket-right {
-  // border: 1px solid $red;
-}
 .rocket-img {
+  height: 60px;
   transform: rotate(90deg)
+}
+
+.progress-meter {
+  margin: 60px;
+  align-items: center;
+  position: relative;
+}
+
+.earth {
+  margin-right: -30px;
+  height: 150px;
+}
+.mars {
+  margin-left: -80px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 100px rgb(255, 11, 11);
+  -moz-box-shadow: 0px 0px 100px rgb(255, 11, 11);
+  -webkit-box-shadow: 0px 0px 100px rgb(255, 11, 11);
+}
+
+@media only screen and (max-width: 900px) {
+  .rocket-container {
+    width: 600px;
+  }
+  .earth {
+    height: 100px;
+    margin-right: -20px;
+  }
+  .mars {
+    height: 75px;
+    margin-left: -60px;
+
+  }
+  .rocket-img {
+    height: 55px;
+  }
 }

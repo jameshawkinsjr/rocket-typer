@@ -22,7 +22,7 @@ function Modal({modal, closeModal}) {
       component = <Ranks closeModal={closeModal}/> ;
       break;
     case 'gameStats':
-      component = <GameStats closeModal={closeModal} wordsPerMin={modal.wordsPerMin} time={modal.time} accuracy={modal.accuracy}/>;
+      component = <GameStats closeModal={closeModal} wordsPerMin={modal.wordsPerMin} time={modal.time} accuracy={modal.accuracy} phraseOrigin={modal.phraseOrigin} />;
       break;
     default:
       return null;

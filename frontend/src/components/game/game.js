@@ -14,7 +14,8 @@ class Game extends React.Component {
         typedEntries: 0,
         wordsPerMin: 0,
         mistakes: 0,
-        countdown: true,
+        countdown: 0,
+        countdownTimer: "3...",
         gameWon: false,
         interval: "",
         ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
@@ -40,7 +41,7 @@ class Game extends React.Component {
           });
           };
         clearInterval(this.state.interval);
-        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy});
+        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy, phraseOrigin: this.props.phraseOrigin});
       }
     }
 
@@ -54,8 +55,6 @@ class Game extends React.Component {
       
     }
 
-
-
     componentWillUnmount() {
       document.removeEventListener("keydown", this.detectKeyPresses);
     }
@@ -66,9 +65,12 @@ class Game extends React.Component {
       let newCorrectLetters = this.state.correctLetters;
       let nextLetter;
       console.log(this.state.countdown);
-      if (this.state.countdown){
+      if (this.state.countdown === 0){
         if (e.key === 'Enter'){
-          this.setState( {countdown: false })
+          this.setState( { countdown: 1 });
+          setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
+          setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
+          setTimeout( () => this.setState( {countdown: 2 }), 3000);
         }
       } else {
       if (this.state.typedEntries === 0){
@@ -110,10 +112,18 @@ class Game extends React.Component {
 
     render () {      
 
-      let countdown = (
+      let countdown1 = (
         <>
           <div className="countdown flex">
-            <h1>Press <span>Enter</span> to get started</h1>
+          <h1>Press <span>Enter</span> to get started</h1>
+          </div>
+        </>
+      )
+
+      let countdown2 = (
+        <>
+          <div className="countdown flex">
+          <h1>{this.state.countdownTimer}</h1>
           </div>
         </>
       )
@@ -129,7 +139,7 @@ class Game extends React.Component {
                     </div>
                     <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
                       <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
-                      <p className={`wpm flex`}>Time: {Math.floor(this.state.timeElapsed)} seconds</p>
+                      <p className={`wpm flex`}>Time: {this.state.timeElapsed.toFixed(1)} seconds</p>
                       <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
               </div>
             </>
@@ -138,13 +148,13 @@ class Game extends React.Component {
         return (
           <>
             <div className="game-area-parent flex-column">
-              <div className="game-area">
-                { this.state.countdown ? countdown : gameRender }
-              </div>
               <div className="progress-meter flex">
                   <img className="earth" alt='earth' src="./assets/earth.png"/>
                   <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
                   <img className="mars" alt='mars' src="./assets/mars.png"/>
+              </div>
+              <div className="game-area">
+                { this.state.countdown === 0 ? countdown1 : this.state.countdown === 1 ? countdown2 : gameRender }
               </div>
             </div>
           </>
