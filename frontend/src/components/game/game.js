@@ -16,6 +16,7 @@ class Game extends React.Component {
         mistakes: 0,
         countdown: 0,
         countdownTimer: "3...",
+        gameId: this.generateUUID(),
         gameWon: false,
         interval: "",
         ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
@@ -38,6 +39,7 @@ class Game extends React.Component {
             username: this.props.user.username,
             averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
             accuracy: accuracy,
+            gameId: this.state.gameId,
           });
           };
         clearInterval(this.state.interval);
@@ -64,42 +66,56 @@ class Game extends React.Component {
       let newIncorrectLetters = this.state.incorrectLetters;
       let newCorrectLetters = this.state.correctLetters;
       let nextLetter;
-      console.log(this.state.countdown);
       if (this.state.countdown === 0){
-        if (e.key === 'Enter'){
-          this.setState( { countdown: 1 });
-          setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
-          setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
-          setTimeout( () => this.setState( {countdown: 2 }), 3000);
-        }
-      } else {
-      if (this.state.typedEntries === 0){
-        this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
+          if (e.key === 'Enter'){
+            this.setState( { countdown: 1 });
+            setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
+            setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
+            setTimeout( () => this.setState( {countdown: 2 }), 3000);
+          }
+        } else {
+          if (this.state.typedEntries === 0){
+            // Start Timer
+            this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
+          }
+          if (this.state.ignoreKeys.includes(e.key)){
+            // Do Nothing
+          } else if (e.key === 'Backspace' || e.key === 'Delete'){
+            // Go backwards in phrase, if you can
+            if (newIncorrectLetters.length){
+              nextLetter = newIncorrectLetters.pop();
+              newPhrase.unshift(nextLetter);
+            } else if (newCorrectLetters.length){
+              nextLetter = newCorrectLetters.pop();
+              newPhrase.unshift(nextLetter);
+            }
+          } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
+            // Move next letter to correct array
+            nextLetter = newPhrase.shift();
+            newCorrectLetters.push(nextLetter);
+          } else if ( (e.key !== newPhrase[0] || newIncorrectLetters.length ) && newPhrase.length) {
+            // Move next letter to incorrect array
+            nextLetter = newPhrase.shift();
+            newIncorrectLetters.push(nextLetter);
+            this.setState({ mistakes: this.state.mistakes + 1 });
+          }
+          this.setState({ 
+            incorrectLetters: newIncorrectLetters,
+            correctLetters: newCorrectLetters,
+            phrase: newPhrase,
+            typedEntries: this.state.typedEntries+1,
+          });
       }
-      if (this.state.ignoreKeys.includes(e.key)){
-      } else if (e.key === 'Backspace' || e.key === 'Delete'){
-        if (newIncorrectLetters.length){
-          nextLetter = newIncorrectLetters.pop();
-          newPhrase.unshift(nextLetter);
-        } else if (newCorrectLetters.length){
-          nextLetter = newCorrectLetters.pop();
-          newPhrase.unshift(nextLetter);
-        }
-      } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
-        nextLetter = newPhrase.shift();
-        newCorrectLetters.push(nextLetter);
-      } else if ( (e.key !== newPhrase[0] || newIncorrectLetters.length ) && newPhrase.length) {
-        nextLetter = newPhrase.shift();
-        newIncorrectLetters.push(nextLetter);
-        this.setState({ mistakes: this.state.mistakes + 1 });
-      }
-      this.setState({ 
-        incorrectLetters: newIncorrectLetters,
-        correctLetters: newCorrectLetters,
-        phrase: newPhrase,
-        typedEntries: this.state.typedEntries+1,
-      });
     }
+
+    generateUUID() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
     }
 
     incrementTime() {
@@ -138,6 +154,7 @@ class Game extends React.Component {
                         </pre>
                     </div>
                     <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
+                      <p className={`wpm flex`}>Game ID: {this.state.gameId}</p>
                       <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
                       <p className={`wpm flex`}>Time: {this.state.timeElapsed.toFixed(1)} seconds</p>
                       <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>

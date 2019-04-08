@@ -61,6 +61,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         if (!isValid) return res.status(400).json(errors);
 
         const newRace = new Race({
+            _id: req.body.gameId,
             user: req.user.id,
             username: req.body.username,
             averageSpeed: parseInt(req.body.averageSpeed),
