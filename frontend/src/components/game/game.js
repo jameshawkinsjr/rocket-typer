@@ -40,7 +40,7 @@ class Game extends React.Component {
           });
           };
         clearInterval(this.state.interval);
-        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy});
+        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy, phraseOrigin: this.props.phraseOrigin});
       }
     }
 
@@ -129,7 +129,7 @@ class Game extends React.Component {
                     </div>
                     <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
                       <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
-                      <p className={`wpm flex`}>Time: {Math.floor(this.state.timeElapsed)} seconds</p>
+                      <p className={`wpm flex`}>Time: {this.state.timeElapsed.toFixed(1)} seconds</p>
                       <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
               </div>
             </>
@@ -138,13 +138,13 @@ class Game extends React.Component {
         return (
           <>
             <div className="game-area-parent flex-column">
-              <div className="game-area">
-                { this.state.countdown ? countdown : gameRender }
-              </div>
               <div className="progress-meter flex">
                   <img className="earth" alt='earth' src="./assets/earth.png"/>
                   <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
                   <img className="mars" alt='mars' src="./assets/mars.png"/>
+              </div>
+              <div className="game-area">
+                { this.state.countdown ? countdown : gameRender }
               </div>
             </div>
           </>

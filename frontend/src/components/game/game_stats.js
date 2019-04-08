@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
 
-function GameStats({ time, wordsPerMin, accuracy, loggedIn, openModal }) {
+function GameStats({ time, wordsPerMin, accuracy, loggedIn, openModal, phraseOrigin }) {
   let loginBtn;
   if (!loggedIn) {
     loginBtn = (
@@ -20,6 +20,7 @@ function GameStats({ time, wordsPerMin, accuracy, loggedIn, openModal }) {
   return (
     <div className="skills-container flex-column">
         <div className="flex"><div><h1>Mission Accomplished!</h1></div></div>
+        <div className="skills-container-row phrase-origin flex"><p> This quote was from:</p> <p className="origin">{ phraseOrigin }</p> </div>
         <div className="skills-container-row flex"><p> Words per minute:</p> <p>{ Math.floor(wordsPerMin) }</p> </div>
         <div className="skills-container-row flex"><p> Time:</p> <p>{ Math.floor(time)} seconds</p> </div>
         <div className="skills-container-row flex"><p> Accuracy:</p> <p>{accuracy}% </p></div>
@@ -33,7 +34,8 @@ const mapStateToProps = (state, ownProps) => ({
   time: ownProps.time,
   wordsPerMin: ownProps.wordsPerMin,
   accuracy: ownProps.accuracy,
-  loggedIn: state.session.isAuthenticated
+  loggedIn: state.session.isAuthenticated,
+  phraseOrigin: ownProps.phraseOrigin,
 })
 
 const mapDispatchToProps = dispatch => ({
