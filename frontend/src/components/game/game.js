@@ -14,7 +14,8 @@ class Game extends React.Component {
         typedEntries: 0,
         wordsPerMin: 0,
         mistakes: 0,
-        countdown: true,
+        countdown: 0,
+        countdownTimer: "3...",
         gameWon: false,
         interval: "",
         ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
@@ -54,8 +55,6 @@ class Game extends React.Component {
       
     }
 
-
-
     componentWillUnmount() {
       document.removeEventListener("keydown", this.detectKeyPresses);
     }
@@ -66,9 +65,12 @@ class Game extends React.Component {
       let newCorrectLetters = this.state.correctLetters;
       let nextLetter;
       console.log(this.state.countdown);
-      if (this.state.countdown){
+      if (this.state.countdown === 0){
         if (e.key === 'Enter'){
-          this.setState( {countdown: false })
+          this.setState( { countdown: 1 });
+          setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
+          setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
+          setTimeout( () => this.setState( {countdown: 2 }), 3000);
         }
       } else {
       if (this.state.typedEntries === 0){
@@ -110,10 +112,18 @@ class Game extends React.Component {
 
     render () {      
 
-      let countdown = (
+      let countdown1 = (
         <>
           <div className="countdown flex">
-            <h1>Press <span>Enter</span> to get started</h1>
+          <h1>Press <span>Enter</span> to get started</h1>
+          </div>
+        </>
+      )
+
+      let countdown2 = (
+        <>
+          <div className="countdown flex">
+          <h1>{this.state.countdownTimer}</h1>
           </div>
         </>
       )
@@ -144,7 +154,7 @@ class Game extends React.Component {
                   <img className="mars" alt='mars' src="./assets/mars.png"/>
               </div>
               <div className="game-area">
-                { this.state.countdown ? countdown : gameRender }
+                { this.state.countdown === 0 ? countdown1 : this.state.countdown === 1 ? countdown2 : gameRender }
               </div>
             </div>
           </>
