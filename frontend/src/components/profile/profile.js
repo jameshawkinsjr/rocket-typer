@@ -1,5 +1,6 @@
 import React from 'react';
 import SkillLevelContainer from "./skill";
+import { Link } from 'react-router-dom';
 
 
 class Profile extends React.Component {
@@ -53,7 +54,7 @@ class Profile extends React.Component {
                     let date = new Date(race.date)
                     return (
                         <li key={idx} className="flex">
-                            <div>{ idx+1 }</div><div>{ `${date.toLocaleDateString()}` }</div><div>{ race.averageSpeed } wpm</div><div>{ race.accuracy }%</div>
+                            <div><Link to={`/race/${race.raceId}`}>{ idx+1 }</Link></div><div>{ `${date.toLocaleDateString()}` }</div><div>{ race.averageSpeed } wpm</div><div>{ race.accuracy }%</div>
                         </li>
                     )
                 })

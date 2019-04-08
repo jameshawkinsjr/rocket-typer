@@ -23,7 +23,7 @@ function GameStats({ time, wordsPerMin, accuracy, loggedIn, openModal, phraseOri
         <div className="skills-container-row phrase-origin flex"><p> This quote was from:</p> <p className="origin">{ phraseOrigin }</p> </div>
         <div className="skills-container-row flex"><p> Words per minute:</p> <p className="origin">{ Math.floor(wordsPerMin) }</p> </div>
         <div className="skills-container-row flex"><p> Time:</p> <p className="origin">{ time.toFixed(1)} seconds</p> </div>
-        <div className="skills-container-row flex"><p> Accuracy:</p> <p className="origin">{accuracy}% </p></div>
+        <div className="skills-container-row skills-bottom flex"><p> Accuracy:</p> <p className="origin">{accuracy}% </p></div>
         {loginBtn}
     </div>
   )

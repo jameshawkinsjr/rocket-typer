@@ -45,6 +45,14 @@ export const fetchRaces = username => dispatch => (
         )
 );
 
+export const fetchRace = raceId => dispatch => (
+    APIUtil.fetchRace(raceId)
+        .then(
+            race => dispatch(receiveCurrentRace(race)),
+            err => dispatch(receiveRaceErrors(err.response.data))
+        )
+);
+
 export const fetchUserStats = username => dispatch => (
     APIUtil.fetchUserStats(username)
         .then(

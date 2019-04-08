@@ -11,6 +11,9 @@ export const setAuthToken = token => {
 export const fetchRaces = (username) => {
     return axios.get(`/api/races/user/${username}`);
 };
+export const fetchRace = (raceId) => {
+    return axios.get(`/api/races/${raceId}`);
+};
 
 export const fetchUserStats = (username) => {
     return axios.get(`/api/races/user/${username}/stats`);
