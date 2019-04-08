@@ -4,8 +4,9 @@ import Rocket from '../rocket/rocket';
 class Game extends React.Component {
     constructor(props) {
       super(props);
-      let { phrase, phraseLength } = this.props;
+      let { phrase, phraseLength, socket } = this.props;
       this.state = {
+        socket,
         phrase,
         phraseLength, 
         incorrectLetters: [],
@@ -19,32 +20,13 @@ class Game extends React.Component {
         gameId: this.generateUUID(),
         gameWon: false,
         interval: "",
-        ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
+        
+        timestamp: "No Timestamp Yet",
+        ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'],
       };
       this.incrementTime = this.incrementTime.bind(this);
       this.detectKeyPresses = this.detectKeyPresses.bind(this);
-    }
-
-    checkInput() {
-      if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
-        let time = this.state.timeElapsed;
-        let accuracy = Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0).toString()
-        this.setState({
-          gameWon: true,
-          wordsPerMin: Math.floor((this.state.phraseLength / 5) / (time / 60))
-        });
-        if (this.props.loggedIn){
-          this.props.saveRace({
-            user: this.props.user.id,
-            username: this.props.user.username,
-            averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
-            accuracy: accuracy,
-            gameId: this.state.gameId,
-          });
-          };
-        clearInterval(this.state.interval);
-        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy, phraseOrigin: this.props.phraseOrigin});
-      }
+      this.sendMessage = this.sendMessage.bind(this);
     }
 
     componentDidUpdate() {
@@ -52,9 +34,12 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
-      document.title = "Rocket Typer | Game"
+      document.title = "Rocket Typer | Game";
       document.addEventListener("keydown", this.detectKeyPresses);
-      
+      this.state.socket.on('RECEIVE_MESSAGE', (data) => {
+        console.log(data.payload);
+      })
+      this.subscribeToTimer( (timestamp) => this.setState({ timestamp }));
     }
 
     componentWillUnmount() {
@@ -68,10 +53,7 @@ class Game extends React.Component {
       let nextLetter;
       if (this.state.countdown === 0){
           if (e.key === 'Enter'){
-            this.setState( { countdown: 1 });
-            setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
-            setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
-            setTimeout( () => this.setState( {countdown: 2 }), 3000);
+            this.countownTimer();
           }
         } else {
           if (this.state.typedEntries === 0){
@@ -106,6 +88,51 @@ class Game extends React.Component {
             typedEntries: this.state.typedEntries+1,
           });
       }
+    }
+
+    checkInput() {
+      if (!this.state.phrase.length && !this.state.incorrectLetters.length && !this.state.gameWon) {
+        let time = this.state.timeElapsed;
+        let accuracy = Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0).toString()
+        this.setState({
+          gameWon: true,
+          wordsPerMin: Math.floor((this.state.phraseLength / 5) / (time / 60))
+        });
+        if (this.props.loggedIn){
+          this.props.saveRace({
+            user: this.props.user.id,
+            username: this.props.user.username,
+            averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
+            accuracy: accuracy,
+            gameId: this.state.gameId,
+          });
+        }
+        clearInterval(this.state.interval);
+        this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy, phraseOrigin: this.props.phraseOrigin});
+      }
+    }
+
+    addMessage(message) {
+      console.log(message);
+    }
+
+    sendMessage(e) {
+      e.preventDefault();
+      this.state.socket.emit('SEND_MESSAGE', {
+        payload: this.state.phrase
+      });
+    }
+
+    subscribeToTimer(cb) {
+      this.state.socket.on('timer', timestamp => cb(timestamp));
+      this.state.socket.emit('subscribeToTimer', 2000);
+    }
+
+    countownTimer() {
+      this.setState( { countdown: 1 });
+      setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
+      setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
+      setTimeout( () => this.setState( {countdown: 2 }), 3000);
     }
 
     generateUUID() {
@@ -166,12 +193,16 @@ class Game extends React.Component {
           <>
             <div className="game-area-parent flex-column">
               <div className="progress-meter flex">
+                  
                   <img className="earth" alt='earth' src="./assets/earth.png"/>
                   <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
                   <img className="mars" alt='mars' src="./assets/mars.png"/>
               </div>
               <div className="game-area">
                 { this.state.countdown === 0 ? countdown1 : this.state.countdown === 1 ? countdown2 : gameRender }
+                { this.state.timestamp }
+                <br/>
+              <button onClick={this.sendMessage} className="start-button-two">Send</button>
               </div>
             </div>
           </>

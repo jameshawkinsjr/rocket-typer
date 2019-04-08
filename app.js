@@ -4,8 +4,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const db = require('./config/keys').mongoURI;
-
 const app = express();
+
+const port = process.env.PORT || 5000;
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 
@@ -23,15 +24,22 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-io.on('connection', (socket) => {
-  console.log("Socket connected!");
+io.on('connection', (client) => {
+  console.log("Client connected to socket!");
 
-  socket.on('disconnect', () => {
-    console.log("Socket disconnected!");
-  })
-})
+  client.on('SEND_MESSAGE', (data) => {
+    client.emit('RECEIVE_MESSAGE', data);
+  });
 
+  client.on('subscribeToTimer', (interval) => {
+    console.log(`Client is subscribing to timer at the interval of ${interval}`);
+    setInterval(() => { client.emit('timer', new Date()); }, interval);
+  });
 
+  client.on('disconnect', () => {
+    console.log("Client disconnected from socket!");
+  });
+});
 
 mongoose
     .connect(db, {useNewUrlParser: true})
@@ -47,10 +55,6 @@ require('./config/passport')(passport);
 app.use('/api/users', users);
 app.use('/api/races', races);
 
-const port = process.env.PORT || 5000;
-
 server.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
-
-// app.listen(port, () => console.log(`Server is running on port ${port}`));
