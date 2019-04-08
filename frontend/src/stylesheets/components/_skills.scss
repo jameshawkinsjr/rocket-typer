@@ -37,13 +37,13 @@
     padding: 20px;
     border-bottom: 1px solid $white;
   }
-  // .skills-container-row:last-of-type{
-  //   border-bottom: none;
-  // }
-  // .skills-container-row:first-of-type{
-  //   justify-content: center;
-  //   border-bottom: none;
-  // }
+  .skills-bottom{
+    border-bottom: none;
+  }
+  .skills-header{
+    justify-content: center;
+    border-bottom: none;
+  }
 }
 
 .game-stats-login {
