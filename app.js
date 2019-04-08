@@ -31,11 +31,6 @@ io.on('connection', (client) => {
     client.emit('RECEIVE_MESSAGE', data);
   });
 
-  client.on('subscribeToTimer', (interval) => {
-    console.log(`Client is subscribing to timer at the interval of ${interval}`);
-    setInterval(() => { client.emit('timer', new Date()); }, interval);
-  });
-
   client.on('disconnect', () => {
     console.log("Client disconnected from socket!");
   });

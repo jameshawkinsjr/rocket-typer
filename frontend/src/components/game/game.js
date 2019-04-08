@@ -17,6 +17,7 @@ class Game extends React.Component {
         mistakes: 0,
         countdown: 0,
         countdownTimer: "3...",
+        // gameId: 'a733f09d-7a43-b0ff-84a3-7101fd280e2c',
         gameId: this.generateUUID(),
         gameWon: false,
         interval: "",
@@ -29,18 +30,19 @@ class Game extends React.Component {
       this.sendMessage = this.sendMessage.bind(this);
     }
 
-    componentDidUpdate() {
-      this.checkInput();
-    }
-
     componentDidMount() {
+      this.sendMessage();
       document.title = "Rocket Typer | Game";
       document.addEventListener("keydown", this.detectKeyPresses);
       this.state.socket.on('RECEIVE_MESSAGE', (data) => {
         console.log(data.payload);
       })
-      this.subscribeToTimer( (timestamp) => this.setState({ timestamp }));
     }
+
+    componentDidUpdate() {
+      this.checkInput();
+    }
+
 
     componentWillUnmount() {
       document.removeEventListener("keydown", this.detectKeyPresses);
@@ -116,16 +118,10 @@ class Game extends React.Component {
       console.log(message);
     }
 
-    sendMessage(e) {
-      e.preventDefault();
+    sendMessage() {
       this.state.socket.emit('SEND_MESSAGE', {
         payload: this.state.phrase
       });
-    }
-
-    subscribeToTimer(cb) {
-      this.state.socket.on('timer', timestamp => cb(timestamp));
-      this.state.socket.emit('subscribeToTimer', 2000);
     }
 
     countownTimer() {
@@ -181,7 +177,6 @@ class Game extends React.Component {
                         </pre>
                     </div>
                     <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
-                      <p className={`wpm flex`}>Game ID: {this.state.gameId}</p>
                       <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
                       <p className={`wpm flex`}>Time: {this.state.timeElapsed.toFixed(1)} seconds</p>
                       <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
@@ -200,9 +195,6 @@ class Game extends React.Component {
               </div>
               <div className="game-area">
                 { this.state.countdown === 0 ? countdown1 : this.state.countdown === 1 ? countdown2 : gameRender }
-                { this.state.timestamp }
-                <br/>
-              <button onClick={this.sendMessage} className="start-button-two">Send</button>
               </div>
             </div>
           </>
