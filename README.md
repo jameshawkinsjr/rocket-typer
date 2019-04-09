@@ -10,7 +10,7 @@ View [live](https://www.rockettyper.com/)
 Rocket Typer was designed to test your typing speed and see how you stack up against other users. It was build using the following technologies: 
 * <strong>Frontend</strong>: React.js with Redux, socket.io
 * <strong>Backend</strong>: Node.js with a MongoDB database
-* <strong>Other</strong>: SCSS, Express.js, Heroku
+* <strong>Other</strong>: SCSS, Express.js, Heroku, Socket.io
 
 *** 
 # Features 
