@@ -15,19 +15,20 @@ class Race extends React.Component {
 
     componentDidMount() {
       document.title = "Rocket Typer | Race";
-      let temp;
+      
       this.props.fetchRace(this.props.raceId)
         .then( res => {
                 res.race.data.forEach( user => {
-                    let date = new Date(user.date);
+                    let temp;
+                    let newDate = new Date(user.date);
                     parseInt(user.averageSpeed) > this.state.topSpeed ? this.setState({topSpeed: user.averageSpeed}) : temp = 0 ;
-                    this.setState({date: date.toLocaleDateString()});
+                    this.setState({date: newDate.toLocaleDateString(), temp});
                 });
             });
     }
 
+
     getRace() {
-        let date;
         let users = (
                 this.props.users.map ( (user, idx) => {
                     return (

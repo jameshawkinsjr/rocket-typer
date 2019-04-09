@@ -24,15 +24,29 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-io.on('connection', (client) => {
+let players = {};
+
+io.on('connection', (socket) => {
   console.log("Client connected to socket!");
 
-  client.on('SEND_MESSAGE', (data) => {
-    client.emit('RECEIVE_MESSAGE', data);
+  players[socket.id] = {
+    playerId: socket.id,
+  };
+  // send the players object to the new player
+  socket.emit('currentPlayers', players);
+  // update all other players of the new player
+  socket.broadcast.emit('newPlayer', players[socket.id]);
+
+  socket.on('send_progress', (data) => {
+    socket.broadcast.emit('receive_progress', data);
   });
 
-  client.on('disconnect', () => {
+  socket.on('disconnect', () => {
     console.log("Client disconnected from socket!");
+    // remove this player from our players object
+    delete players[socket.id];
+    // emit a message to all players to remove this player
+    io.emit('disconnect', socket.id);
   });
 });
 

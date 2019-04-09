@@ -17,7 +17,6 @@ class Game extends React.Component {
         mistakes: 0,
         countdown: 0,
         countdownTimer: "3...",
-        // gameId: 'a733f09d-7a43-b0ff-84a3-7101fd280e2c',
         gameId: this.generateUUID(),
         gameWon: false,
         interval: "",
@@ -27,16 +26,18 @@ class Game extends React.Component {
       };
       this.incrementTime = this.incrementTime.bind(this);
       this.detectKeyPresses = this.detectKeyPresses.bind(this);
-      this.sendMessage = this.sendMessage.bind(this);
+      this.sendProgress = this.sendProgress.bind(this);
     }
 
     componentDidMount() {
-      this.sendMessage();
       document.title = "Rocket Typer | Game";
       document.addEventListener("keydown", this.detectKeyPresses);
-      this.state.socket.on('RECEIVE_MESSAGE', (data) => {
-        console.log(data.payload);
-      })
+      this.state.socket.on('receive_progress', (data) => {
+        console.log(data.username, data.progress);
+      });
+      this.state.socket.on('currentPlayers', (data) => {
+        console.log(data);
+      });
     }
 
     componentDidUpdate() {
@@ -89,6 +90,7 @@ class Game extends React.Component {
             phrase: newPhrase,
             typedEntries: this.state.typedEntries+1,
           });
+          this.sendProgress();
       }
     }
 
@@ -114,13 +116,12 @@ class Game extends React.Component {
       }
     }
 
-    addMessage(message) {
-      console.log(message);
-    }
-
-    sendMessage() {
-      this.state.socket.emit('SEND_MESSAGE', {
-        payload: this.state.phrase
+    sendProgress() {
+      let username = this.props.user.username;
+      let progress = (this.state.correctLetters.length / this.state.phraseLength * 100).toFixed(2);
+      this.state.socket.emit('send_progress', {
+        username,
+        progress 
       });
     }
 
