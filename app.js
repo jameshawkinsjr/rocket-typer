@@ -30,7 +30,9 @@ io.on('connection', (socket) => {
   // console.log("Client connected to socket!");
 
   socket.on('send_progress', (data) => {
+    data.playerId = socket.id;
     socket.broadcast.emit('receive_progress', data);
+    socket.emit('receive_progress', data);
   });
 
   socket.on('playerDisconnect', (data) => {

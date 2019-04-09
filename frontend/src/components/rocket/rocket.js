@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function Rocket( {currentProgress, totalLength}) {
+function Rocket( {progress, username}) {
 
   // To build dynamic rocket icons
   // https://icons8.com/icons/set/rocket
 
-  let leftWidth = (currentProgress / totalLength) * 100;
-  let rightWidth = ((totalLength - currentProgress) / totalLength) * 100;
+  let leftWidth = (progress);
+  let rightWidth = (100-progress);
 
   return (
       <div className="rocket-container flex">
@@ -19,8 +19,8 @@ function Rocket( {currentProgress, totalLength}) {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    currentProgress: ownProps.currentProgress,
-    totalLength: ownProps.totalLength,
+  progress: ownProps.progress,
+  username: ownProps.username,
 });
 
 const mapDispatchToProps = dispatch => ({

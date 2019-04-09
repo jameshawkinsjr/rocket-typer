@@ -13,6 +13,7 @@ class Game extends React.Component {
         correctLetters: [],
         timeElapsed: 0.001,
         typedEntries: 0,
+        players: {},
         wordsPerMin: 0,
         mistakes: 0,
         countdown: 0,
@@ -33,7 +34,10 @@ class Game extends React.Component {
       document.title = "Rocket Typer | Game";
       document.addEventListener("keydown", this.detectKeyPresses);
       this.state.socket.on('receive_progress', (data) => {
-        console.log(data.username, data.progress);
+        let playerProgress = this.state.players;
+        playerProgress[data.playerId] = data;
+        this.setState({ players: playerProgress });
+        console.log(playerProgress);
       });
       this.state.socket.on('currentPlayers', (data) => {
         console.log(data);
@@ -117,7 +121,7 @@ class Game extends React.Component {
     }
 
     sendProgress() {
-      let username = this.props.user.username;
+      let username = this.props.user.username || "Guest";
       let progress = (this.state.correctLetters.length / this.state.phraseLength * 100).toFixed(2);
       this.state.socket.emit('send_progress', {
         username,
@@ -151,6 +155,17 @@ class Game extends React.Component {
     }
 
     render () {      
+
+      let players = Object.values(this.state.players);
+      let rockets = (
+        <div>
+          { 
+            Object.values(this.state.players).map ( player => (
+              <Rocket username={player.username} progress={player.progress}/>
+            ))
+          }     
+        </div>
+      )
 
       let countdown1 = (
         <>
@@ -191,7 +206,7 @@ class Game extends React.Component {
               <div className="progress-meter flex">
                   
                   <img className="earth" alt='earth' src="./assets/earth.png"/>
-                  <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
+                  { rockets }
                   <img className="mars" alt='mars' src="./assets/mars.png"/>
               </div>
               <div className="game-area">
