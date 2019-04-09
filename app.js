@@ -69,9 +69,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
-app.use('/api/users', users);
-app.use('/api/races', races);
-
 server.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
