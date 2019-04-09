@@ -16,6 +16,17 @@ router.get('/top10', (req, res) => {
         );
 });
 
+router.get('/recent', (req, res) => {
+    Race
+        .distinct('$raceId')
+        .limit(10)
+        .sort({date: -1})
+        .then(races => res.json(races))
+        .catch(err => 
+            res.status(404).json({ noracesfound: 'No races found'})
+        );
+});
+
 router.get('/user/:username/stats', (req, res) => {
     Race
         .aggregate([
@@ -48,11 +59,10 @@ router.get('/user/:username', (req, res) => {
 
 router.get('/:id', (req, res) => {
     Race
-        .findById(req.params.id)
-        .then(races => res.json(races))
-        .catch( err => 
-            res.status(404).json({ noracesfound: 'No races found with that id'})
-        );
+    .find( { 'raceId': req.params.id})
+    .sort({averageSpeed: -1})
+    .then( users => res.status(200).json(users))
+    .catch(err => res.status(404).json({ noRaces: 'No races found with that ID'}));
 });
 
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -61,6 +71,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         if (!isValid) return res.status(400).json(errors);
 
         const newRace = new Race({
+            raceId: req.body.gameId,
             user: req.user.id,
             username: req.body.username,
             averageSpeed: parseInt(req.body.averageSpeed),

@@ -1,13 +1,10 @@
 import { RECEIVE_CURRENT_RACE, RECEIVE_ALL_RACES } from '../../actions/race_actions';
-import merge from 'lodash/merge';
 
 const RaceReducer = (state = {}, action) => {
     Object.freeze(state);
-    let newState;
     switch(action.type) {
         case RECEIVE_CURRENT_RACE:
-            newState = merge({}, state, action.race.data);
-            return newState;
+            return action.race.data;
         case RECEIVE_ALL_RACES:
             return action.races.data;
         default:

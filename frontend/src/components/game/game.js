@@ -4,8 +4,9 @@ import Rocket from '../rocket/rocket';
 class Game extends React.Component {
     constructor(props) {
       super(props);
-      let { phrase, phraseLength } = this.props;
+      let { phrase, phraseLength, socket } = this.props;
       this.state = {
+        socket,
         phrase,
         phraseLength, 
         incorrectLetters: [],
@@ -16,12 +17,79 @@ class Game extends React.Component {
         mistakes: 0,
         countdown: 0,
         countdownTimer: "3...",
+        // gameId: 'a733f09d-7a43-b0ff-84a3-7101fd280e2c',
+        gameId: this.generateUUID(),
         gameWon: false,
         interval: "",
-        ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']
+        
+        timestamp: "No Timestamp Yet",
+        ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'],
       };
       this.incrementTime = this.incrementTime.bind(this);
       this.detectKeyPresses = this.detectKeyPresses.bind(this);
+      this.sendMessage = this.sendMessage.bind(this);
+    }
+
+    componentDidMount() {
+      this.sendMessage();
+      document.title = "Rocket Typer | Game";
+      document.addEventListener("keydown", this.detectKeyPresses);
+      this.state.socket.on('RECEIVE_MESSAGE', (data) => {
+        console.log(data.payload);
+      })
+    }
+
+    componentDidUpdate() {
+      this.checkInput();
+    }
+
+
+    componentWillUnmount() {
+      document.removeEventListener("keydown", this.detectKeyPresses);
+    }
+
+    detectKeyPresses(e) {
+      let newPhrase = this.state.phrase;
+      let newIncorrectLetters = this.state.incorrectLetters;
+      let newCorrectLetters = this.state.correctLetters;
+      let nextLetter;
+      if (this.state.countdown === 0){
+          if (e.key === 'Enter'){
+            this.countownTimer();
+          }
+        } else {
+          if (this.state.typedEntries === 0){
+            // Start Timer
+            this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
+          }
+          if (this.state.ignoreKeys.includes(e.key)){
+            // Do Nothing
+          } else if (e.key === 'Backspace' || e.key === 'Delete'){
+            // Go backwards in phrase, if you can
+            if (newIncorrectLetters.length){
+              nextLetter = newIncorrectLetters.pop();
+              newPhrase.unshift(nextLetter);
+            } else if (newCorrectLetters.length){
+              nextLetter = newCorrectLetters.pop();
+              newPhrase.unshift(nextLetter);
+            }
+          } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
+            // Move next letter to correct array
+            nextLetter = newPhrase.shift();
+            newCorrectLetters.push(nextLetter);
+          } else if ( (e.key !== newPhrase[0] || newIncorrectLetters.length ) && newPhrase.length) {
+            // Move next letter to incorrect array
+            nextLetter = newPhrase.shift();
+            newIncorrectLetters.push(nextLetter);
+            this.setState({ mistakes: this.state.mistakes + 1 });
+          }
+          this.setState({ 
+            incorrectLetters: newIncorrectLetters,
+            correctLetters: newCorrectLetters,
+            phrase: newPhrase,
+            typedEntries: this.state.typedEntries+1,
+          });
+      }
     }
 
     checkInput() {
@@ -38,68 +106,39 @@ class Game extends React.Component {
             username: this.props.user.username,
             averageSpeed: Math.floor((this.state.phraseLength / 5) / (time / 60)).toString(),
             accuracy: accuracy,
+            gameId: this.state.gameId,
           });
-          };
+        }
         clearInterval(this.state.interval);
         this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy, phraseOrigin: this.props.phraseOrigin});
       }
     }
 
-    componentDidUpdate() {
-      this.checkInput();
+    addMessage(message) {
+      console.log(message);
     }
 
-    componentDidMount() {
-      document.title = "Rocket Typer | Game"
-      document.addEventListener("keydown", this.detectKeyPresses);
-      
-    }
-
-    componentWillUnmount() {
-      document.removeEventListener("keydown", this.detectKeyPresses);
-    }
-
-    detectKeyPresses(e) {
-      let newPhrase = this.state.phrase;
-      let newIncorrectLetters = this.state.incorrectLetters;
-      let newCorrectLetters = this.state.correctLetters;
-      let nextLetter;
-      console.log(this.state.countdown);
-      if (this.state.countdown === 0){
-        if (e.key === 'Enter'){
-          this.setState( { countdown: 1 });
-          setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
-          setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
-          setTimeout( () => this.setState( {countdown: 2 }), 3000);
-        }
-      } else {
-      if (this.state.typedEntries === 0){
-        this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
-      }
-      if (this.state.ignoreKeys.includes(e.key)){
-      } else if (e.key === 'Backspace' || e.key === 'Delete'){
-        if (newIncorrectLetters.length){
-          nextLetter = newIncorrectLetters.pop();
-          newPhrase.unshift(nextLetter);
-        } else if (newCorrectLetters.length){
-          nextLetter = newCorrectLetters.pop();
-          newPhrase.unshift(nextLetter);
-        }
-      } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
-        nextLetter = newPhrase.shift();
-        newCorrectLetters.push(nextLetter);
-      } else if ( (e.key !== newPhrase[0] || newIncorrectLetters.length ) && newPhrase.length) {
-        nextLetter = newPhrase.shift();
-        newIncorrectLetters.push(nextLetter);
-        this.setState({ mistakes: this.state.mistakes + 1 });
-      }
-      this.setState({ 
-        incorrectLetters: newIncorrectLetters,
-        correctLetters: newCorrectLetters,
-        phrase: newPhrase,
-        typedEntries: this.state.typedEntries+1,
+    sendMessage() {
+      this.state.socket.emit('SEND_MESSAGE', {
+        payload: this.state.phrase
       });
     }
+
+    countownTimer() {
+      this.setState( { countdown: 1 });
+      setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
+      setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
+      setTimeout( () => this.setState( {countdown: 2 }), 3000);
+    }
+
+    generateUUID() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
     }
 
     incrementTime() {
@@ -149,6 +188,7 @@ class Game extends React.Component {
           <>
             <div className="game-area-parent flex-column">
               <div className="progress-meter flex">
+                  
                   <img className="earth" alt='earth' src="./assets/earth.png"/>
                   <Rocket totalLength={this.state.phraseLength} currentProgress={this.state.correctLetters.length} />
                   <img className="mars" alt='mars' src="./assets/mars.png"/>

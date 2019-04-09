@@ -11,6 +11,9 @@ export const setAuthToken = token => {
 export const fetchRaces = (username) => {
     return axios.get(`/api/races/user/${username}`);
 };
+export const fetchRace = (raceId) => {
+    return axios.get(`/api/races/${raceId}`);
+};
 
 export const fetchUserStats = (username) => {
     return axios.get(`/api/races/user/${username}/stats`);
@@ -22,6 +25,10 @@ export const fetchUserDate = (username) => {
 
 export const fetchLeaderboardRaces = () => {
     return axios.get(`/api/races/top10/`);
+};
+
+export const fetchRecentRaces = () => {
+    return axios.get(`/api/races/recent/`);
 };
 
 export const saveRace = (race) => {

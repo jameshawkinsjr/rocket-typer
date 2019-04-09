@@ -56,13 +56,15 @@
 
 
 
-.profile-info-container {
+.profile-info-container, .race-page-info-container{
+  justify-content: space-evenly;
+  font-family: $font-sans-serif;
+
   .profile-skill-level {
     &:hover{
       color: $gamered;
     }
   }
-  justify-content: space-evenly;
   .profile-page-info-item {
     align-items: center;
   }
@@ -70,14 +72,10 @@
     background: none;
     cursor: pointer;
   }
-  a {
-  }
-  font-family: $font-sans-serif;
   p {
     font-weight: bold;
     font-size: 20px;
     color: $yellow;
-
   }
   h2 {
     font-weight: 300;
