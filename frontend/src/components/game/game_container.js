@@ -13,7 +13,7 @@ const GameWithSocket = props => (
 	</SocketContext.Consumer>
 )
 
-const mapStateToProps = function(state, ownProps) {
+const mapStateToProps = function(state) {
 		let phrase = randomPhrase();
 		return ({
 			user: state.session.user,
