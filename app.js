@@ -29,23 +29,28 @@ let players = {};
 io.on('connection', (socket) => {
   console.log("Client connected to socket!");
 
-  players[socket.id] = {
-    playerId: socket.id,
-  };
+  // players[socket.id] = {
+  //   playerId: socket.id,
+  // };
+  // socket.emit('currentPlayers', players);
+  // socket.broadcast.emit('newPlayer', players[socket.id]);
+
   // send the players object to the new player
-  socket.emit('currentPlayers', players);
+
   // update all other players of the new player
-  socket.broadcast.emit('newPlayer', players[socket.id]);
+
 
   socket.on('send_progress', (data) => {
     socket.broadcast.emit('receive_progress', data);
   });
 
+  socket.on('joined', (data) => {
+    socket.broadcast.emit('newPlayer', data);
+  });
+
   socket.on('disconnect', () => {
     console.log("Client disconnected from socket!");
-    // remove this player from our players object
     delete players[socket.id];
-    // emit a message to all players to remove this player
     io.emit('disconnect', socket.id);
   });
 });
