@@ -16,6 +16,17 @@ router.get('/top10', (req, res) => {
         );
 });
 
+router.get('/recent', (req, res) => {
+    Race
+        .distinct('$raceId')
+        .limit(10)
+        .sort({date: -1})
+        .then(races => res.json(races))
+        .catch(err => 
+            res.status(404).json({ noracesfound: 'No races found'})
+        );
+});
+
 router.get('/user/:username/stats', (req, res) => {
     Race
         .aggregate([

@@ -1,5 +1,4 @@
 import { RECEIVE_CURRENT_RACE, RECEIVE_ALL_RACES } from '../../actions/race_actions';
-import merge from 'lodash/merge';
 
 const RaceReducer = (state = {}, action) => {
     Object.freeze(state);

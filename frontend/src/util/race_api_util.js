@@ -27,6 +27,10 @@ export const fetchLeaderboardRaces = () => {
     return axios.get(`/api/races/top10/`);
 };
 
+export const fetchRecentRaces = () => {
+    return axios.get(`/api/races/recent/`);
+};
+
 export const saveRace = (race) => {
     return axios.post('/api/races', race);
 };
