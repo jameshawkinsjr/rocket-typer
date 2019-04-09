@@ -1,0 +1,75 @@
+.race-page-container {
+  margin: 40px;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+  border: 1px solid $white;
+  border-radius: 10px;
+  padding: 30px;
+  color: $white;
+  background: $darkblue;
+  width: 800px;
+  overflow: scroll;
+
+  h2 {
+    font-size: 30px;
+  }
+
+  a {
+    color: $yellow;
+    font-size: 25px;
+  }
+
+  p {
+    color: $yellow;
+    font-size: 25px;
+  }
+}
+
+.race-page-container > div{
+  border-bottom: 1px solid $white;
+  padding: 20px;
+  width: 80%;
+}
+
+.race-page-info-container {
+  width: 80%;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.race-page-info-item {
+  align-items: center;
+  h2 {
+    font-weight: 300;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+}
+
+.race-page-leaderboard {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  a {
+    font-size: 16px;
+      &:hover{
+          color: $gamered;
+      }
+  }
+  li {
+      font-size: 16px;
+  }
+
+  button {
+    background: none;
+    p {
+      font-size: 16px;
+      font-weight: bold;
+      &:hover{
+        color: $gamered;
+        cursor: pointer;
+      }
+    }
+  }
+}
