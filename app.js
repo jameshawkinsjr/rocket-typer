@@ -27,32 +27,30 @@ if (process.env.NODE_ENV === 'production') {
 let players = {};
 
 io.on('connection', (socket) => {
-  console.log("Client connected to socket!");
-
-  // players[socket.id] = {
-  //   playerId: socket.id,
-  // };
-  // socket.emit('currentPlayers', players);
-  // socket.broadcast.emit('newPlayer', players[socket.id]);
-
-  // send the players object to the new player
-
-  // update all other players of the new player
-
+  // console.log("Client connected to socket!");
 
   socket.on('send_progress', (data) => {
     socket.broadcast.emit('receive_progress', data);
   });
 
+  socket.on('playerDisconnect', (data) => {
+    data.playerId = socket.id;
+    socket.broadcast.emit('playerLeft', data);
+  });
+  
   socket.on('joined', (data) => {
+    data.playerId = socket.id;
     socket.broadcast.emit('newPlayer', data);
   });
 
   socket.on('disconnect', () => {
-    console.log("Client disconnected from socket!");
-    delete players[socket.id];
+    // console.log("Client disconnected from socket!");
+    let data = {};
+    data.playerId = socket.id;
+    socket.broadcast.emit('playerLeft', data);
     io.emit('disconnect', socket.id);
   });
+
 });
 
 mongoose

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class LandingPage extends React.Component {
 
     componentDidMount() {
-        document.title = "Rocket Typer | Home"
+        document.title = "Rocket Typer | Home";
         this.props.fetchLeaderboardRaces();
         this.props.fetchRecentRaces();
     }
@@ -12,7 +12,7 @@ class LandingPage extends React.Component {
     getLeaderboardRaces() {
         let races = (
                 this.props.leaderboardRaces.map ( (race, idx) => {
-                    let date = new Date(race.date)
+                    let date = new Date(race.date);
                     return (
                         <li key={idx} className="flex">
                             <div>{ idx+1 }</div><div><Link to={`/${race.username}`}>{ race.username }</Link></div><div>{ `${date.toLocaleDateString()}` }</div><div>{ race.averageSpeed } wpm</div>
@@ -58,8 +58,9 @@ class LandingPage extends React.Component {
                     <h2>Top 10 Races (All Time)</h2>                        
                     { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : <p>No Races Found</p> }
                 </div>
-                <div className='landing-page-links landing-page-box'>
+                <div className='landing-page-links landing-page-box flex-column'>
                     <Link to={"/game"}>Enter a typing race</Link>
+                    <Link to={"/waiting-room"}>Enter a waiting room</Link>
                 </div>
                 <div className="landing-page-leaderboard landing-page-box leaderboard flex-column">
                     <h2>Recent Races</h2>                        

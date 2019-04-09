@@ -5,7 +5,7 @@ class Race extends React.Component {
         super(props);
         this.state = {
             socket: this.props.socket,
-            players: [this.props.user.username],
+            players: {},
             numPlayers: 0,
             username: this.props.user.username || "Guest",
         };
@@ -13,9 +13,11 @@ class Race extends React.Component {
 
     componentDidMount() {
         let username = this.state.username;
+        let user = this.props.user;
         document.title = "Rocket Typer | Waiting Room";
         
         this.state.socket.emit('joined', {
+            user,
             username,
         });
 
@@ -24,24 +26,38 @@ class Race extends React.Component {
         });
         
         this.state.socket.on('newPlayer', (data) => {
-            console.log(`A new player has joined ${data.username}`);
+            console.log(`A new player has joined - ${data.username}`);
             let players = this.state.players;
-            players.push(data.username);
+            players[data.playerId] = data;
+            let numPlayers = Object.values(players).length;
+            this.setState({ players: players, numPlayers: numPlayers});
+        });
+        
+        this.state.socket.on('playerLeft', (data) => {
+            console.log(`A player has left - ${data.username}`);
+            let players = this.state.players;
+            delete players[data.playerId];
             this.setState({ players: players});
             let numPlayers = Object.values(this.state.players).length;
             this.setState({ numPlayers: numPlayers});
         });
     }
     
-    componentDidUpdate() {
+    componentWillUnmount() {
+        let username = this.state.username;
+        let user = this.props.user;
+        this.state.socket.emit('playerDisconnect', {
+            username,
+            user,
+        });
     }
 
     displayPlayers(){
         let players = (
-            this.state.players.map ( (player, idx) => {
+            Object.values(this.state.players).map ( (player, idx) => {
                 return (
                     <li key={idx} className="flex">
-                        <div>{ idx+1 }</div><div>{ player }</div>
+                        <div>{ idx+1 }</div><div>{ player.username }</div>
                     </li>
                 )
             })
@@ -49,7 +65,7 @@ class Race extends React.Component {
         return (
             <ul>
                 <li className="headers flex">
-                <div className="leaderboard-index">Number</div><div className="leaderboard-index">Player Id</div>
+                <div className="leaderboard-index">Number</div><div className="leaderboard-index">Player</div>
                 </li>
                 { players }
             </ul>
