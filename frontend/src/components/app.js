@@ -8,6 +8,7 @@ import ProfileContainer from './profile/profile_container';
 import NavBarContainer from './navbar/navbar_container';
 import GameContainer from './game/game_container';
 import RaceContainer from './race/race_container';
+import WaitingRoomContainer from './waiting_room/waiting_room_container';
 
 const App = () => (
     <div className="app">
@@ -19,6 +20,7 @@ const App = () => (
             <Switch>
                 <ProtectedRoute exact path='/profile' component={ProfileContainer}/>
                 <Route exact path='/' component={LandingPageContainer}/>
+                <Route exact path='/waiting-room' component={WaitingRoomContainer}/>
                 <Route exact path='/game' component={GameContainer}/>
                 <Route exact path='/race/:raceId' component={RaceContainer}/>
                 <Route exact path='/:username' component={ProfileContainer}/>
