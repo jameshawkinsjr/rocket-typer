@@ -17,21 +17,24 @@ router.get('/top10', (req, res) => {
 });
 
 router.get('/recent', (req, res) => {
-    // Race
-    //     .aggregate([
-    //         {$match: {} },
-    //         {$group: { 
-    //             raceId: "$raceId"
-    //         }},
-    //         {$sort: {
-
-    //         } }
-    //     ])
-    //     .limit(10)
-    //     .sort({date: -1})
     Race
-        .find()
-        .sort({_id:1})
+        .aggregate([
+                    {$match: { 
+                        }
+                    },
+                    {$sort: {
+                        "averageSpeed": 1,
+                        }
+                    },
+                    {$group: { 
+                            _id: "$raceId",
+                            numRaces: { $sum: 1},
+                            topSpeed: { $max: "$averageSpeed" },
+                            date: { $last: "$date" },
+                            winner: { $last: "$username" },
+                        }
+                    },
+                ])
         .limit(10)
         .then(races => res.json(races))
         .catch(err => 
