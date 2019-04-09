@@ -24,11 +24,11 @@ export const fetchUserDate = (username) => {
 };
 
 export const fetchLeaderboardRaces = () => {
-    return axios.get(`/api/races/top10/`);
+    return axios.get(`/api/races/top10`);
 };
 
 export const fetchRecentRaces = () => {
-    return axios.get(`/api/races/recent/`);
+    return axios.get(`/api/races/recent`);
 };
 
 export const saveRace = (race) => {
