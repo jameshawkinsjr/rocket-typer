@@ -17,10 +17,22 @@ router.get('/top10', (req, res) => {
 });
 
 router.get('/recent', (req, res) => {
+    // Race
+    //     .aggregate([
+    //         {$match: {} },
+    //         {$group: { 
+    //             raceId: "$raceId"
+    //         }},
+    //         {$sort: {
+
+    //         } }
+    //     ])
+    //     .limit(10)
+    //     .sort({date: -1})
     Race
-        .distinct('$raceId')
+        .find()
+        .sort({_id:1})
         .limit(10)
-        .sort({date: -1})
         .then(races => res.json(races))
         .catch(err => 
             res.status(404).json({ noracesfound: 'No races found'})
