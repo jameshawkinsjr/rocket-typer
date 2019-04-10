@@ -7,7 +7,6 @@ class LandingPage extends React.Component {
         document.title = "Rocket Typer | Home";
         this.props.fetchLeaderboardRaces();
         this.props.fetchRecentRaces();
-        this.props.receiveCurrentGame({ gameUUID: "practice", phrase: ["practice", "practice"], type: "practice"});
     }
 
     getLeaderboardRaces() {
