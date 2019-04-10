@@ -23,7 +23,7 @@ router.get('/recent', (req, res) => {
                         }
                     },
                     {$sort: {
-                        "averageSpeed": 1,
+                        "date": 1,
                         }
                     },
                     {$group: { 
