@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { openModal } from '../../actions/modal_actions';
+import { receiveCurrentGame } from '../../actions/game_actions';
+import { randomPhrase } from '../phrases/phrases';
 import SocketContext from '../../api/socket-context';
 import WaitingRoom from './waiting_room';
 
@@ -18,6 +20,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
 	openModal: (modal) => dispatch(openModal(modal)),
+	receiveCurrentGame: (game) => dispatch(receiveCurrentGame(game)),
+	randomPhrase: () => dispatch(randomPhrase()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WaitingRoomWithSocket));

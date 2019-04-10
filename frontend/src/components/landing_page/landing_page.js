@@ -7,6 +7,7 @@ class LandingPage extends React.Component {
         document.title = "Rocket Typer | Home";
         this.props.fetchLeaderboardRaces();
         this.props.fetchRecentRaces();
+        this.props.receiveCurrentGame({ gameUUID: "practice", phrase: ["practice", "practice"], type: "practice"});
     }
 
     getLeaderboardRaces() {
@@ -59,7 +60,7 @@ class LandingPage extends React.Component {
                     { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : <p>No Races Found</p> }
                 </div>
                 <div className='landing-page-links landing-page-box flex-column'>
-                    <Link to={"/game"}>Enter a typing race</Link>
+                    <Link to={"/game"}>Practice race</Link>
                     <Link to={"/waiting-room"}>Enter a waiting room</Link>
                 </div>
                 <div className="landing-page-leaderboard landing-page-box leaderboard flex-column">
