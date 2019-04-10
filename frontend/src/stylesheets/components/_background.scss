@@ -15,9 +15,9 @@
 }
 
 
-$shadows-small:  generate-stars(900);
-$shadows-medium: generate-stars(300);
-$shadows-big:    generate-stars(200);
+$shadows-small:  generate-stars(400);
+$shadows-medium: generate-stars(200);
+$shadows-big:    generate-stars(50);
 
 #stars{
     width: 1px;
