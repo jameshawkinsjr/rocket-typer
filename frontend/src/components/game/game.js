@@ -107,7 +107,7 @@ class Game extends React.Component {
           gameWon: true,
           wordsPerMin: Math.floor((this.state.phraseLength / 5) / (time / 60))
         });
-        if (this.props.loggedIn){
+        if (this.props.loggedIn && this.props.type !== 'practice'){
           this.props.saveRace({
             user: this.props.user.id,
             username: this.props.user.username,
