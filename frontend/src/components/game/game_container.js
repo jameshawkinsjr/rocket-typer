@@ -14,9 +14,13 @@ const GameWithSocket = props => (
 )
 
 const mapStateToProps = function(state) {
+		let currentUser = state.session.user.username;
 		let phrase;
 		let gameId;
 		let type;
+		let players = {};
+		players[currentUser] = {username: currentUser, progress: 0};
+		state.entities.game.players ? players = state.entities.game.players : players = players
 		state.entities.game.phrase ? phrase = state.entities.game.phrase : phrase = randomPhrase()
 		state.entities.game.gameId ? gameId = state.entities.game.gameId : gameId = "practice"
 		state.entities.game.type ? type = state.entities.game.type : type = "practice"
@@ -29,6 +33,7 @@ const mapStateToProps = function(state) {
 			phraseLength: phrase[0].length,
 			gameId,
 			type,
+			players,
 		});
 };
 

@@ -21,14 +21,11 @@ class Race extends React.Component {
         this.state.socket.emit('joined', {
             user,
             username,
-        });
-
-        this.state.socket.on('receive_progress', (data) => {
-            console.log(data.username, data.progress);
+            progress: 0,
         });
         
         this.state.socket.on('newPlayer', (data) => {
-            console.log(`A new player has joined - ${data.username}`);
+            // console.log(`A new player has joined - ${data.username}`);
             let players = this.state.players;
             if (!players[data.playerId]) { 
                 this.state.socket.emit('joined', { user, username, });
@@ -39,7 +36,7 @@ class Race extends React.Component {
         });
         
         this.state.socket.on('playerLeft', (data) => {
-            console.log(`A player has left - ${data.username}`);
+            // console.log(`A player has left - ${data.username}`);
             let players = this.state.players;
             delete players[data.playerId];
             this.setState({ players: players});
@@ -73,12 +70,13 @@ class Race extends React.Component {
       }
 
     startGame() {
-        let gameUUID = this.generateUUID();
+        let gameId = this.generateUUID();
         let phrase = randomPhrase();
         this.state.socket.emit('startGame', {
-            gameUUID,
+            gameId,
             phrase,
             type: "multiplayer",
+            players: this.state.players,
         });
     }
 
@@ -110,10 +108,10 @@ class Race extends React.Component {
                 </div>
                 <div className="waiting-room-info-container flex">
                     <div className="waiting-room-info-item flex-column" ><h2>Total Players</h2><p>{ this.state.numPlayers }</p></div>
-                    { this.state.numPlayers >= 4 ? 
+                    { this.state.numPlayers >= 3 ? 
                         (<button className="waiting-room-play-game button" onClick={this.startGame}>Play Game </button>)
                         :
-                        <button className="waiting-room-play-game-grey button" onClick={""}>Need more players</button>
+                        <button className="waiting-room-play-game-grey button">Need more players</button>
                     }
                 </div>
                 <div className="waiting-room-player-list leaderboard flex-column">

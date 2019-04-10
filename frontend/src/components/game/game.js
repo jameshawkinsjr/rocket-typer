@@ -4,7 +4,7 @@ import Rocket from '../rocket/rocket';
 class Game extends React.Component {
     constructor(props) {
       super(props);
-      let { phrase, phraseLength, socket, gameId } = this.props;
+      let { phrase, phraseLength, socket, gameId, players } = this.props;
       this.state = {
         socket,
         phrase,
@@ -13,7 +13,7 @@ class Game extends React.Component {
         correctLetters: [],
         timeElapsed: 0.001,
         typedEntries: 0,
-        players: {},
+        players,
         wordsPerMin: 0,
         mistakes: 0,
         countdown: 0,
@@ -37,23 +37,12 @@ class Game extends React.Component {
         this.countownTimer();
       }
       this.state.socket.on('receive_progress', (data) => {
-        let playerProgress = this.state.players;
-        playerProgress[data.playerId] = data;
-        this.setState({ players: playerProgress });
-        console.log(playerProgress);
+        if (data.gameId === this.state.gameId){
+          let playerProgress = this.state.players;
+          playerProgress[data.playerId] = data;
+          this.setState({ players: playerProgress });
+        }
       });
-      this.state.socket.on('currentPlayers', (data) => {
-        console.log(data);
-      });
-
-      this.state.socket.on('playerLeft', (data) => {
-        console.log(`A player has left - ${data.username}`);
-        let players = this.state.players;
-        delete players[data.playerId];
-        this.setState({ players: players});
-        let numPlayers = Object.values(this.state.players).length;
-        this.setState({ numPlayers: numPlayers});
-    });
     }
 
     componentDidUpdate() {
@@ -164,7 +153,7 @@ class Game extends React.Component {
         <div>
           { 
             Object.values(this.state.players).map ( player => (
-              <Rocket username={player.username} progress={player.progress}/>
+              <Rocket playerId={player.playerId} username={player.username} progress={player.progress}/>
             ))
           }     
         </div>
