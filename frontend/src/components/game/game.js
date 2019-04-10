@@ -4,7 +4,7 @@ import Rocket from '../rocket/rocket';
 class Game extends React.Component {
     constructor(props) {
       super(props);
-      let { phrase, phraseLength, socket } = this.props;
+      let { phrase, phraseLength, socket, gameId, players } = this.props;
       this.state = {
         socket,
         phrase,
@@ -13,12 +13,12 @@ class Game extends React.Component {
         correctLetters: [],
         timeElapsed: 0.001,
         typedEntries: 0,
-        players: {},
+        players,
         wordsPerMin: 0,
         mistakes: 0,
         countdown: 0,
         countdownTimer: "3...",
-        gameId: this.generateUUID(),
+        gameId,
         gameWon: false,
         interval: "",
         
@@ -33,14 +33,15 @@ class Game extends React.Component {
     componentDidMount() {
       document.title = "Rocket Typer | Game";
       document.addEventListener("keydown", this.detectKeyPresses);
+      if (this.props.type === "multiplayer") {
+        this.countownTimer();
+      }
       this.state.socket.on('receive_progress', (data) => {
-        let playerProgress = this.state.players;
-        playerProgress[data.playerId] = data;
-        this.setState({ players: playerProgress });
-        console.log(playerProgress);
-      });
-      this.state.socket.on('currentPlayers', (data) => {
-        console.log(data);
+        if (data.gameId === this.state.gameId){
+          let playerProgress = this.state.players;
+          playerProgress[data.playerId] = data;
+          this.setState({ players: playerProgress });
+        }
       });
     }
 
@@ -121,9 +122,11 @@ class Game extends React.Component {
     }
 
     sendProgress() {
-      let username = this.props.user.username || "Guest";
+      let username = this.props.user.username ? this.props.user.username : "Guest";
       let progress = (this.state.correctLetters.length / this.state.phraseLength * 100).toFixed(2);
+      let gameId = this.state.gameId;
       this.state.socket.emit('send_progress', {
+        gameId,
         username,
         progress 
       });
@@ -136,16 +139,6 @@ class Game extends React.Component {
       setTimeout( () => this.setState( {countdown: 2 }), 3000);
     }
 
-    generateUUID() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-    }
-
     incrementTime() {
       let newTime = this.state.timeElapsed+0.01;
       this.setState({
@@ -156,12 +149,11 @@ class Game extends React.Component {
 
     render () {      
 
-      let players = Object.values(this.state.players);
       let rockets = (
         <div>
           { 
             Object.values(this.state.players).map ( player => (
-              <Rocket username={player.username} progress={player.progress}/>
+              <Rocket playerId={player.playerId} username={player.username} progress={player.progress}/>
             ))
           }     
         </div>
@@ -171,6 +163,14 @@ class Game extends React.Component {
         <>
           <div className="countdown flex">
           <h1>Press <span>Enter</span> to get started</h1>
+          </div>
+        </>
+      )
+
+      let countdownMulti = (
+        <>
+          <div className="countdown flex">
+          <h1>Get Ready</h1>
           </div>
         </>
       )
@@ -210,7 +210,7 @@ class Game extends React.Component {
                   <img className="mars" alt='mars' src="./assets/mars.png"/>
               </div>
               <div className="game-area">
-                { this.state.countdown === 0 ? countdown1 : this.state.countdown === 1 ? countdown2 : gameRender }
+                { (this.props.type === "multiplayer" && this.state.countdown === 0) ? countdownMulti : this.state.countdown === 0 ?  countdown1 : this.state.countdown === 1 ? countdown2 : gameRender }
               </div>
             </div>
           </>

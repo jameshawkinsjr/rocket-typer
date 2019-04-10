@@ -39,9 +39,19 @@
 .waiting-room-info-container {
   width: 80%;
   justify-content: space-evenly;
+  align-items: center;
   padding: 20px;
 }
 
+.waiting-room-play-game {
+  height: 50px;
+}
+
+.waiting-room-play-game-grey {
+  background: $gray-600;
+  color: $gray-500;
+  cursor: not-allowed;
+}
 .waiting-room-info-item {
   align-items: center;
   h2 {

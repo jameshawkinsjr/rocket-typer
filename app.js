@@ -13,22 +13,6 @@ const io = require('socket.io').listen(server);
 const users = require('./routes/api/users');
 const races = require('./routes/api/races');
 
-app.use('/api/users', users);
-app.use('/api/races', races);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/build'));
-  app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'), function(err) {
-      if (err) {
-        res.status(500).send(err)
-      }
-    });
-  });
-}
-
-let players = {};
-
 io.on('connection', (socket) => {
   // console.log("Client connected to socket!");
 
@@ -46,6 +30,13 @@ io.on('connection', (socket) => {
   socket.on('joined', (data) => {
     data.playerId = socket.id;
     socket.broadcast.emit('newPlayer', data);
+    data.username = data.username + ` (You)`;
+    socket.emit('newPlayer', data);
+  });
+
+  socket.on('startGame', (data) => {
+    socket.broadcast.emit('playGame', data);
+    socket.emit('playGame', data);
   });
 
   socket.on('disconnect', () => {
@@ -68,6 +59,21 @@ app.use(bodyParser.json());
 
 app.use(passport.initialize());
 require('./config/passport')(passport);
+
+app.use('/api/users', users);
+app.use('/api/races', races);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'), function(err) {
+      if (err) {
+        res.status(500).send(err)
+      }
+    });
+  });
+}
+
 
 server.listen(port, () => {
   console.log(`Listening on ${port}`);
