@@ -39,6 +39,9 @@
     color: $white;
     font-family: $font-sans-serif;
     cursor: pointer;
+    &:hover{
+        background: $darkgamered;
+    }
 }
 .navbar-logo {
     a{

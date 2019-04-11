@@ -2,17 +2,23 @@
     margin: 40px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 }
 
 .landing-page-links {
-    a {
-        color: $yellow;
-        font-size: 25px;
+    width: 500px;
+    button {
+        margin: 20px 20px 0px 20px;
+        a {
+            color: $white;
+            font-family: $font-sans-serif;
+        }
     }
-    height: 100%;
-    width: 400px;
 }
-
+.landing-page-leaderboard-container {
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 .landing-page-box {
     margin: 20px;
     border: 1px solid $white;
@@ -25,11 +31,6 @@
     align-items: center;
     h2 {
         font-size: 30px;
-    }
-    a {
-        &:hover{
-            color: $gamered;
-        }
     }
     li {
         font-size: 16px;

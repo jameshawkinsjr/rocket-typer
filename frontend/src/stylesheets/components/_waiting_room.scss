@@ -52,6 +52,9 @@
   background: $gray-600;
   color: $gray-500;
   cursor: not-allowed;
+  &:hover {
+    background: $gray-600;
+  }
 }
 .waiting-room-info-item {
   align-items: center;
