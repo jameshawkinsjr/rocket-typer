@@ -153,7 +153,7 @@ class Game extends React.Component {
         <div>
           { 
             Object.values(this.state.players).map ( player => (
-              <Rocket playerId={player.playerId} username={player.username} progress={player.progress}/>
+              <Rocket key={player.playerId} playerId={player.playerId} username={player.username} progress={player.progress}/>
             ))
           }     
         </div>
