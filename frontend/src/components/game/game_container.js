@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { saveRace } from '../../actions/race_actions';
 import { openModal } from '../../actions/modal_actions';
 import SocketContext from '../../api/socket-context';
-import { randomPhrase } from '../phrases/phrases';
+import { randomPhrase } from '../utils/phrases';
+import { generateUUID } from '../utils/generateUUID';
 import Game from './game';
 
 const GameWithSocket = props => (
@@ -19,10 +20,10 @@ const mapStateToProps = function(state) {
 		let gameId;
 		let type;
 		let players = {};
-		players[currentUser] = {username: currentUser, progress: 0};
+		players[currentUser] = {username: currentUser, progress: 0, playerId: "practicePlayer"};
 		state.entities.game.players ? players = state.entities.game.players : players = players
 		state.entities.game.phrase ? phrase = state.entities.game.phrase : phrase = randomPhrase()
-		state.entities.game.gameId ? gameId = state.entities.game.gameId : gameId = "practice"
+		state.entities.game.gameId ? gameId = state.entities.game.gameId : gameId = generateUUID()
 		state.entities.game.type ? type = state.entities.game.type : type = "practice"
 
 		return ({

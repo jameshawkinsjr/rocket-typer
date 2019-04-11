@@ -1,5 +1,6 @@
 import React from 'react';
-import { randomPhrase } from '../phrases/phrases';
+import { randomPhrase } from '../utils/phrases';
+import { generateUUID } from '../utils/generateUUID';
 
 class Race extends React.Component {
     constructor(props){
@@ -59,18 +60,8 @@ class Race extends React.Component {
         });
     }
 
-    generateUUID() {
-        function s4() {
-          return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-        }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-      }
-
     startGame() {
-        let gameId = this.generateUUID();
+        let gameId = generateUUID();
         let phrase = randomPhrase();
         this.state.socket.emit('startGame', {
             gameId,

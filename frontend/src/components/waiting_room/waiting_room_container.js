@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { openModal } from '../../actions/modal_actions';
 import { receiveCurrentGame } from '../../actions/game_actions';
-import { randomPhrase } from '../phrases/phrases';
+import { randomPhrase } from '../utils/phrases';
 import SocketContext from '../../api/socket-context';
 import WaitingRoom from './waiting_room';
 
