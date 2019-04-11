@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import SessionFormContainer from '../session/session_form_container';
 import Ranks from '../ranks/ranks';
 import GameStats from '../game/game_stats';
+import LoadingScreen from '../utils/loading_screen';
 
 function Modal({modal, closeModal}) {
   if (!modal) {
@@ -23,6 +24,9 @@ function Modal({modal, closeModal}) {
       break;
     case 'gameStats':
       component = <GameStats closeModal={closeModal} wordsPerMin={modal.wordsPerMin} time={modal.time} accuracy={modal.accuracy} phraseOrigin={modal.phraseOrigin} />;
+      break;
+    case 'loadingScreen':
+      component = <LoadingScreen />;
       break;
     default:
       return null;

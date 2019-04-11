@@ -14,8 +14,7 @@ const users = require('./routes/api/users');
 const races = require('./routes/api/races');
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/build'));
-  app.get('/', (req, res) => {
+  app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'), function(err) {
       if (err) {
         res.status(500).send(err);
@@ -73,6 +72,11 @@ require('./config/passport')(passport);
 
 app.use('/api/users', users);
 app.use('/api/races', races);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+}
+
 
 
 

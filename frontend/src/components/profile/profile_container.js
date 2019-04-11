@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { clearErrors, logout } from '../../actions/session_actions';
 import { fetchRaces, fetchUserStats, fetchUserDate } from '../../actions/race_actions';
 import Profile from './profile';
-import { openModal } from '../../actions/modal_actions';
+import { openModal, closeModal } from '../../actions/modal_actions';
 import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
     fetchUserStats: (username) => dispatch(fetchUserStats(username)),
     fetchUserDate: (username) => dispatch(fetchUserDate(username)),
     openModal: (modal) => dispatch(openModal(modal)),
+    closeModal: () => dispatch(closeModal()),
     clearErrors: () => dispatch(clearErrors()),
 });
 

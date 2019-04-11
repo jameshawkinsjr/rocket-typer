@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
     openLoginModal: () => dispatch(openModal({type: 'login'})),
     openSignupModal: () => dispatch(openModal({type: "signup"})),
     clearErrors: () => dispatch(clearErrors()),
+    loadingModal: () => dispatch(openModal({ type: 'loadingScreen'})),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SessionForm));

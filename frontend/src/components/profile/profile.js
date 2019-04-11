@@ -39,7 +39,8 @@ class Profile extends React.Component {
                     let date = new Date(res.userStats.data.signupDate);
                     this.setState( {memberSince: date.toDateString()});
                 }
-            });
+            })
+            .then( () => this.props.closeModal() );
     }
 
     componentDidUpdate(prevProps) {

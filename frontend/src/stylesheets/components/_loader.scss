@@ -1,0 +1,36 @@
+.loading-spinner {
+    align-self: center;
+    border: 16px solid #f3f3f3;
+    // border-top: 16px solid $dark-purple;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(720deg); }
+  }
+
+  .loading-logo {
+      align-self: center;
+  }
+
+  .loading-modal-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+  }
+
+  .loading-modal-background-white {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgb(255, 255, 255);
+    z-index: 10;
+  }

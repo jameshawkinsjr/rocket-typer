@@ -71,7 +71,7 @@ class SessionForm extends React.Component {
         this.props.login(user)
         .then ( () =>  {
             if (this.props.errors.length === 0 ) {
-                this.props.closeModal();
+                this.props.loadingModal();
                 this.props.history.push("/profile");
             }
         });
