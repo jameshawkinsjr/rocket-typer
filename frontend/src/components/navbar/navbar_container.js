@@ -8,6 +8,8 @@ import { fetchUserStats } from '../../actions/race_actions';
 const mapStateToProps = (state, ownProps) => ({
     user: state.session.user,
     loggedIn: state.session.isAuthenticated,
+    numRaces: state.entities.races.numRaces,
+    avgSpeed: state.entities.races.avgSpeed,
 });
 
 const mapDispatchToProps = dispatch => ({

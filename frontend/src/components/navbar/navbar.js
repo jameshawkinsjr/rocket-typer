@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 class NavBar extends React.Component {
     constructor(props){
         super(props);
+        let { numRaces, avgSpeed } = this.props;
         this.state = {
-            numRaces: '-',
-            avgSpeed: '-',
+            numRaces,
+            avgSpeed,
         };
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
@@ -33,6 +34,9 @@ class NavBar extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.location.pathname !== prevProps.location.pathname){
             this.getLinks();
+            if (this.props.loggedIn){
+                this.props.fetchUserStats(this.props.user.username)
+            }
         }
     }
 
