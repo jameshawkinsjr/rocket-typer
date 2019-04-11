@@ -65,7 +65,7 @@ class Game extends React.Component {
           if (e.key === 'Enter'){
             this.countownTimer();
           }
-        } else {
+        } else if (this.state.countdown === 2){
           if (this.state.typedEntries === 0){
             // Start Timer
             this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
@@ -119,6 +119,7 @@ class Game extends React.Component {
           });
         }
         clearInterval(this.state.interval);
+        document.removeEventListener("keydown", this.detectKeyPresses);
         this.props.openModal({ type: 'gameStats', wordsPerMin: this.state.wordsPerMin, time: this.state.timeElapsed, accuracy: accuracy, phraseOrigin: this.props.phraseOrigin});
       }
     }
