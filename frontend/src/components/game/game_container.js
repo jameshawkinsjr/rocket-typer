@@ -22,10 +22,10 @@ const mapStateToProps = function(state) {
 		let type;
 		let players = {};
 		players[currentUser] = {username: currentUser, progress: 0, playerId: "practicePlayer"};
-		state.entities.game.players ? players = state.entities.game.players : players = players
-		state.entities.game.phrase ? phrase = state.entities.game.phrase : phrase = randomPhrase()
-		state.entities.game.gameId ? gameId = state.entities.game.gameId : gameId = generateUUID()
-		state.entities.game.type ? type = state.entities.game.type : type = "practice"
+		state.entities.game.players ? players = state.entities.game.players : players = players;
+		state.entities.game.phrase ? phrase = state.entities.game.phrase : phrase = randomPhrase();
+		state.entities.game.gameId ? gameId = state.entities.game.gameId : gameId = generateUUID();
+		state.entities.game.type ? type = state.entities.game.type : type = "practice";
 
 		return ({
 			user: state.session.user,
