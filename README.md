@@ -14,6 +14,7 @@ Rocket Typer was designed to test your typing speed and see how you stack up aga
 
 *** 
 # Features 
+* [Play against other users](https://github.com/jameshawkinsjr/rocket-typer#multiplayer)
 * [Test your typing speed](https://github.com/jameshawkinsjr/rocket-typer#speed-test)
 * [Viewing a user's stats](https://github.com/jameshawkinsjr/rocket-typer#user-profiles)
 * [View the global leaderboard](https://github.com/jameshawkinsjr/rocket-typer#global-leaderboard)
@@ -21,14 +22,28 @@ Rocket Typer was designed to test your typing speed and see how you stack up aga
 
 <br>
 
+### Multiplayer
+Socket.io allows for management of individual multiplayer games. Upon joining the waiting room, a connection to the waiting room websocket is opened and as soon as 3 players have joined, a game can start. By broadcasting each individual user's typing progress through Socket.io, React's local state will render a rocket for each user in the game.
+
+Once the game has been completed, all scores are submitted via an API endpoint and the statistics for the game can be found on each user's profile or on the "Recent Games" tab of the homepage.
+
+<p align="center">
+  <a href="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_waiting_room.gif">
+    <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_waiting_room.gif" alt="rocket typer">
+  </a>
+</p>
+
+*** 
+<br>
+
 ### Speed Test
 Utilizing keypress event listeners and React's local state, Rocket Typer is able to keep track of correctly typed letters, while calculating words per minute, and accuracy. Upon completion of the given phrase, an API call automatically saves the race, so that it can be posted to the global leaderboard and the user's profile page will reflect the most recent stats.
 
-Utilizing React, we're able the user's progress in the game as local state to other components which allow for rendering of the rocket's trip from Earth to Mars.
+With React, we're able the user's progress in the game as local state to other components which allow for rendering of the rocket's trip from Earth to Mars.
 
 <p align="center">
-  <a href="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket-typer.gif">
-    <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket-typer.gif" alt="rocket typer">
+  <a href="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer.gif">
+    <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer.gif" alt="rocket typer">
   </a>
 </p>
 
