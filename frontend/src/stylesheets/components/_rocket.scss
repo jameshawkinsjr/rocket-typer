@@ -2,6 +2,13 @@
   width: 800px;
   align-items: center;
   justify-content: flex-start;
+  p {
+    color: $white;
+  }
+}
+
+.rocket-left {
+  text-align: right;
 }
 
 .rocket-img {
