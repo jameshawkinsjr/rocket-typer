@@ -48,12 +48,14 @@
 }
 
 .waiting-room-play-game-grey {
+  height: 50px;
   background: $gray-600;
   color: $gray-500;
   cursor: not-allowed;
 }
 .waiting-room-info-item {
   align-items: center;
+  width: 250px;
   h2 {
     font-weight: 300;
     margin-bottom: 10px;

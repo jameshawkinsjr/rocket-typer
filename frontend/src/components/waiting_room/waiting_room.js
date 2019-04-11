@@ -10,15 +10,18 @@ class Race extends React.Component {
             players: {},
             numPlayers: 0,
             username: this.props.user.username ? this.props.user.username : "Guest",
+            interval: "",
+            timeElapsed: 0,
         };
         this.startGame = this.startGame.bind(this);
+        this.incrementTime = this.incrementTime.bind(this);
     }
 
     componentDidMount() {
         let username = this.state.username;
         let user = this.props.user;
         document.title = "Rocket Typer | Waiting Room";
-        
+        this.setState( { interval: setInterval(this.incrementTime, 1000)});
         this.state.socket.emit('joined', {
             user,
             username,
@@ -48,6 +51,7 @@ class Race extends React.Component {
         this.state.socket.on('playGame', (data) => {
             this.props.receiveCurrentGame(data);
             this.props.history.push("/game");
+            clearInterval(this.state.interval);
         });
     }
     
@@ -59,6 +63,13 @@ class Race extends React.Component {
             user,
         });
     }
+
+    incrementTime() {
+        let newTime = this.state.timeElapsed + 1;
+        this.setState({
+          timeElapsed: newTime,
+        });
+      }
 
     startGame() {
         let gameId = generateUUID();
@@ -99,11 +110,13 @@ class Race extends React.Component {
                 </div>
                 <div className="waiting-room-info-container flex">
                     <div className="waiting-room-info-item flex-column" ><h2>Total Players</h2><p>{ this.state.numPlayers }</p></div>
-                    { this.state.numPlayers >= 3 ? 
+                    <div className="waiting-room-info-item flex-column" >
+                    { (this.state.numPlayers >= 3 || this.state.timeElapsed > 4) ? 
                         (<button className="waiting-room-play-game button" onClick={this.startGame}>Play Game </button>)
                         :
-                        <button className="waiting-room-play-game-grey button">Need more players</button>
+                        <button className="waiting-room-play-game-grey button">{ `Waiting for more players ( ${ Math.max( (5-this.state.timeElapsed), 0)} )`}</button>
                     }
+                    </div>
                 </div>
                 <div className="waiting-room-player-list leaderboard flex-column">
                   <h2>Players</h2>                        
