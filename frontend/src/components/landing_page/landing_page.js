@@ -57,8 +57,8 @@ class LandingPage extends React.Component {
                 <div className='landing-page-links landing-page-box flex-column'>
                     <h2>Test your speed</h2>          
                     <div className="flex">
-                    <button className="button"><Link to={"/game"}>Practice Race</Link></button>
-                    <button className="button"><Link to={"/waiting-room"}>Live Race</Link></button>
+                    <Link to={"/game"}><button className="button">Practice Race</button></Link>
+                    <Link to={"/waiting-room"}><button className="button">Live Race</button></Link>
                     </div>
                 </div>
                 <div className="landing-page-leaderboard-container flex">
