@@ -103,10 +103,3 @@ class Profile extends React.Component {
 }
 
 export default Profile;
-
-// Threshold
-// Cadet: 0 - 30WPM
-// Pilot: 31 - 60WPM
-// Flight Engineer: 61-80WPM
-// Commander: 81-100WPM
-// Cosmonaut: 101+

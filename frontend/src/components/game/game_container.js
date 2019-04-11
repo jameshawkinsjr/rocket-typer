@@ -20,9 +20,10 @@ const mapStateToProps = function(state) {
 		let phrase;
 		let gameId;
 		let type;
-		let players = {};
-		players[currentUser] = {username: currentUser, progress: 0, playerId: "practicePlayer"};
-		state.entities.game.players ? players = state.entities.game.players : players = players;
+		let players;
+		let newPlayers = {};
+		newPlayers[currentUser] = {username: currentUser, progress: 0, playerId: "practicePlayer"};
+		state.entities.game.players ? players = state.entities.game.players : players = newPlayers;
 		state.entities.game.phrase ? phrase = state.entities.game.phrase : phrase = randomPhrase();
 		state.entities.game.gameId ? gameId = state.entities.game.gameId : gameId = generateUUID();
 		state.entities.game.type ? type = state.entities.game.type : type = "practice";

@@ -29,7 +29,6 @@ class Race extends React.Component {
         });
         
         this.state.socket.on('newPlayer', (data) => {
-            // console.log(`A new player has joined - ${data.username}`);
             let players = this.state.players;
             if (!players[data.playerId]) { 
                 this.state.socket.emit('joined', { user, username, });
@@ -40,7 +39,6 @@ class Race extends React.Component {
         });
         
         this.state.socket.on('playerLeft', (data) => {
-            // console.log(`A player has left - ${data.username}`);
             let players = this.state.players;
             delete players[data.playerId];
             this.setState({ players: players});

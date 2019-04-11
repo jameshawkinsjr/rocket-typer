@@ -67,13 +67,10 @@ class Game extends React.Component {
           }
         } else if (this.state.countdown === 2){
           if (this.state.typedEntries === 0){
-            // Start Timer
             this.setState( { interval: setInterval(this.incrementTime, 10), timeElapsed: 0.01, });
           }
           if (this.state.ignoreKeys.includes(e.key)){
-            // Do Nothing
           } else if (e.key === 'Backspace' || e.key === 'Delete'){
-            // Go backwards in phrase, if you can
             if (newIncorrectLetters.length){
               nextLetter = newIncorrectLetters.pop();
               newPhrase.unshift(nextLetter);
@@ -82,11 +79,9 @@ class Game extends React.Component {
               newPhrase.unshift(nextLetter);
             }
           } else if (e.key === newPhrase[0] && newIncorrectLetters.length === 0) {
-            // Move next letter to correct array
             nextLetter = newPhrase.shift();
             newCorrectLetters.push(nextLetter);
           } else if ( (e.key !== newPhrase[0] || newIncorrectLetters.length ) && newPhrase.length) {
-            // Move next letter to incorrect array
             nextLetter = newPhrase.shift();
             newIncorrectLetters.push(nextLetter);
             this.setState({ mistakes: this.state.mistakes + 1 });
@@ -197,7 +192,7 @@ class Game extends React.Component {
                     </div>
                     <div className={`game-stats flex ${this.state.gameWon ? "finished": ""}`}>
                       <p className={`wpm flex`}>Words per minute: {this.state.wordsPerMin}</p>
-                      <p className={`wpm flex`}>Time: {this.state.timeElapsed.toFixed(1)} seconds</p>
+                      <p className={`wpm flex`}>Time: <div>{this.state.timeElapsed.toFixed(1)}</div> seconds</p>
                       <p className={`wpm flex`}>Accuracy: { `${Math.max( Math.floor((this.state.correctLetters.length - this.state.mistakes) / (this.state.correctLetters.length || 0.0001) * 100), 0)}%` }</p>
               </div>
             </>
