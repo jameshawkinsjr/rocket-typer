@@ -23,7 +23,11 @@ router.get('/recent', (req, res) => {
                         }
                     },
                     {$sort: {
-                        "date": 1,
+                        "date": -1,
+                        }
+                    },
+                    {$sort: {
+                        "averageSpeed": 1,
                         }
                     },
                     {$group: { 
@@ -32,6 +36,10 @@ router.get('/recent', (req, res) => {
                             topSpeed: { $max: "$averageSpeed" },
                             date: { $last: "$date" },
                             winner: { $last: "$username" },
+                        }
+                    },
+                    {$sort: {
+                        "date": -1,
                         }
                     },
                 ])
