@@ -36,6 +36,13 @@ class NavBar extends React.Component {
             this.getLinks();
             if (this.props.loggedIn){
                 this.props.fetchUserStats(this.props.user.username)
+                .then( res => {
+                    if (res.userStats) {
+                        let numRaces = res.userStats.data[0] ? res.userStats.data[0].numRaces : 0;
+                        let avgSpeed = res.userStats.data[0] ? Math.floor(res.userStats.data[0].avgSpeed) : 0;
+                        this.setState( {numRaces: numRaces, avgSpeed: avgSpeed});
+                    }
+                });
             }
         }
     }
