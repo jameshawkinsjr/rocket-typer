@@ -21,8 +21,6 @@ class Game extends React.Component {
         gameId,
         gameWon: false,
         interval: "",
-        
-        timestamp: "No Timestamp Yet",
         ignoreKeys: ['Alt', 'Meta', 'Tab', 'Control','Shift','CapsLock', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown'],
       };
       this.incrementTime = this.incrementTime.bind(this);
@@ -52,6 +50,7 @@ class Game extends React.Component {
 
     componentWillUnmount() {
       document.removeEventListener("keydown", this.detectKeyPresses);
+      this.props.clearCurrentGame();      
     }
 
     detectKeyPresses(e) {

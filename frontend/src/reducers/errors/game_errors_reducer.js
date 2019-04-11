@@ -6,6 +6,7 @@ const GameErrorsReducer = (state = _nullErrors, action) => {
     Object.freeze(state);
     switch(action.type) {
         case RECEIVE_CURRENT_GAME:
+        case CLEAR_CURRENT_RACE:
             return _nullErrors;
         default:
             return state;

@@ -5,6 +5,7 @@ import { saveRace } from '../../actions/race_actions';
 import { openModal } from '../../actions/modal_actions';
 import SocketContext from '../../api/socket-context';
 import { randomPhrase } from '../utils/phrases';
+import { clearCurrentGame } from '../../actions/game_actions';
 import { generateUUID } from '../utils/generateUUID';
 import Game from './game';
 
@@ -15,7 +16,7 @@ const GameWithSocket = props => (
 )
 
 const mapStateToProps = function(state) {
-		let currentUser = state.session.user.username ? state.session.user.username : "Guest";
+		let currentUser = state.session.user ? state.session.user.username : "Guest";
 		let phrase;
 		let gameId;
 		let type;
@@ -41,6 +42,7 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = dispatch => ({
 	saveRace: (race) => dispatch(saveRace(race)),
 	openModal: (modal) => dispatch(openModal(modal)),
+	clearCurrentGame: () => dispatch(clearCurrentGame()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GameWithSocket));
