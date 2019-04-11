@@ -15,7 +15,7 @@ const GameWithSocket = props => (
 )
 
 const mapStateToProps = function(state) {
-		let currentUser = state.session.user.username;
+		let currentUser = state.session.user.username ? state.session.user.username : "Guest";
 		let phrase;
 		let gameId;
 		let type;
