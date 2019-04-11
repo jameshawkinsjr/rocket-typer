@@ -35,6 +35,9 @@ class Game extends React.Component {
         this.countownTimer();
       }
       this.state.socket.on('receive_progress', (data) => {
+        if (this.props.type === 'practice'){
+          this.setState({ players: {} });
+        }
         if (data.gameId === this.state.gameId){
           let playerProgress = this.state.players;
           playerProgress[data.playerId] = data;
