@@ -68,7 +68,7 @@ The homepage for Rocket Typer shows the global top 10 fastest races via a SQL qu
 
 <p align="center">
   <a href="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_leaderboard.png">
-    <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_leaderboard.png" alt="rocket typer" width="400">
+    <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_leaderboard.png" alt="rocket typer" width="700">
   </a>
 </p>
 
