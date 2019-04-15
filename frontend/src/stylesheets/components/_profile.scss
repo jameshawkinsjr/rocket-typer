@@ -102,7 +102,11 @@
     height: 30px;
     width: 100%;
     div {
-      min-width: 120px;
+      a {
+        font-size: 18px;
+      }
+      overflow: hidden;
+      width: 140px;
     }
     &.headers {
       color: $yellow;

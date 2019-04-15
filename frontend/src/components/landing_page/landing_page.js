@@ -36,7 +36,7 @@ class LandingPage extends React.Component {
                     let date = new Date(race.date)
                     return (
                         <li key={idx} className="flex">
-                            <div>{ `${date.toLocaleDateString()}` }</div><div><Link to={`/${race.winner}`}>{ race.winner }</Link></div><div>{ race.numRaces }</div><div>{ race.topSpeed } wpm</div><div><Link to={`/race/${race._id}`}>Race</Link></div>
+                            <div>{ `${date.toLocaleDateString()}` }</div><div><Link to={`/${race.winner}`}>{ race.winner }</Link></div><div>{ race.numRaces }</div><div>{ race.topSpeed } wpm</div><div><Link to={`/race/${race._id}`}>Details</Link></div>
                         </li>
                     )
                 })
@@ -44,7 +44,7 @@ class LandingPage extends React.Component {
             return (
                 <ul>
                     <li className="headers flex">
-                        <div className="leaderboard-index">Date</div><div>Winner</div><div>Num Players</div><div> Top Speed </div><div> Details </div>
+                        <div className="leaderboard-index">Date</div><div>Winner</div><div>Num Players</div><div> Top Speed </div><div> Race </div>
                     </li>
                     { races }
                 </ul>

@@ -55,7 +55,7 @@ class Profile extends React.Component {
                     let date = new Date(race.date);
                     return (
                         <li key={idx} className="flex">
-                            <div>{ idx+1 }</div><div>{ `${date.toLocaleDateString()}` }</div><div>{ race.averageSpeed } wpm</div><div>{ race.accuracy }%</div><div><Link to={`/race/${race.raceId}`}>Race</Link></div>
+                            <div>{ idx+1 }</div><div>{ `${date.toLocaleDateString()}` }</div><div>{ race.averageSpeed } wpm</div><div>{ race.accuracy }%</div><div><Link to={`/race/${race.raceId}`}>Details</Link></div>
                         </li>
                     )
                 })
@@ -63,7 +63,7 @@ class Profile extends React.Component {
             return (
                 <ul>
                     <li className="headers flex">
-                        <div className="leaderboard-index">Rank</div><div> Date</div><div> Speed </div><div> Accuracy </div><div> Race Details </div>
+                        <div className="leaderboard-index">Rank</div><div> Date</div><div> Speed </div><div> Accuracy </div><div> Race </div>
                     </li>
                     { races }
                 </ul>
