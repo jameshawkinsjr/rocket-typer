@@ -18,8 +18,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 io.on('connection', (socket) => {
-  // console.log("Client connected to socket!");
-
   socket.on('send_progress', (data) => {
     data.playerId = socket.id;
     socket.broadcast.emit('receive_progress', data);
@@ -44,13 +42,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    // console.log("Client disconnected from socket!");
     let data = {};
     data.playerId = socket.id;
     socket.broadcast.emit('playerLeft', data);
     io.emit('disconnect', socket.id);
   });
-
 });
 
 mongoose
