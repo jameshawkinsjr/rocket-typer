@@ -33,6 +33,40 @@ Once the game has been completed, all scores are submitted via an API endpoint a
   </a>
 </p>
 
+```js
+  io.on('connection', (socket) => {
+    socket.on('send_progress', (data) => {
+      data.playerId = socket.id;
+      socket.broadcast.emit('receive_progress', data);
+      socket.emit('receive_progress', data);
+    });
+
+    socket.on('playerDisconnect', (data) => {
+      data.playerId = socket.id;
+      socket.broadcast.emit('playerLeft', data);
+    });
+    
+    socket.on('joined', (data) => {
+      data.playerId = socket.id;
+      socket.broadcast.emit('newPlayer', data);
+      data.username = data.username + ` (You)`;
+      socket.emit('newPlayer', data);
+    });
+
+    socket.on('startGame', (data) => {
+      socket.broadcast.emit('playGame', data);
+      socket.emit('playGame', data);
+    });
+
+    socket.on('disconnect', () => {
+      let data = {};
+      data.playerId = socket.id;
+      socket.broadcast.emit('playerLeft', data);
+      io.emit('disconnect', socket.id);
+    });
+  });
+```
+
 *** 
 <br>
 
@@ -64,13 +98,49 @@ When visiting a user's profile, Rocket Typer presents a plethora of statistics a
 <br>
 
 ### Global Leaderboard
-The homepage for Rocket Typer shows the global top 10 fastest races via a SQL query to the MongoDB database.
+The homepage for Rocket Typer shows the global top 10 fastest races and 10 latest races via custom SQL queries to the MongoDB database.
 
 <p align="center">
   <a href="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_leaderboard.png">
     <img src="https://github.com/jameshawkinsjr/rocket-typer/blob/master/frontend/public/assets/rocket_typer_leaderboard.png" alt="rocket typer" width="700">
   </a>
 </p>
+
+```js
+  router.get('/recent', (req, res) => {
+      Race
+          .aggregate([
+                      {$match: { 
+                          }
+                      },
+                      {$sort: {
+                          "date": -1,
+                          }
+                      },
+                      {$sort: {
+                          "averageSpeed": 1,
+                          }
+                      },
+                      {$group: { 
+                              _id: "$raceId",
+                              numRaces: { $sum: 1},
+                              topSpeed: { $max: "$averageSpeed" },
+                              date: { $last: "$date" },
+                              winner: { $last: "$username" },
+                          }
+                      },
+                      {$sort: {
+                          "date": -1,
+                          }
+                      },
+                  ])
+          .limit(10)
+          .then(races => res.json(races))
+          .catch(err => 
+              res.status(404).json({ noracesfound: 'No races found'})
+          );
+  });
+```
 
 ***
 <br>
