@@ -15,7 +15,6 @@ class NavBar extends React.Component {
     }
 
     logoutCurrentUser(e) {
-        e.preventDefault();
         this.props.logout();
     }
     componentDidMount() {
@@ -53,10 +52,10 @@ class NavBar extends React.Component {
                 <div className="modal-buttons flex">
                     <span className="nav-bar-stats flex">
                     <div className="nav-bar-stats-item" >Welcome <span><Link to={'/profile'}>{this.props.user.username}</Link></span></div>
-                    
                     <div className="nav-bar-stats-item" >Total Races <span>{ this.state.numRaces }</span></div>
-                    
                     <div className="nav-bar-stats-item" >Average Speed <span>{ this.state.avgSpeed } WPM</span></div>
+                    <div className="nav-bar-stats-item" ><span><Link to={'/profile'}>Your Profile</Link></span></div>
+                    <div className="nav-bar-stats-item logout-button" onClick={() => this.logoutCurrentUser()}>Logout</div>
                     </span>
                 </div>
             );

@@ -8,10 +8,10 @@ class Profile extends React.Component {
         super(props);
         this.state = {
             username: this.props.match.params.username || this.props.user.username,
-            numRaces: "0",
-            avgSpeed: "0",
-            maxSpeed: "0",
-            memberSince: "Loading",
+            numRaces: " ",
+            avgSpeed: " ",
+            maxSpeed: " ",
+            memberSince: " ",
         }
         this.logoutCurrentUser = this.logoutCurrentUser.bind(this);
     }

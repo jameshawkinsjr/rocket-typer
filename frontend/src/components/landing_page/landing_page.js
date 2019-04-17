@@ -55,7 +55,7 @@ class LandingPage extends React.Component {
         return (
             <div className="landing-page-container flex-column">
                 <div className='landing-page-links landing-page-box flex-column'>
-                    <h2>Test your speed</h2>          
+                    <h2>Join a typing race</h2>          
                     <div className="flex">
                     <Link to={"/game"}><button className="button">Practice Race</button></Link>
                     <Link to={"/waiting-room"}><button className="button">Live Race</button></Link>
@@ -63,7 +63,7 @@ class LandingPage extends React.Component {
                 </div>
                 <div className="landing-page-leaderboard-container flex">
                 <div className="landing-page-leaderboard landing-page-box leaderboard flex-column">
-                    <h2>Top 10 Races (All Time)</h2>                        
+                    <h2>Global Leaderboard</h2>                        
                     { this.props.leaderboardRaces[0] ? this.getLeaderboardRaces() : <p>No Races Found</p> }
                 </div>
                 <div className="landing-page-leaderboard landing-page-box leaderboard flex-column">
