@@ -17,7 +17,7 @@ class Game extends React.Component {
         wordsPerMin: 0,
         mistakes: 0,
         countdown: 0,
-        countdownTimer: "3...",
+        countdownTimer: "5...",
         gameId,
         gameWon: false,
         interval: "",
@@ -132,9 +132,11 @@ class Game extends React.Component {
 
     countownTimer() {
       this.setState( { countdown: 1 });
-      setTimeout( () => this.setState( {countdownTimer: "2..." }), 1000);
-      setTimeout( () => this.setState( {countdownTimer: "1..." }), 2000);
-      setTimeout( () => this.setState( {countdown: 2 }), 3000);
+      setTimeout( () => this.setState( {countdownTimer: "4..." }), 1000);
+      setTimeout( () => this.setState( {countdownTimer: "3..." }), 2000);
+      setTimeout( () => this.setState( {countdownTimer: "2..." }), 3000);
+      setTimeout( () => this.setState( {countdownTimer: "1..." }), 4000);
+      setTimeout( () => this.setState( {countdown: 2 }), 5000);
     }
 
     incrementTime() {
@@ -175,8 +177,10 @@ class Game extends React.Component {
 
       let countdown2 = (
         <>
-          <div className="countdown flex">
-          <h1>{this.state.countdownTimer}</h1>
+          <div className="countdown flex-column">
+            <h1> Start typing in:</h1>
+            <h1>{this.state.countdownTimer}</h1>
+            <h3>Tip: If you make a mistake, press <span>Backspace</span> to correct it</h3>
           </div>
         </>
       )
