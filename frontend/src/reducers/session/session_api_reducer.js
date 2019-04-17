@@ -15,10 +15,7 @@ const SessionReducer = (state = initialState, action) => {
                 isAuthenticated: true,
             }
         case RECEIVE_USER_LOGOUT:
-            return {
-                isAuthenticated: false,
-                user: undefined
-            };
+            return initialState;
         default:
             return state;
     }
