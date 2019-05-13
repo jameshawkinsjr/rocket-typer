@@ -25,6 +25,7 @@ let phrases = [
   // ["Test2", "Test2"],
 ]
 
+
 export const randomPhrase = () => {
   let phraseNum = Math.floor(Math.random() * phrases.length);
   return phrases[phraseNum];
