@@ -14,6 +14,9 @@
             font-family: $font-sans-serif;
         }
     }
+    .pulse {
+        -webkit-animation: pulse 3s infinite;
+    }
 }
 .landing-page-leaderboard-container {
     justify-content: space-evenly;
@@ -36,3 +39,18 @@
         font-size: 16px;
     }
 }
+
+@-webkit-keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    80% {
+        transform: scale(1);
+    }
+    90% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+  }

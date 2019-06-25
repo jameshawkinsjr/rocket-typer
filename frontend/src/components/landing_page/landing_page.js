@@ -58,7 +58,7 @@ class LandingPage extends React.Component {
                     <h2>Join a typing race</h2>          
                     <div className="flex">
                     <Link to={"/game"}><button className="button">Practice Race</button></Link>
-                    <Link to={"/waiting-room"}><button className="button">Live Race</button></Link>
+                    <Link to={"/waiting-room"}><button className="button pulse">Live Race</button></Link>
                     </div>
                 </div>
                 <div className="landing-page-leaderboard-container flex">
