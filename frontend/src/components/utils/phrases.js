@@ -22,6 +22,11 @@ let phrases = [
   ["It was times like these when I thought my father, who hated guns and had never been to any wars, was the bravest man who ever lived.", "To Kill A Mockingbird"],
   ["You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose. You're on your own. And you know what you know. And YOU are the one who'll decide where to go...", "Oh, the Places You'll Go!"],
   ["The rules of the Hunger Games are simple. In punishment for the uprising, each of the twelve districts must provide one girl and one boy, called tributes, to participate. The twenty-four tributes will be imprisoned in a vast outdoor arena that could hold anything from a burning desert to a frozen wasteland. Over a period of several weeks, the competitors must fight to the death. The last tribute standing wins.", "The Hunger Games"],
+  ["Sometimes, you read a book and it fills you with this weird evangelical zeal, and you become convinced that the shattered world will never be put back together unless and until all living humans read the book.", "John Green, The Fault in Our Stars"],
+  ["Wherever you fly, you'll be best of the best. Wherever you go, you will top all the rest. Except when you don't. Because, sometimes, you won't. I'm sorry to say so but, sadly, it's true that Bang-ups and Hang-ups can happen to you.", "Oh! The Places You'll Go"],
+  ["The experience was powerful and fundamental. It seemed to me that it had always felt like this to be a human in the wild, and as long as the wild existed it would always feel this way.", "Wild"],
+  ["I was told love should be unconditional. That’s the rule, everyone says so. But if love has no boundaries, no limits, no conditions, why should anyone try to do the right thing ever?", "Gone Girl"],
+  ["Autonomy, complexity, and a connection between effort and reward are, most people will agree, the three qualities that work has to have if it is to be satisfying.", "Outliers"],
   // ["Test2", "Test2"],
 ]
 
