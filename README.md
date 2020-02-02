@@ -4,7 +4,7 @@
   </a>
 </p>
 
-View [live](http://www.rockettyper.com/)
+[Live Demo](https://rocket-typer.herokuapp.com/)
 
 # Rocket Typer
 
